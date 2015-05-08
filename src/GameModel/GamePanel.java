@@ -21,14 +21,17 @@ import javax.swing.JPanel;
  * Dots & Boxes GUI.
  */
 public final class GamePanel extends JFrame implements ActionListener {
-
-    JMenuBar menuBar = new JMenuBar();
-    JMenu menuGame = new JMenu("Game");
-    JMenuItem miSaveGame = new JMenuItem("Save");
-    JMenuItem miLoadGame = new JMenuItem("Load");
-    JMenuItem miGameExit = new JMenuItem("Exit");
-    JMenu menuHelp = new JMenu("Help");
-    JMenuItem miHelpAbout = new JMenuItem("About");
+    
+    private final int width = 800;
+    private final int height = 600;
+    
+    private final JMenuBar menuBar = new JMenuBar();
+    private final JMenu menuGame = new JMenu("Game");
+    private final JMenuItem miSaveGame = new JMenuItem("Save");
+    private final JMenuItem miLoadGame = new JMenuItem("Load");
+    private final JMenuItem miGameExit = new JMenuItem("Exit");
+    private final JMenu menuHelp = new JMenu("Help");
+    private final JMenuItem miHelpAbout = new JMenuItem("About");
 
     private final JButton myName = new JButton("myName");
     private final JButton myScore = new JButton("myScore");
@@ -52,10 +55,9 @@ public final class GamePanel extends JFrame implements ActionListener {
         drawGamePanel();
         drawBottomPanel();
 
-        setSize(800, 600);
+        setSize(width, height);
         //pack();
         setVisible(true);
-
     }
 
     /*
@@ -96,13 +98,14 @@ public final class GamePanel extends JFrame implements ActionListener {
     private void drawGamePanel() {
         JPanel gamePanel = new JPanel();
         gamePanel.setBackground(Color.white);
-        drawDotMatrix(2, 2);
+        drawDotMatrix(4, 4);
         add(gamePanel, BorderLayout.CENTER);
 
         // Listener registrieren.
         gamePanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
+                drawLine();
                 System.out.println("[info] MouseClick coordinates: [" + e.getX() + "],[" + e.getY() + "]");
             }
         });
@@ -123,12 +126,15 @@ public final class GamePanel extends JFrame implements ActionListener {
     }
 
     private void drawDotMatrix(int rows, int cols) {
+        int dotSpaceX = 80;
+        int dotSpaceY = 80;
+        int firstDotX = (width - (cols-1)*dotSpaceX)/2;
+        int firstDotY = (height - (rows-1)*dotSpaceY)/2;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                Dot dot = new Dot(i, j);
+                Dot dot = new Dot(i*dotSpaceX + firstDotX, j*dotSpaceY + firstDotY);
                 list.add(dot);
                 System.out.println("[info] dot coordinates: [" + dot.getX() + "],[" + dot.getY() + "]");
-                //this.repaint();
             }
         }
     }
