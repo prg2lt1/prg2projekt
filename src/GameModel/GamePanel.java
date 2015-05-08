@@ -1,13 +1,14 @@
 package GameModel;
 
-
-
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Iterator;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
@@ -36,6 +37,8 @@ public final class GamePanel extends JFrame implements ActionListener {
     private final JButton saveGame = new JButton("saveGame");
     private final JButton loadGame = new JButton("loadGame");
 
+    private final ArrayList<Dot> list = new ArrayList<>();
+
     /**
      * Der Konstruktor zeichnet das Fenster mit dem Menu, den Buttons und der
      * Spielflaeche.
@@ -48,7 +51,7 @@ public final class GamePanel extends JFrame implements ActionListener {
         drawTopPanel();
         drawGamePanel();
         drawBottomPanel();
-        
+
         setSize(800, 600);
         //pack();
         setVisible(true);
@@ -93,11 +96,16 @@ public final class GamePanel extends JFrame implements ActionListener {
     private void drawGamePanel() {
         JPanel gamePanel = new JPanel();
         gamePanel.setBackground(Color.white);
-        drawDots(4, 4);
+        drawDotMatrix(2, 2);
         add(gamePanel, BorderLayout.CENTER);
-        
+
         // Listener registrieren.
-        gamePanel.addMouseListener(null);
+        gamePanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                System.out.println("[info] MouseClick coordinates: [" + e.getX() + "],[" + e.getY() + "]");
+            }
+        });
     }
 
     /*
@@ -114,8 +122,15 @@ public final class GamePanel extends JFrame implements ActionListener {
         loadGame.addActionListener(this);
     }
 
-    private void drawDots(int cols, int rows) {
-
+    private void drawDotMatrix(int rows, int cols) {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                Dot dot = new Dot(i, j);
+                list.add(dot);
+                System.out.println("[info] dot coordinates: [" + dot.getX() + "],[" + dot.getY() + "]");
+                //this.repaint();
+            }
+        }
     }
 
     @Override
@@ -134,21 +149,20 @@ public final class GamePanel extends JFrame implements ActionListener {
             System.out.println("[info] show about window");
         }
     }
-    
-/*    @Override
-    public void mousePressed(MouseEvent e){
-        int x = e.getX();
-        int y = e.getY();
-        
-        System.out.println("[info] MouseClick coordinates: [" + x + "],[" + y + "]");
-    }*/
 
     public static void main(final String[] args) {
         final GamePanel frame = new GamePanel();
     }
 
-    /*@Override
-     public void paint(Graphics g) {
-     super.paint(g);
-     }*/
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+
+        Iterator<Dot> itr = list.iterator();
+        while (itr.hasNext()) {
+            Dot dot = (Dot) itr.next();
+            g.setColor(dot.getFillColor());
+            g.fillArc(dot.getX(), dot.getY(), dot.getRadius(), dot.getRadius(), 0, 360);
+        }
+    }
 }
