@@ -25,6 +25,10 @@ public class Memory {
     public Box getBox(int index) {
         return BoxList.get(index);
     }
+    public int getSize(){
+        return BoxList.size();
+    }
+    
     public boolean isEmpty(){
         return BoxList.isEmpty();
     }
