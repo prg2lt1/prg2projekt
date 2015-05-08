@@ -55,6 +55,7 @@ public class MemoryTest {
     public void testGetBox() {
         int index = 0;
         Memory instance = new Memory();
+        instance.addBox(null);
         Box result = instance.getBox(index);
         assertEquals(null, result);
 

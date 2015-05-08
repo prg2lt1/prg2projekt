@@ -5,6 +5,7 @@
 package GameModel;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
@@ -31,6 +32,10 @@ public class Memory {
     
     public boolean isEmpty(){
         return BoxList.isEmpty();
+    }
+    
+    public Iterator getIterator(){
+        return BoxList.iterator();
     }
 
     public void clearAllBoxes(){
