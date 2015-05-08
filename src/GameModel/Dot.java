@@ -20,17 +20,17 @@ public final class Dot {
     private Color fillColor;
 
     public Dot(int x, int y) {
-        setX(x);
-        setY(y);
-        setRadius(5);
-        setFillColor(new Color(125, 125, 125));
+        this.x = x;
+        this.y = y;
+        this.radius = 15;
+        this.fillColor = new Color(0, 255, 0);
     }
 
     public Dot(int x, int y, int radius, Color color) {
-        setX(x);
-        setY(y);
-        setRadius(radius);
-        setFillColor(color);
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.fillColor = color;
     }
 
     public void setX(int x) {
@@ -38,7 +38,7 @@ public final class Dot {
     }
 
     public int getX() {
-        return x;
+        return this.x;
     }
 
     public void setY(int y) {
@@ -46,7 +46,7 @@ public final class Dot {
     }
 
     public int getY() {
-        return y;
+        return this.y;
     }
 
     public void setRadius(int radius) {
