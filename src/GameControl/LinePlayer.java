@@ -26,11 +26,8 @@ public LinePlayer (int startingPoint, int endingPoint, Player p) {
 }
 
 public boolean lineAllreadyExists() {
-    Iterator i = Memory.BoxList.iterator();
-    while() {
-        next.
-    }
-}
+   
+  
     
     
 }
