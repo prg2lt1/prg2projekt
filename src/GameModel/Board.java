@@ -15,7 +15,8 @@ public class Board {
     private int size;
     
     private ArrayList<Box> boxList;
-    private ArrayList<Line> lineList;
+    private ArrayList<Line> horizontalLineList;
+    private ArrayList<Line> verticalLineList;
     private ArrayList<Dot> dotList;
     
     
@@ -25,7 +26,8 @@ public class Board {
         
         dotList = createDots();
         boxList = createBoxes();
-        lineList = createLineList();
+        horizontalLineList = createHorizontalLines();
+        verticalLineList = createVerticalLines();
         
     }
     
@@ -37,8 +39,8 @@ public class Board {
         
         dotList = new ArrayList<Dot>();
         
-        for (int x = 0; x < size; x++) {
-            for (int y = 0; y < size; y++) {
+        for (int y = 0; y < size; y++) {
+            for (int x = 0; x < size; x++) {
                 dotList.add(new Dot(x, y));
             }
         }
@@ -48,10 +50,32 @@ public class Board {
     
     
     
-    private ArrayList<Line> createLineList() {
+    private ArrayList<Line> createHorizontalLines() {
         
-        lineList = new ArrayList<Line>();
-        return lineList;
+        horizontalLineList = new ArrayList<Line>();
+        Dot first;
+        Dot second;
+        
+        for (int index=0; index <= dotList.size() -2; index++)  {
+            first = dotList.get(index);
+            second = dotList.get(index+1);
+            horizLineList.add(new Line(first, second));
+        }
+        return horizLineList;
+    }
+    
+    private ArrayList<Line> createVerticalLines() {
+        
+        verticalLineList = new ArrayList<Line>();
+        Dot first;
+        Dot second;
+        
+        for (int index=0; index <= dotList.size()-size-1; index++)  {
+            first = dotList.get(index);
+            second = dotList.get(index+4);
+            verticalLineList.add(new Line(first, second));
+        }
+        return verticalLineList;
     }
  
     
