@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package GameModel;
-import java.awt.Color;
 
 
 /**
@@ -16,51 +15,37 @@ import java.awt.Color;
 public class Line {
     
    
-    private final int startingPoint;
-    private final int endingPoint;
-    private Color color;
-    private final boolean playedByOpponent;
-    
+    private final int startingDot;
+    private final int endingDot;
+    private Player owner;
+  
+   
     /**
      * 
      * @param start Zeilennummer-Spaltennummer des Startpunktes (ganz oben links wäre 11)
      * @param end Zeilennummer-Spaltennummer des Endpunktes (ganz unten links wäre n1)
-     * @param playedByOpponent TRUE falls Spielzug von Opponent-Instanz ausgeführt wurde
      */
-    public Line(int start, int end, boolean playedByOpponent) {
+    public Line(int start, int end) {
         
-        startingPoint = start;
-        endingPoint = end;
-        this.playedByOpponent = playedByOpponent;
-        setColor(playedByOpponent);
+        startingDot = start;
+        endingDot = end;
+        owner = null;
+      
     }
     
     
     
-    public int getStartingPoint() {
-        return startingPoint;
+    public int getStartingDot() {
+        return startingDot;
     }
     
-    public int getEndingPoint() {
-        return endingPoint;
+    public int getEndingDot() {
+        return endingDot;
     }
     
     public int getCoordinates() {
-        return Integer.parseInt(String.valueOf(startingPoint+""+endingPoint));
+        return Integer.parseInt(String.valueOf(startingDot+""+endingDot));
     }
-    /**
-     * 
-     * @param p TRUE falls Spielzug vom Gegner ausgeführt.
-     * 
-     */
-    public final void setColor(boolean p) {
-        
-        if(p) {       // somit Gegenspieler, "computer" oder "network"
-            color = new Color(255, 0, 0); // = Rot
-        }
-        else {
-            color = new Color(0, 0, 255); // = Blau
-        }
-    }
+   
     
 }

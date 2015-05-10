@@ -11,6 +11,7 @@ package GameModel;
  */
 public class Box {
     
+    private final int position;
     private Line topLine;
     private Line bottomLine;
     private Line leftLine;
@@ -19,7 +20,8 @@ public class Box {
     private int numberOfLines;
     private Player owner;
     
-    public Box (){
+    public Box (int position){
+        this.position = position;
         isComplete = false;
         numberOfLines = 0;
     }
