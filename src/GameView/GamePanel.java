@@ -1,5 +1,6 @@
-package GameModel;
+package GameView;
 
+import GameModel.Dot;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;

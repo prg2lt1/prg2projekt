@@ -10,13 +10,12 @@ package GameModel;
  *
  * @author tobias
  * 
- * Erstellt neue Linie mit Anfangs- und Endpunkt sowie Angaben zur spielenden Partei und somit zur Farbe der Linie.
  */
 public class Line {
     
    
-    private final int startingDot;
-    private final int endingDot;
+    private final Dot startingDot;
+    private final Dot endingDot;
     private Player owner;
   
    
@@ -25,7 +24,7 @@ public class Line {
      * @param start Zeilennummer-Spaltennummer des Startpunktes (ganz oben links wäre 11)
      * @param end Zeilennummer-Spaltennummer des Endpunktes (ganz unten links wäre n1)
      */
-    public Line(int start, int end) {
+    public Line(Dot start, Dot end) {
         
         startingDot = start;
         endingDot = end;
@@ -35,11 +34,11 @@ public class Line {
     
     
     
-    public int getStartingDot() {
+    public Dot getStartingDot() {
         return startingDot;
     }
     
-    public int getEndingDot() {
+    public Dot getEndingDot() {
         return endingDot;
     }
     

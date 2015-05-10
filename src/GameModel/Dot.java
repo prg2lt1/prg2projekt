@@ -11,8 +11,7 @@ import java.awt.Color;
  *
  * @author tobias
  *
- * Erstellt neue Linie mit Anfangs- und Endpunkt sowie Angaben zur spielenden
- * Partei und somit zur Farbe der Linie.
+ *
  */
 public final class Dot {
 

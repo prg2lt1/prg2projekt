@@ -24,11 +24,15 @@ public class Board {
         this.size = size;
         
         dotList = createDots();
-        boxList = new ArrayList<Box>();
-        lineList = new ArrayList<Line>();
+        boxList = createBoxes();
+        lineList = createLineList();
         
     }
     
+    /**
+     * Erstellt Dot-List für das Spielfeld mit xy Koordinaten für jeden Dot, Startpunkt bei 00, Ende bei size-1xsize-1
+     * @return 
+     */
     private ArrayList<Dot> createDots() {
         
         dotList = new ArrayList<Dot>();
@@ -41,8 +45,23 @@ public class Board {
         
         return dotList;
     }
+    
+    
+    
+    private ArrayList<Line> createLineList() {
+        
+        lineList = new ArrayList<Line>();
+        return lineList;
+    }
  
     
+     private ArrayList<Box> createBoxes() {
+        
+        boxList = new ArrayList<Box>();
+        return boxList;
+    }
+    
+  
     
     
     
