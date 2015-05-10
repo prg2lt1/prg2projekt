@@ -59,9 +59,9 @@ public class Board {
         for (int index=0; index <= dotList.size() -2; index++)  {
             first = dotList.get(index);
             second = dotList.get(index+1);
-            horizLineList.add(new Line(first, second));
+            horizontalLineList.add(new Line(first, second));
         }
-        return horizLineList;
+        return horizontalLineList;
     }
     
     private ArrayList<Line> createVerticalLines() {
