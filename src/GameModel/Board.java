@@ -65,7 +65,7 @@ public class Board {
         Dot first;
         Dot second;
         
-        for (int index=0; index <= dotList.size() -2; index++)  {
+        for (int index=0; index <= dotList.size()-2; index++)  {
             first = dotList.get(index);
             second = dotList.get(index+1);
             horizontalLineList.add(new Line(first, second));
