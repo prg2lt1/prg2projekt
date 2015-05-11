@@ -4,30 +4,27 @@
  * and open the template in the editor.
  */
 package GameControl;
+
 import GameModel.Line;
-import GameModel.Box;
-import GameModel.Memory;
-import java.util.Iterator;
+import GameModel.Player;
+
 /**
  *
  * @author tobias
  */
 public class LinePlayer {
-    
+
     private Line l;
     private int tempStart;
     private int tempEnd;
-    
-    
-public LinePlayer (int startingPoint, int endingPoint, Player p) {
-    
-    l = new Line(startingPoint, endingPoint, p);
 
-}
+    public LinePlayer(int startingPoint, int endingPoint, Player p) {
+        /*
+         l = new Line(startingPoint, endingPoint, p);
+         */
+    }
 
-public boolean lineAllreadyExists() {
-   
-  
-    
-    
+    public boolean lineAllreadyExists() {
+        return false;
+    }
 }

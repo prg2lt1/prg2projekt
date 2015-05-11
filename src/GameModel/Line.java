@@ -30,16 +30,30 @@ public class Line {
         endingDot = end;
         owner = null;
       
-    }
-    
-    
+    }    
     
     public Dot getStartingDot() {
         return startingDot;
     }
     
+    public int getStartingDotX() {
+        return startingDot.getX();
+    }
+    
+    public int getStartingDotY() {
+        return startingDot.getY();
+    }
+    
     public Dot getEndingDot() {
         return endingDot;
+    }
+    
+    public int getEndingDotX() {
+        return endingDot.getX();
+    }
+    
+    public int getEndingDotY() {
+        return endingDot.getY();
     }
     
     public int getCoordinates() {

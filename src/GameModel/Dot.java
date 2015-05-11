@@ -32,36 +32,19 @@ public final class Dot {
         this.fillColor = color;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
     public int getX() {
         return this.x;
-    }
-
-    public void setY(int y) {
-        this.x = y;
     }
 
     public int getY() {
         return this.y;
     }
 
-    public void setRadius(int radius) {
-        this.radius = radius;
-    }
-
     public int getRadius() {
         return this.radius;
-    }
-
-    public final void setFillColor(Color color) {
-        this.fillColor = color;
     }
 
     public final Color getFillColor() {
         return this.fillColor;
     }
-
 }
