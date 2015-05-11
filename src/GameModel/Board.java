@@ -82,6 +82,18 @@ public class Board {
      private ArrayList<Box> createBoxes() {
         
         boxList = new ArrayList<Box>();
+        Line top;
+        Line bottom;
+        Line left;
+        Line right;
+        
+        for (int index=0; index<=horizontalLineList.size()-size-1; index++) {
+         top = horizontalLineList.get(index);
+         bottom = horizontalLineList.get(index+3);
+         boxList.add(new Box(index, top, bottom));
+         
+     }
+        for (int index=0; index<verticalLineList.size()-1; index++) {
         return boxList;
     }
     

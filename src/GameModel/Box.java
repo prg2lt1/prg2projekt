@@ -25,6 +25,11 @@ public class Box {
         isComplete = false;
         numberOfLines = 0;
     }
+    public Box (int position, Line top, Line bottom) {
+        this.position = position;
+        setTopLine(top);
+        setBottomLine(bottom);
+    }
     
     
     /**
@@ -55,9 +60,7 @@ public class Box {
     }
     
     
-    /**
-     * Setter methods für Attribute
-     */
+   
     public void setBottomLine(Line l) {
         bottomLine = l;
         numberOfLines++;
