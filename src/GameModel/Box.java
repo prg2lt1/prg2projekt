@@ -25,10 +25,12 @@ public class Box {
         isComplete = false;
         numberOfLines = 0;
     }
-    public Box (int position, Line top, Line bottom) {
+    public Box (int position, Line top, Line bottom, Line left, Line right) {
         this.position = position;
         setTopLine(top);
         setBottomLine(bottom);
+        setLeftLine(left);
+        setRightLine(right);
     }
     
     
@@ -61,22 +63,22 @@ public class Box {
     
     
    
-    public void setBottomLine(Line l) {
+    private void setBottomLine(Line l) {
         bottomLine = l;
         numberOfLines++;
     }
     
-    public void setTopLine(Line l) {
+    private void setTopLine(Line l) {
         topLine = l;
         numberOfLines++;
     }
     
-    public void setLeftLine(Line l) {
+    private void setLeftLine(Line l) {
         leftLine = l;
         numberOfLines++;
     }
     
-    public void setRightLine(Line l) {
+    private void setRightLine(Line l) {
         rightLine = l;
         numberOfLines++;
     }

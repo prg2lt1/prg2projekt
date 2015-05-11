@@ -14,12 +14,15 @@ public class Board {
     
     private int size;
     
-    private ArrayList<Box> boxList;
-    private ArrayList<Line> horizontalLineList;
-    private ArrayList<Line> verticalLineList;
-    private ArrayList<Dot> dotList;
+    private static ArrayList<Box> boxList;
+    private static ArrayList<Line> horizontalLineList;
+    private static ArrayList<Line> verticalLineList;
+    private static ArrayList<Dot> dotList;
     
-    
+    /**
+     * 
+     * @param size Seitenlänge in Anzahl Dots eines n x n Spielfelds. 
+     */
     public Board(int size) {
         
         this.size = size;
@@ -87,18 +90,57 @@ public class Board {
         Line left;
         Line right;
         
-        for (int index=0; index<=horizontalLineList.size()-size-1; index++) {
+        for (int index=0; horizontalLineList.size()-size >= index ; index++) {
+            
+        
+         int verticalIndex = 0;
          top = horizontalLineList.get(index);
          bottom = horizontalLineList.get(index+3);
-         boxList.add(new Box(index, top, bottom));
          
-     }
-        for (int index=0; index<verticalLineList.size()-1; index++) {
+         if(verticalIndex%size != size-1) {
+             verticalIndex++;
+         }
+         left = verticalLineList.get(verticalIndex);
+         right = verticalLineList.get(verticalIndex+1);
+         boxList.add(new Box(index, top, bottom, left, right ));
+         verticalIndex++;
+         
+        }
         return boxList;
     }
     
-  
-    
-    
+  /**
+     
+    public static void main(final String[] args) {
+        
+        
+        Board t = new Board(4);
+       for(int i = 0; i<dotList.size(); i++) {
+           System.out.println(dotList.get(i).getX());
+           System.out.println(dotList.get(i).getY());
+           System.out.println();
+       }
+           
+       for(int j = 0; j<horizontalLineList.size(); j++) {
+           System.out.println(horizontalLineList.get(j).getStartingDot().getX());
+           System.out.println(horizontalLineList.get(j).getStartingDot().getY());
+           System.out.println(horizontalLineList.get(j).getEndingDot().getX());
+           System.out.println(horizontalLineList.get(j).getEndingDot().getY());
+           System.out.println();
+       }
+           
+        for(int k = 0; k<verticalLineList.size(); k++) {
+           System.out.println(verticalLineList.get(k).getStartingDot().getX());
+           System.out.println(verticalLineList.get(k).getStartingDot().getY());
+           System.out.println(verticalLineList.get(k).getEndingDot().getX());
+           System.out.println(verticalLineList.get(k).getEndingDot().getY());
+           System.out.println();   
+           System.out.println();
+           System.out.println();
+           System.out.println();
+        }
+           System.out.println(boxList.get(4).getRightLine());
+    }
+    */
     
 }
