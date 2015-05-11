@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class Board {
     
-    private int size;
+    private final int size;
     
     private static ArrayList<Box> boxList;
     private static ArrayList<Line> horizontalLineList;
@@ -40,7 +40,7 @@ public class Board {
      */
     private ArrayList<Dot> createDots() {
         
-        dotList = new ArrayList<Dot>();
+        dotList = new ArrayList<>();
         
         for (int y = 0; y < size; y++) {
             for (int x = 0; x < size; x++) {
@@ -51,11 +51,13 @@ public class Board {
         return dotList;
     }
     
-    
+    public ArrayList<Dot> getDots(){
+        return dotList;
+    }
     
     private ArrayList<Line> createHorizontalLines() {
         
-        horizontalLineList = new ArrayList<Line>();
+        horizontalLineList = new ArrayList<>();
         Dot first;
         Dot second;
         
@@ -67,9 +69,13 @@ public class Board {
         return horizontalLineList;
     }
     
+    public ArrayList<Line> getHorizontalLines(){
+        return horizontalLineList;
+    }
+    
     private ArrayList<Line> createVerticalLines() {
         
-        verticalLineList = new ArrayList<Line>();
+        verticalLineList = new ArrayList<>();
         Dot first;
         Dot second;
         
@@ -80,11 +86,14 @@ public class Board {
         }
         return verticalLineList;
     }
- 
+    
+    public ArrayList<Line> getVerticalLines(){
+        return verticalLineList;
+    } 
     
      private ArrayList<Box> createBoxes() {
         
-        boxList = new ArrayList<Box>();
+        boxList = new ArrayList<>();
         Line top;
         Line bottom;
         Line left;
