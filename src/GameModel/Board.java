@@ -13,10 +13,10 @@ import java.util.ArrayList;
 public class Board {
     
     private int size;
-    
-    private ArrayList<Box> boxList;
-    private ArrayList<Line> lineList;
     private ArrayList<Dot> dotList;
+    private ArrayList<Line> lineList;
+    private ArrayList<Box> boxList;
+
     
     /**
      * 
@@ -53,9 +53,6 @@ public class Board {
         return dotList;
     }
     
-    public ArrayList<Dot> getDots(){
-        return dotList;
-    }
     
     private ArrayList<Line> createLines() {
         
@@ -113,6 +110,7 @@ public class Board {
          verticalIndex++;
          
         }
+        
         return boxList;
     }
      
@@ -122,6 +120,10 @@ public class Board {
      
     public ArrayList<Line> getLines(){
         return lineList;
+    }
+    
+    public ArrayList<Dot> getDots(){
+        return dotList;
     }
     
  
