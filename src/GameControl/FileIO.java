@@ -5,6 +5,9 @@
  */
 package GameControl;
 
+import GameModel.Box;
+import GameModel.Dot;
+import GameModel.Line;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -28,17 +31,17 @@ public class FileIO {
      * @param list
      * @param fileName
      */
-    /**
+    
     public static void writeList(List list, String fileName) {
-
+/**
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));) {
             String line, part;
-            int x1, y1, x2, y2;
+            int x1, y1, x2, y2, r;
 
             Iterator listItr = list.iterator();
 
             while (listItr.hasNext()) {
-
+            
                 if (listItr.next().getClass().equals(Box) {
                     Box box = (Box) listItr;
                     x1 = box.getX1();
@@ -57,6 +60,7 @@ public class FileIO {
                    // Dot dot = listItr;
                     //x1 = obj.getX();
                     //y1 = obj.getY();
+                    //r = obj.getRadius();
                     line = String.format("D %s %s", x1, y1);
                 } else {
                     System.out.println("Tried writing List with undefined Object-Type to file" + list.get(i));
@@ -69,8 +73,9 @@ public class FileIO {
         } catch (IOException ex) {
             System.out.println("Couldn't write list " + ex);
         }
+        **/
     }
-    **/
+    
 
     /**
      * liest aus dem file fileName eine Liste (Objekt für Objekt).
@@ -83,7 +88,7 @@ public class FileIO {
         List list = new ArrayList<>();
         int number = 1;
         String line;
-        int x1, y1, x2, y2;
+        int x1, y1, x2, y2, r;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName));) {
             while ((line = reader.readLine()) != null) {
@@ -110,8 +115,9 @@ public class FileIO {
                     case "D":
                         x1 = Integer.parseInt(tokens[1]);
                         y1 = Integer.parseInt(tokens[2]);
+                        r = Integer.parseInt(tokens[3]);
                         System.out.println("Dot " + line);
-                       // list.add(new Dot(number, x1, y1));
+                       // list.add(new Dot(number, x1, y1, r));
                         break;
                 }
                 number++;
@@ -119,7 +125,7 @@ public class FileIO {
         } catch (IOException ex) {
             System.out.println("Couln't write list " + ex);
         }
-        list.add(new Box());
+        list.add(new Box(number));
         
         return list;
     }

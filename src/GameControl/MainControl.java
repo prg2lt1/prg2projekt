@@ -1,6 +1,8 @@
 package GameControl;
 
 import GameModel.Box;
+import GameModel.Flow;
+import GameView.GamePanel;
 import java.util.ArrayList;
 
 /**
@@ -10,22 +12,23 @@ import java.util.ArrayList;
  */
 public class MainControl {
 
+    private Flow flow;
     public ArrayList<Box> BoxList; //Liste der Boxen auf dem Spielfeld.
 
     public MainControl() {
-        //Flow starten
+        this.flow = new Flow();
     }
 
     /**
-     *  erstellt die Liste, um die Boxen zu speichern und anzuzeigen
+     *  genaue Funktion muss noch diskutiert werden
      */
-    public void initList() {
-        
+    public void initField() {
+ 
         BoxList = new ArrayList<>();
 
     }
 
     public static void main(String[] args) {
-        MainControl mainControl1 = new MainControl();
+        MainControl mainControl = new MainControl();
     }
 }

@@ -1,11 +1,15 @@
 package GameModel;
 
+import GameView.GamePanel;
+
 /**
  *
  * @author Lorenz
  */
 public class Flow implements Runnable {
 
+    private GamePanel panel;
+    
     private String stateStart = "prepare";
     private String stateRun = "playerTurn"; //Falls es nicht initialisiert wird..
     private boolean runGame = true;
@@ -23,7 +27,7 @@ public class Flow implements Runnable {
         do {
             switch (stateStart) {
                 case "prepare":
-                    //init Field
+                    panel = new GamePanel();
                     //init network
                     stateStart = "getOpponent";
                     break;
@@ -84,10 +88,6 @@ public class Flow implements Runnable {
                     //validate Turn
                     //execute Turn
                     //repaint Field
-                    break;
-
-                case "saveGame":
-                    //writeList;
                     break;
 
                 case "gameOver": //nur break;
