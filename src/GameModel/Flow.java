@@ -3,7 +3,8 @@ package GameModel;
 import GameView.GamePanel;
 
 /**
- *
+ * Flow enthält die Zustandsautomaten, welche den Spielverlauf abbilden sollen.
+ * minimum der innere Automat sollte in einem eigenen Thread laufen.
  * @author Lorenz
  */
 public class Flow implements Runnable {

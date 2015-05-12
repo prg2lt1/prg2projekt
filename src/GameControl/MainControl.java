@@ -6,7 +6,7 @@ import GameView.GamePanel;
 import java.util.ArrayList;
 
 /**
- * Startpunkt des ganzen Spiels. Initiiere Spielfeld, Spieler, Netzwerk etc.
+ * Hauptverwaltung. Initiiere Spielfeld, Spieler, Netzwerk etc.
  *
  * @author Lorenz
  */
@@ -27,7 +27,10 @@ public class MainControl {
         BoxList = new ArrayList<>();
 
     }
-
+    
+    /**
+     *  Startpunkt des ganzen Programms??
+     */
     public static void main(String[] args) {
         MainControl mainControl = new MainControl();
     }
