@@ -86,16 +86,18 @@ public class Board {
      private ArrayList<Box> createBoxes() {
         
         boxList = new ArrayList<>();
-        int totalBoxes = (size-1)^2;
+        int totalBoxes = (size-1)*(size-1);
         Line top;
         Line bottom;
         Line left;
         Line right;
         
+        int horizontalIndex = 0;   
+        int verticalIndex = size*(size-1);
+        
         for (int boxno = 0; boxno < totalBoxes; boxno++)    {
          
-         int horizontalIndex = 0;   
-         int verticalIndex = size*(size-1);
+         
          top = lineList.get(horizontalIndex);
          bottom = lineList.get(horizontalIndex+size-1);
          

@@ -11,7 +11,7 @@ package GameModel;
  */
 public class Box {
     
-    private final int position;
+    private final int boxNumber;
     private Line topLine;
     private Line bottomLine;
     private Line leftLine;
@@ -20,13 +20,13 @@ public class Box {
     private int numberOfLines;
     private Player owner;
     
-    public Box (int position){
-        this.position = position;
+    public Box (int boxNumber){
+        this.boxNumber = boxNumber;
         isComplete = false;
         numberOfLines = 0;
     }
-    public Box (int position, Line top, Line bottom, Line left, Line right) {
-        this.position = position;
+    public Box (int boxNumber, Line top, Line bottom, Line left, Line right) {
+        this.boxNumber = boxNumber;
         setTopLine(top);
         setBottomLine(bottom);
         setLeftLine(left);
@@ -59,6 +59,10 @@ public class Box {
     
     public boolean isBoxComplete() {
         return isComplete;
+    }
+    
+    public int getBoxNumber() {
+        return boxNumber;
     }
     
     
