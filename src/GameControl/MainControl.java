@@ -13,9 +13,7 @@ public class MainControl {
     public ArrayList<Box> BoxList; //Liste der Boxen auf dem Spielfeld.
 
     public MainControl() {
-        //initSpielfeld..
-        //initSpieler
-        //initNetzwerk etc.
+        //Flow starten
     }
 
     /**
