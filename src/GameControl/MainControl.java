@@ -1,10 +1,7 @@
 package GameControl;
 
-import GameModel.Box;
-import GameModel.Flow;
 import GameModel.Board;
 import GameView.GameView;
-import java.util.ArrayList;
 
 /**
  * Hauptverwaltung. Initiiere Spielfeld, Spieler, Netzwerk etc.
@@ -12,6 +9,8 @@ import java.util.ArrayList;
  * @author Lorenz
  */
 public class MainControl {
+   
+    private String stateStart = "prepare"; 
 
     private Flow flow;
     private Board board;
@@ -19,15 +18,33 @@ public class MainControl {
     private MoveChecker moveChecker;
 
     public MainControl() {
-        //this.flow = new Flow();
         this.board = new Board(4);
         this.gameView = new GameView(this.board);
+        this.flow = new Flow();
         //this.moveChecker = new MoveChecker(board);
     }
 
-    /**
-     *  Startpunkt des ganzen Programms??
-     */
+    private void gameStart() {
+
+        switch (stateStart) {
+            case "prepare":
+                System.out.println(stateStart);
+
+                //init network
+                stateStart = "getOpponent";
+                break;
+
+            case "getOpponent":
+                System.out.println(stateStart);
+                    //Choose Opponent
+                //or get Invited
+                
+                break;
+        }
+    }
+        /**
+         * Startpunkt des ganzen Programms!
+         */
     public static void main(String[] args) {
         MainControl mainControl = new MainControl();
     }
