@@ -60,6 +60,8 @@ public class Line {
         return owner;
     }
     
+   
+    
     public int getCoordinates() {
         return Integer.parseInt(String.valueOf(startingDot+""+endingDot));
     }

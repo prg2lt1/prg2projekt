@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Opponent;
+
 import GameModel.Board;
 import GameModel.Box;
 import GameModel.Line;
@@ -13,36 +14,56 @@ import GameModel.Line;
  * @author tobias
  */
 public class ComputerBrain {
-    
+
     Board board;
-    
+
     /**
-     * 
-     * @param board wird von Opponent->Computer übergeben. 
+     *
+     * @param board wird von Opponent->Computer übergeben.
      */
-    public ComputerBrain (Board board) {
+    public ComputerBrain(Board board) {
         this.board = board;
     }
-    
+
     public void play() {
         
-        for(Box b : board.getBoxes()) {
-            if(b.getNumberOfLines() == 3) {
+        boolean foundMove = false;
+        
+        foundMove = playFirstPrio();
+        if (!foundMove) {
+            foundMove = playSecondPrio();
+        }
+    }
+
+    public boolean playFirstPrio() {
+
+        for (Box b : board.getBoxes()) {
+            if (b.getNumberOfLines() == 3) {
                 SomeClass.addLastLine();    //NOCH ZU ERSTELLEN: Klasse die Linien "hinzufügen" kann.      
+                return true;
             }
-            else if(b.getNumberOfLines() < 2){
-                Line t = b.getBottomLine();
-                int boxIndex = board.getBoxes().indexOf(b);
-                Box bcheck = findNeighbourBox(t, boxIndex);
-                    if (bcheck == null || bcheck.getNumberOfLines() < 2) {
-                        
-                    }
-                
+            else {
+                return false;
             }
         }
     }
-    
-    private Box findNeighbourBox(Line t, int boxIndex) {
+
+    public boolean playSecondPrio() {
+
+        for (Box c : board.getBoxes()) {
+            if (c.getNumberOfLines() < 2) {
+                Line t = c.getBottomLine();
+                int boxIndex = board.getBoxes().indexOf(b);
+                Box bcheck = findNeighbourBox(t, boxIndex);
+                if (bcheck == null || bcheck.getNumberOfLines() < 2) {
+
+                }
+
+            }
+        }
+    }
+
+private Box findNeighbourBox(Line t, int boxIndex) {
         
         boolean found = false;
         Box neighbourBox = null;
@@ -82,5 +103,3 @@ public class ComputerBrain {
     }
          
 }
-    
-    
