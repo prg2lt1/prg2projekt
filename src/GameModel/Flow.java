@@ -1,6 +1,6 @@
 package GameModel;
 
-import GameView.GamePanel;
+import GameView.GameView;
 
 /**
  * Flow enthält die Zustandsautomaten, welche den Spielverlauf abbilden sollen.
@@ -10,7 +10,7 @@ import GameView.GamePanel;
  */
 public class Flow implements Runnable {
 
-    private GamePanel panel;
+    private GameView panel;
     private Board board;
 
     private String stateStart = "prepare";
@@ -31,7 +31,7 @@ public class Flow implements Runnable {
             switch (stateStart) {
                 case "prepare":
                     System.out.println(stateStart);
-                    panel = new GamePanel();
+                    panel = new GameView();
                     board = new Board(4);
                     //init network
                     stateStart = "getOpponent";

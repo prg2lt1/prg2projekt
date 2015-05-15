@@ -23,7 +23,7 @@ import javax.swing.JPanel;
 /**
  * Dots & Boxes GUI.
  */
-public final class GamePanel extends JFrame implements ActionListener {
+public final class GameView extends JFrame implements ActionListener {
 
     private final int width = 800;
     private final int height = 600;
@@ -47,7 +47,7 @@ public final class GamePanel extends JFrame implements ActionListener {
      * Der Konstruktor zeichnet das Fenster mit dem Menu, den Buttons und der
      * Spielflaeche.
      */
-    public GamePanel() {
+    public GameView() {
         super("Dots & Boxes");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -208,9 +208,5 @@ public final class GamePanel extends JFrame implements ActionListener {
         super.paint(g);
         g = drawDots(g);
         g = drawLines(g);
-    }
-
-    public static void main(final String[] args) {
-        final GamePanel frame = new GamePanel();
     }
 }

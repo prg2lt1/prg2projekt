@@ -125,9 +125,11 @@ public class FileIO {
         
         return list;
     }
-    
+   /** 
     public static void main(String[] args){
         readList(".\\src\\ch\\hslu\\prg2\\Training\\savedGame.txt");
         System.out.println("Done ");
     }
+    * 
+    */
 }
