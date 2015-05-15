@@ -34,7 +34,10 @@ public class ComputerBrain {
             foundMove = playSecondPrio();
         }
     }
-
+/**
+ * Sucht Boxes mit drei Linien und komplettiert sie.
+ * @return 
+ */
     public boolean playFirstPrio() {
 
         for (Box b : board.getBoxes()) {
@@ -47,13 +50,16 @@ public class ComputerBrain {
             }
         }
     }
-
+/**
+ * Sucht Boxes mit weniger als zwei gespielten Linien und setzt eine Linie
+ * @return 
+ */
     public boolean playSecondPrio() {
 
         for (Box c : board.getBoxes()) {
-            if (c.getNumberOfLines() < 2) {
+            if (c.getNumberOfLines() < 2 && c.getBottomLine().getOwner() == null) {
                 Line t = c.getBottomLine();
-                int boxIndex = board.getBoxes().indexOf(b);
+                int boxIndex = board.getBoxes().indexOf(c);
                 Box bcheck = findNeighbourBox(t, boxIndex);
                 if (bcheck == null || bcheck.getNumberOfLines() < 2) {
 
@@ -100,6 +106,16 @@ private Box findNeighbourBox(Line t, int boxIndex) {
             }
         }
         return neighbourBox;
+    }
+
+    private boolean neighbourNotCritical (Box b, Line l) {
+        int index = ...
+        Box c = findNeighbourBox(l, b);
+        boolean critical = false;
+        if (b.getNumberOfLines() > 1) {
+            critical = true;
+        }
+        return critical;
     }
          
 }
