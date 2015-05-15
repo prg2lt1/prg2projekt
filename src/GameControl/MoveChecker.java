@@ -22,7 +22,7 @@ public class MoveChecker {
     boolean validMove;
     
     
-    public MoveChecker(Board playingBoard, Line clickedLine,) {
+    public MoveChecker(Board playingBoard) {
         
        this.actualBoard = actualBoard;
        playingPlayer = 

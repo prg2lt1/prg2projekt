@@ -47,11 +47,11 @@ public final class GameView extends JFrame implements ActionListener {
      * Der Konstruktor zeichnet das Fenster mit dem Menu, den Buttons und der
      * Spielflaeche.
      */
-    public GameView() {
+    public GameView(Board board) {
         super("Dots & Boxes");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        board = new Board(4);
+        this.board = board;
 
         drawMenu();
         drawGamePanel();

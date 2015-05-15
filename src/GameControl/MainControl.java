@@ -19,10 +19,10 @@ public class MainControl {
     private MoveChecker moveChecker;
 
     public MainControl() {
-        this.flow = new Flow();
+        //this.flow = new Flow();
         this.board = new Board(4);
         this.gameView = new GameView(this.board);
-        this.moveChecker = new MoveChecker(board);
+        //this.moveChecker = new MoveChecker(board);
     }
 
     /**
