@@ -66,7 +66,20 @@ public class Box {
     }
     
      public int getNumberOfLines() {
-        return numberOfLines;
+         int no = 0;
+         if (topLine.getOwner() != null) {
+             no++;
+         }
+         if (bottomLine.getOwner() != null) {
+             no++;
+         }
+         if (leftLine.getOwner() != null) {
+             no++;
+         }
+         if (rightLine.getOwner() != null) {
+             no++;
+         }
+         return no;
     }
     
     
