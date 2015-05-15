@@ -36,10 +36,6 @@ public final class GamePanel extends JFrame implements ActionListener {
     private final JMenu menuHelp = new JMenu("Help");
     private final JMenuItem miHelpAbout = new JMenuItem("About");
 
-    private final JButton myName = new JButton("myName");
-    private final JButton myScore = new JButton("myScore");
-    private final JButton otherName = new JButton("otherName");
-    private final JButton otherScore = new JButton("otherScore");
     private final JButton saveGame = new JButton("saveGame");
     private final JButton loadGame = new JButton("loadGame");
 
@@ -58,7 +54,6 @@ public final class GamePanel extends JFrame implements ActionListener {
         board = new Board(4);
 
         drawMenu();
-        //drawTopPanel();
         drawGamePanel();
         drawBottomPanel();
 
@@ -87,18 +82,6 @@ public final class GamePanel extends JFrame implements ActionListener {
     }
 
     /*
-     * Zeichnet das TopPanel.
-     */
-    private void drawTopPanel() {
-        JPanel topPanel = new JPanel();
-        topPanel.add(myName);
-        topPanel.add(myScore);
-        topPanel.add(otherName);
-        topPanel.add(otherScore);
-        add(topPanel, BorderLayout.NORTH);
-    }
-
-    /*
      * Zeichnet das GamePanel und registriert die ActionListeners.
      */
     private void drawGamePanel() {
@@ -110,9 +93,9 @@ public final class GamePanel extends JFrame implements ActionListener {
         gamePanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                //drawLine();
-                System.out.print("\n[info] MouseClick coordinates: [" + e.getX() + "],[" + e.getY() + "]");
-                System.out.print(", matrix point [" + getMatrixPointX(e.getX()) + "],[" + getMatrixPointY(e.getY()) + "]");
+                int clickCoordinateX = getMatrixPointX(e.getX());
+                int clickCoordinateY = getMatrixPointY(e.getY());
+                System.out.println("[info] MouseClick at: [" + clickCoordinateX + "],[" + clickCoordinateY + "]");
             }
         });
     }
@@ -148,10 +131,12 @@ public final class GamePanel extends JFrame implements ActionListener {
         }
     }
 
+    // gibt Grösse der Matrix zurück
     private int getSizeOfMatrix() {
         return board.getSize();
     }
 
+    // gibt den Abstand zwischen den Punkten zurück
     private int getDotSpace() {
         if (width > height) {
             return height / getSizeOfMatrix();
@@ -159,14 +144,17 @@ public final class GamePanel extends JFrame implements ActionListener {
         return width / getSizeOfMatrix();
     }
 
+    // gibt die X-Koordinate des Punktes oben links zurück
     private int getFirstDotPosX() {
         return (width - (getSizeOfMatrix() - 1) * getDotSpace()) / 2;
     }
 
+    // gibt die Y-Koordinate des Punktes oben links zurück
     private int getFirstDotPosY() {
         return (height - (getSizeOfMatrix() - 1) * getDotSpace()) / 2;
     }
 
+    // 
     private int getMatrixPointX(int position) {
         for (int i = 0; i < getSizeOfMatrix(); i++) {
             int delta = position - (getFirstDotPosX() + i * getDotSpace() - getDotSpace() / 2);
@@ -187,41 +175,39 @@ public final class GamePanel extends JFrame implements ActionListener {
         return -1;
     }
 
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-
+    // zeichnet die Punkte
+    private Graphics drawDots(Graphics g) {
         Iterator<Dot> itr = board.getDots().iterator();
         while (itr.hasNext()) {
             Dot dot = (Dot) itr.next();
             System.out.println("[info] dot position: [" + dot.getX() + "],[" + dot.getY() + "]");
             g.setColor(dot.getFillColor());
-            g.fillArc(getDotSpace() * dot.getX() + getFirstDotPosX(), getDotSpace() * dot.getY() + getFirstDotPosY(), dot.getRadius(), dot.getRadius(), 0, 360);
+            g.fillOval(getDotSpace() * dot.getX() + getFirstDotPosX(), getDotSpace() * dot.getY() + getFirstDotPosY(), dot.getRadius(), dot.getRadius());
         }
-        Iterator<Line> itrHorizLines = board.getHorizontalLines().iterator();
-        while (itrHorizLines.hasNext()) {
-            Line line = (Line) itrHorizLines.next();
+        return g;
+    }
+
+    // zeichnet die Linien
+    private Graphics drawLines(Graphics g) {
+        Iterator<Line> itrLines = board.getLines().iterator();
+        while (itrLines.hasNext()) {
+            Line line = (Line) itrLines.next();
             int startX = getFirstDotPosX() + getDotSpace() * line.getStartingDotX();
             int startY = getFirstDotPosY() + getDotSpace() * line.getStartingDotY();
             int endX = getFirstDotPosX() + getDotSpace() * line.getEndingDotX();
             int endY = getFirstDotPosY() + getDotSpace() * line.getEndingDotY();
-            System.out.println("[info] HLine from [" + startX + "],[" + startY + "]");
-            System.out.println("[info]                 to [" + endX + "],[" + endY + "]");
-            g.setColor(Color.GRAY);
-            g.fillRect(startX, startY, endX - startX, 1);
+            System.out.println("[info] Line from [" + line.getStartingDotX() + "][" + line.getStartingDotY() + "] to [" + line.getEndingDotX() + "][" + line.getEndingDotY() + "]");
+            g.setColor(Color.GREEN);
+            g.fillRect(startX, startY, (endX - startX) + 5, (endY - startY) + 5);
         }
-        Iterator<Line> itrVerticLines = board.getVerticalLines().iterator();
-        while (itrVerticLines.hasNext()) {
-            Line line = (Line) itrVerticLines.next();
-            int startX = getFirstDotPosX() + getDotSpace() * line.getStartingDotX();
-            int startY = getFirstDotPosY() + getDotSpace() * line.getStartingDotY();
-            int endX = getFirstDotPosX() + getDotSpace() * line.getEndingDotX();
-            int endY = getFirstDotPosY() + getDotSpace() * line.getEndingDotY();
-            System.out.println("[info] VLine from [" + startX + "],[" + startY + "]");
-            System.out.println("[info]                 to [" + endX + "],[" + endY + "]");
-            g.setColor(Color.GRAY);
-            g.fillRect(startX, startY, 1, endY - startY);
-        }
+        return g;
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        g = drawDots(g);
+        g = drawLines(g);
     }
 
     public static void main(final String[] args) {

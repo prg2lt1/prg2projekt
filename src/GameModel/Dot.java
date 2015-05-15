@@ -22,7 +22,7 @@ public final class Dot {
         this.x = x;
         this.y = y;
         this.radius = 15;
-        this.fillColor = new Color(0, 255, 0);
+        this.fillColor = Color.GRAY;
     }
 
     public Dot(int x, int y, int radius, Color color) {
