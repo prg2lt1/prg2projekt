@@ -13,21 +13,12 @@ import java.util.ArrayList;
 public class MainControl {
 
     private Flow flow;
-    public ArrayList<Box> BoxList; //Liste der Boxen auf dem Spielfeld.
+   
 
     public MainControl() {
         this.flow = new Flow();
     }
 
-    /**
-     *  genaue Funktion muss noch diskutiert werden
-     */
-    public void initField() {
- 
-        BoxList = new ArrayList<>();
-
-    }
-    
     /**
      *  Startpunkt des ganzen Programms??
      */

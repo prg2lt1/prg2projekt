@@ -5,12 +5,14 @@ import GameView.GamePanel;
 /**
  * Flow enthält die Zustandsautomaten, welche den Spielverlauf abbilden sollen.
  * minimum der innere Automat sollte in einem eigenen Thread laufen.
+ *
  * @author Lorenz
  */
 public class Flow implements Runnable {
 
     private GamePanel panel;
-    
+    private Board board;
+
     private String stateStart = "prepare";
     private String stateRun = "playerTurn"; //Falls es nicht initialisiert wird..
     private boolean runGame = true;
@@ -28,12 +30,15 @@ public class Flow implements Runnable {
         do {
             switch (stateStart) {
                 case "prepare":
+                    System.out.println(stateStart);
                     panel = new GamePanel();
+                    board = new Board(4);
                     //init network
                     stateStart = "getOpponent";
                     break;
 
                 case "getOpponent":
+                    System.out.println(stateStart);
                     //Choose Opponent
                     //or get Invited
                     stateRun = "playerTurn";
@@ -41,11 +46,13 @@ public class Flow implements Runnable {
                     break;
 
                 case "run":
+                    System.out.println(stateStart);
                     flow.start();
                     break;
 
                 case "gameFinished":
-                    //play again?
+                    System.out.println(stateStart);
+                    System.out.println("play again?");
                     /**
                      * if(yes){ stateStart = "run"; } else { runGame = false; }
                      */
@@ -57,8 +64,8 @@ public class Flow implements Runnable {
     /**
      * gibt den nächsten Spielzug dem Spieler frei.
      */
-    public void setPlayerTurn() {
-        stateRun = "playerTurn";
+    public void setUserTurn() {
+        stateRun = "userTurn";
     }
 
     /**
@@ -69,6 +76,28 @@ public class Flow implements Runnable {
     }
 
     /**
+     * gibt den nächsten Spielzug dem Spieler frei.
+     */
+    public boolean isUserTurn() {
+        if (stateRun == "userTurn") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * gibt den nächsten Spielzug dem Gegner frei.
+     */
+    public boolean isOpponentTurn() {
+        if (stateRun == "opponentTurn") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * run() ist der innere Zustandsautomat, welcher das aktuelle Spiel leitet.
      * sobald das Spiel aufgebaut ist, wird er aufgerufen
      */
@@ -76,7 +105,8 @@ public class Flow implements Runnable {
     public void run() {
         do {
             switch (stateRun) {
-                case "playerTurn":
+                case "userTurn":
+                    System.out.println(stateRun);
                     //wait for Input
                     //validate Turn
                     //execute Turn
@@ -85,6 +115,7 @@ public class Flow implements Runnable {
                     break;
 
                 case "opponentTurn":
+                    System.out.println(stateRun);
                     //wait for Input
                     //validate Turn
                     //execute Turn
@@ -92,6 +123,7 @@ public class Flow implements Runnable {
                     break;
 
                 case "gameOver": //nur break;
+                    System.out.println(stateRun);
                     break;
             }
 
@@ -100,7 +132,7 @@ public class Flow implements Runnable {
             } catch (InterruptedException e) {
                 System.out.println("Interrupt while sleeping in Run() " + e.getMessage());
             }
-            
+
         } while (stateRun.equals("gameOver"));
 
     }
