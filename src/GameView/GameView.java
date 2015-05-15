@@ -112,9 +112,10 @@ public final class GameView extends JFrame implements ActionListener {
         gamePanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                int clickCoordinateX = getPointX(e.getX());
-                int clickCoordinateY = getPointY(e.getY());
-                System.out.println("[info] MouseClick at: [" + clickCoordinateX + "],[" + clickCoordinateY + "]");
+                //Line line = coordinateToLine(e.getX(), e.getY());
+                coordinateToLine(e.getX(), e.getY());
+                //System.out.print("\n[info] Line from [" + line.getStartingDot().getX() + "][" + line.getStartingDot().getY() + "]");
+                //System.out.print("                to [" + line.getEndingDot().getX() + "][" + line.getEndingDot().getY() + "]");
             }
         });
     }
@@ -150,25 +151,32 @@ public final class GameView extends JFrame implements ActionListener {
         }
     }
 
-    // 
-    private int getPointX(int position) {
-        for (int i = 0; i < board.getSize(); i++) {
-            int delta = position - (originX + i * dotSpace - dotSpace / 2);
-            if (Math.abs(delta) < dotSpace) {
-                return i;
+    // konvertiert X-&Y-Koordinaten zu Linie
+    private void coordinateToLine(int x, int y) {
+        int pointX = coordinateToXPoint(x);
+        int pointY = coordinateToYPoint(y);
+        //System.out.println("\n[info] point [" + pointX + "][" + pointY + "]");
+
+        Iterator<Line> itrLines = board.getLines().iterator();
+        while (itrLines.hasNext()) {
+            Line line = (Line) itrLines.next();
+            if (line.getStartingDot().getX() == pointX && line.getEndingDot().getX() == pointX + 1) {
+                //if(line.getStartingDot().getY() == pointY && line.getEndingDot().getY() == pointY + 1){
+                    System.out.print("\n[info] line from point [" + line.getStartingDot().getX() + "][" + line.getStartingDot().getY() + "]");
+                    System.out.print(" to [" + line.getEndingDot().getX() + "][" + line.getEndingDot().getY() + "]");
+                //}
+                //return line;
             }
         }
-        return -1;
+        //return null;
     }
 
-    private int getPointY(int position) {
-        for (int i = 0; i < board.getSize(); i++) {
-            int delta = position - (originY + i * dotSpace - dotSpace / 2);
-            if (Math.abs(delta) < dotSpace) {
-                return i;
-            }
-        }
-        return -1;
+    private int coordinateToXPoint(int x) {
+        return (x - originX) / dotSpace;
+    }
+
+    private int coordinateToYPoint(int y) {
+        return (y - originY + dotSpace) / dotSpace;
     }
 
     // zeichnet die Punkte
@@ -176,7 +184,7 @@ public final class GameView extends JFrame implements ActionListener {
         Iterator<Dot> itr = board.getDots().iterator();
         while (itr.hasNext()) {
             Dot dot = (Dot) itr.next();
-            System.out.println("[info] dot position: [" + dot.getX() + "],[" + dot.getY() + "]");
+            //System.out.println("[info] dot position: [" + dot.getX() + "],[" + dot.getY() + "]");
             g.setColor(dot.getFillColor());
             g.fillOval(dotSpace * dot.getX() + originX, dotSpace * dot.getY() + originY, dot.getRadius(), dot.getRadius());
         }
@@ -191,7 +199,7 @@ public final class GameView extends JFrame implements ActionListener {
             int startY = originY + dotSpace * line.getStartingDotY();
             int endX = originX + dotSpace * line.getEndingDotX();
             int endY = originY + dotSpace * line.getEndingDotY();
-            System.out.println("[info] Line from [" + line.getStartingDotX() + "][" + line.getStartingDotY() + "] to [" + line.getEndingDotX() + "][" + line.getEndingDotY() + "]");
+            //System.out.println("[info] Line from [" + line.getStartingDotX() + "][" + line.getStartingDotY() + "] to [" + line.getEndingDotX() + "][" + line.getEndingDotY() + "]");
             g.setColor(Color.GREEN);
             g.fillRect(startX, startY, (endX - startX) + 5, (endY - startY) + 5);
         }
