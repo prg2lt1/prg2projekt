@@ -6,6 +6,8 @@
 package GameControl;
 import GameModel.Line;
 import GameModel.Player;
+import GameModel.Board;
+import GameModel.Flow;
 
 
 /**
@@ -16,19 +18,21 @@ public class MoveChecker {
     
     Player playingPlayer;
     Line clickedLine;
+    Board actualBoard;
     boolean validMove;
     
     
-    public MoveChecker(Player playedBy, Line clickedLine,) {
+    public MoveChecker(Board playingBoard, Line clickedLine,) {
         
-       playingPlayer = playedBy;
+       this.actualBoard = actualBoard;
+       playingPlayer = 
        this.clickedLine = clickedLine;
         
         
     }
     
     public boolean emptyLine(Line clickedLine) {
-        
+        return playingBoard.getLines().contains(clickedLine);
         
     }
     
