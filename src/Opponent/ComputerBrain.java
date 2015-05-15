@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package Opponent;
+import GameModel.Board;
+import GameModel.Box;
 
 /**
  *
@@ -11,5 +13,18 @@ package Opponent;
  */
 public class ComputerBrain {
     
-    public ComputerBrain
+    Board board;
+    
+    public ComputerBrain (Board board) {
+        this.board = board;
+    }
+    
+    public void play() {
+        
+        for(Box b : board.getBoxes()) {
+        if(b.getNumberOfLines() == 3) {
+            SomeClass.addLastLine()       
+        }
+        else if(b.getNumberOfLines() == 0)e
+    }
 }

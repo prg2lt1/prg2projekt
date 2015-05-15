@@ -65,6 +65,10 @@ public class Box {
         return boxNumber;
     }
     
+     public int getNumberOfLines() {
+        return numberOfLines;
+    }
+    
     
    
     private void setBottomLine(Line l) {
