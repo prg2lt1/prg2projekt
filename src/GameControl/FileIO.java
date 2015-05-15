@@ -2,15 +2,10 @@
 package GameControl;
 
 import GameModel.Box;
-import GameModel.Dot;
-import GameModel.Line;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 /**
  *
@@ -18,6 +13,8 @@ import java.util.List;
  */
 public class FileIO {
 
+    //readList(".\\src\\ch\\hslu\\prg2\\Training\\savedGame.txt");
+    
     private FileIO() {
     }
 
@@ -125,11 +122,5 @@ public class FileIO {
         
         return list;
     }
-   /** 
-    public static void main(String[] args){
-        readList(".\\src\\ch\\hslu\\prg2\\Training\\savedGame.txt");
-        System.out.println("Done ");
-    }
-    * 
-    */
+
 }
