@@ -6,6 +6,7 @@
 package Opponent;
 import GameModel.Board;
 import GameModel.Box;
+import GameModel.Line;
 
 /**
  *
@@ -15,6 +16,10 @@ public class ComputerBrain {
     
     Board board;
     
+    /**
+     * 
+     * @param board wird von Opponent->Computer übergeben. 
+     */
     public ComputerBrain (Board board) {
         this.board = board;
     }
@@ -22,9 +27,53 @@ public class ComputerBrain {
     public void play() {
         
         for(Box b : board.getBoxes()) {
-        if(b.getNumberOfLines() == 3) {
-            SomeClass.addLastLine()       
+            if(b.getNumberOfLines() == 3) {
+                SomeClass.addLastLine();    //NOCH ZU ERSTELLEN: Klasse die Linien "hinzufügen" kann.      
+            }
+            else if(b.getNumberOfLines() == 0){
+            }
         }
-        else if(b.getNumberOfLines() == 0)e
     }
+    
+    private Box findNeighbourBox(Line t, int boxIndex) {
+        
+        boolean found = false;
+        Box neighbourBox = null;
+        
+        //Boxes mit kleinerem Index durchsuchen
+        for(int i = 0; i<boxIndex; i++) {
+            
+            Box b = board.getBoxes().get(boxIndex);
+            Line m = b.getBottomLine();
+            Line n = b.getTopLine();
+            Line o = b.getRightLine();
+            Line p = b.getLeftLine();
+        
+            if(t.equals(m) || t.equals(n) || t.equals(o) || t.equals(p)) {
+                found = true;
+                neighbourBox = board.getBoxes().get(i);
+                }
+        }
+        if (!found) {
+            //Boxes mit grösserem Index durchsuchen
+            for (int j = boxIndex+1; j<board.getBoxes().size(); j++ ) {
+            
+                Box d = board.getBoxes().get(boxIndex);
+                Line w = d.getBottomLine();
+                Line x = d.getTopLine();
+                Line y = d.getRightLine();
+                Line z = d.getLeftLine();
+        
+                if(t.equals(w) || t.equals(x) || t.equals(y) || t.equals(z)) {
+                    found = true;
+                    neighbourBox = board.getBoxes().get(i);
+
+                }
+            }
+        }
+        return neighbourBox;
+    }
+         
 }
+    
+    

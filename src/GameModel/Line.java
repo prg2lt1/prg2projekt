@@ -56,6 +56,10 @@ public class Line {
         return endingDot.getY();
     }
     
+    public Player getOwner() {
+        return owner;
+    }
+    
     public int getCoordinates() {
         return Integer.parseInt(String.valueOf(startingDot+""+endingDot));
     }
