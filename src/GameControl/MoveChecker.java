@@ -26,7 +26,6 @@ public class MoveChecker {
         
        this.actualBoard = actualBoard;
        playingPlayer = 
-       this.clickedLine = clickedLine;
         
         
     }

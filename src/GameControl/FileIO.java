@@ -119,7 +119,7 @@ public class FileIO {
                 number++;
             }
         } catch (IOException ex) {
-            System.out.println("Couln't write list " + ex);
+            System.out.println("Couldn't write list " + ex);
         }
         list.add(new Box(number));
         
