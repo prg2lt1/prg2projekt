@@ -30,7 +30,14 @@ public class ComputerBrain {
             if(b.getNumberOfLines() == 3) {
                 SomeClass.addLastLine();    //NOCH ZU ERSTELLEN: Klasse die Linien "hinzufügen" kann.      
             }
-            else if(b.getNumberOfLines() == 0){
+            else if(b.getNumberOfLines() < 2){
+                Line t = b.getBottomLine();
+                int boxIndex = board.getBoxes().indexOf(b);
+                Box bcheck = findNeighbourBox(t, boxIndex);
+                    if (bcheck == null || bcheck.getNumberOfLines() < 2) {
+                        
+                    }
+                
             }
         }
     }
