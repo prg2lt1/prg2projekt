@@ -56,11 +56,29 @@ public class ComputerBrain {
  */
     public boolean playSecondPrio() {
 
+        
         for (Box c : board.getBoxes()) {
+            
+            int boxIndex = board.getBoxes().indexOf(c);
+          
             if (c.getNumberOfLines() < 2 && c.getBottomLine().getOwner() == null) {
+                if(neighbourNotCritical(c, boxIndex)) {
+                    addBottomLine
+                }
+            }
+            else if (c.getNumberOfLines() < 2 && c.getTopLine().getOwner() == null) {
+                    }
+            
+            else if (c.getNumberOfLines() < 2 && c.getRightLine().getOwner() == null) {
+                    
+                    }
+            else if (c.getNumberOfLines() < 2 && c.getLeftLine().getOwner() == null) {
+                    
+                    }
+                       
+                Box bcheck = findNeighbourBox(t, boxIndex);  
                 Line t = c.getBottomLine();
-                int boxIndex = board.getBoxes().indexOf(c);
-                Box bcheck = findNeighbourBox(t, boxIndex);
+                
                 if (bcheck == null || bcheck.getNumberOfLines() < 2) {
 
                 }
@@ -68,8 +86,12 @@ public class ComputerBrain {
             }
         }
     }
+    
+    public boolean playThirdPrio() {
+        
+    }
 
-private Box findNeighbourBox(Line t, int boxIndex) {
+    private Box findNeighbourBox(Line t, int boxIndex) {
         
         boolean found = false;
         Box neighbourBox = null;
@@ -106,7 +128,7 @@ private Box findNeighbourBox(Line t, int boxIndex) {
             }
         }
         return neighbourBox;
-    }
+}       }
 
     private boolean neighbourNotCritical (Box b, Line l) {
         int index = ...
