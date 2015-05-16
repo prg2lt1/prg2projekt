@@ -155,22 +155,42 @@ public final class GameView extends JFrame implements ActionListener {
     private void coordinateToLine(int x, int y) {
         int pointX = coordinateToXPoint(x);
         int pointY = coordinateToYPoint(y);
-        //System.out.println("\n[info] point [" + pointX + "][" + pointY + "]");
+        boolean isHorizontal = coordinatesToLevel(x, y); //horizontal = true, vertical = false
+        System.out.println("[info] point [" + pointX + "][" + pointY + "]");
+        //System.out.println("[info] isHorizontal: " + isHorizontal);
 
         Iterator<Line> itrLines = board.getLines().iterator();
         while (itrLines.hasNext()) {
             Line line = (Line) itrLines.next();
-            if (line.getStartingDot().getX() == pointX && line.getEndingDot().getX() == pointX + 1) {
-                //if(line.getStartingDot().getY() == pointY && line.getEndingDot().getY() == pointY + 1){
-                    System.out.print("\n[info] line from point [" + line.getStartingDot().getX() + "][" + line.getStartingDot().getY() + "]");
-                    System.out.print(" to [" + line.getEndingDot().getX() + "][" + line.getEndingDot().getY() + "]");
+            if (line.getStartingDot().getX() == pointX) {
+                //if (line.getStartingDot().getY() == pointY ) {
+                    //System.out.print("\n[info] line from point [" + line.getStartingDot().getX() + "][" + line.getStartingDot().getY() + "]");
+                    //System.out.print(" to [" + line.getEndingDot().getX() + "][" + line.getEndingDot().getY() + "]");
+
                 //}
-                //return line;
             }
         }
         //return null;
     }
 
+    /*
+     * returns the level of the click.
+     * horizontal = true, vertical = false
+     */
+    private boolean coordinatesToLevel(int x, int y) {
+        int tolerance = 10;
+        int xnom = coordinateToXPoint(x) * dotSpace + originX;
+        int ynom = coordinateToYPoint(y) * dotSpace + originY;
+        int xmin = xnom - tolerance;
+        int ymin = ynom - tolerance;
+        int xmax = xnom + tolerance;
+        int ymax = ynom + tolerance;
+        if (ymin <= y && y <= ymax) {
+            System.out.println("[info] y ok.");
+        }
+        return false;
+    }
+    
     private int coordinateToXPoint(int x) {
         return (x - originX) / dotSpace;
     }
