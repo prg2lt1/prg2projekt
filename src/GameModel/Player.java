@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package GameModel;
 
 /**
@@ -10,5 +5,36 @@ package GameModel;
  * @author tobias
  */
 public class Player {
+
+    private String name;
+    private int nmbOfBoxes;
+
+    public Player() {
+        this.nmbOfBoxes = 0;
+    }
+
+    public Player(String newName) {
+        this.name = newName;
+        this.nmbOfBoxes = 0;
+    }
+
+    public void plusBox() {
+        this.nmbOfBoxes++;
+    }
+
+    public void setNmbOfBoxesZero() {
+        this.nmbOfBoxes = 0;
+    }
+
+    public int getNmbOfBoxes() {
+        return this.nmbOfBoxes;
+    }
+
+    public void setName(String newName) {
+        this.name = newName;
+    }
     
+    public String getName()    {
+        return this.name;
+    }
 }
