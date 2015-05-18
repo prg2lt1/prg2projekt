@@ -113,6 +113,7 @@ public final class GameView extends JFrame implements ActionListener {
             @Override
             public void mousePressed(MouseEvent e) {
                 //Line line = coordinateToLine(e.getX(), e.getY());
+                //moveChecker.inputLine(line);
                 coordinateToLine(e.getX(), e.getY());
                 //System.out.print("\n[info] Line from [" + line.getStartingDot().getX() + "][" + line.getStartingDot().getY() + "]");
                 //System.out.print("                to [" + line.getEndingDot().getX() + "][" + line.getEndingDot().getY() + "]");

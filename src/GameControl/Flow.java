@@ -1,5 +1,8 @@
 package GameControl;
 
+import GameModel.Opponent;
+import GameModel.Player;
+
 /**
  * Flow enthält die Zustandsautomaten, welche den Spielverlauf abbilden sollen.
  * minimum der innere Automat sollte in einem eigenen Thread laufen.
@@ -8,13 +11,26 @@ package GameControl;
  */
 public class Flow implements Runnable {
 
-    private String stateRun = "opponentTurn";
+    private String stateRun = "userTurn"; //"opponentTurn";
     private boolean runGame = true;
+    private Opponent opponent;
+    private Player user;
+    public MoveChecker moveChecker;
     Thread flow = new Thread(this);
 
-    public Flow() {
+    public Flow(MoveChecker newMoveChecker, Opponent newOpponent, Player newUser) {
         System.out.println("------------ new Flow");
+        this.moveChecker = newMoveChecker;
+        this.opponent = newOpponent;
+        this.user = newUser;
         flow.start();
+    }
+
+    /**
+     * gib true zürück, solange die Partie läuft.
+     */
+    public boolean gameIsRunning() {
+            return runGame;
     }
 
     /**
@@ -67,6 +83,7 @@ public class Flow implements Runnable {
      */
     public void setGameOver() {
         stateRun = "gameOver";
+        runGame = false;
     }
 
     /**
@@ -80,6 +97,7 @@ public class Flow implements Runnable {
             switch (stateRun) {
                 case "userTurn":
                     System.out.println(stateRun);
+                    moveChecker.setActivePlayer(user);
                     //wait for Input
                     //validate Turn
                     //execute Turn
@@ -89,7 +107,7 @@ public class Flow implements Runnable {
 
                 case "opponentTurn":
                     System.out.println(stateRun);
-                    //wait for Input
+                    moveChecker.setActivePlayer(opponent);
                     //validate Turn
                     //execute Turn
                     //repaint Field
@@ -105,12 +123,12 @@ public class Flow implements Runnable {
             }
 
             try {
-                Thread.sleep(50);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 System.out.println("Interrupt while sleeping in Run() " + e.getMessage());
             }
 
-        } while (this.getStateRun() != "gameOver");
+        } while (runGame != false);
         System.out.println("Thread's dying now. Flow");
     }
 }

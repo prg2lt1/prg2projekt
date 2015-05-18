@@ -16,7 +16,11 @@ public class Opponent extends Player {
     public Opponent() {
         super();
     }
-
+    
+    public Opponent(String newName) {
+        super(newName);
+    }
+    
     public Opponent(String newName, String newIp) {
         super(newName);
         this.ipNmb = newIp;
