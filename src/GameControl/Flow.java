@@ -97,7 +97,7 @@ public class Flow implements Runnable {
             switch (stateRun) {
                 case "userTurn":
                     System.out.println(stateRun);
-                    moveChecker.setActivePlayer(user);
+                    //moveChecker.setActivePlayer(user);
                     //wait for Input
                     //validate Turn
                     //execute Turn
@@ -107,7 +107,7 @@ public class Flow implements Runnable {
 
                 case "opponentTurn":
                     System.out.println(stateRun);
-                    moveChecker.setActivePlayer(opponent);
+                    //moveChecker.setActivePlayer(opponent);
                     //validate Turn
                     //execute Turn
                     //repaint Field

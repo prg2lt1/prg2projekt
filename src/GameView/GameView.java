@@ -76,6 +76,7 @@ public final class GameView extends JFrame implements ActionListener {
         drawGamePanel();
         drawBottomPanel();
 
+        setLocation(400, 200);
         setSize(width, height);
         setVisible(true);
     }
