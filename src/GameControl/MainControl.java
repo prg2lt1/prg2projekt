@@ -87,6 +87,6 @@ public class MainControl {
      * Startpunkt des ganzen Programms! Eingabe Argument entweder "Computer" oder "Network", je nach gewünschtem Gegner
      */
     public static void main(String[] args) {
-        MainControl mainControl = new MainControl(args[0]);
+        MainControl mainControl = new MainControl("Computer");
     }
 }

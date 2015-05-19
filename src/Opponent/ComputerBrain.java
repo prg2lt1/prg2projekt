@@ -60,7 +60,7 @@ public class ComputerBrain extends Opponent {
         return playedMove;
     }
 /**
- * Sucht Boxes mit weniger als zwei gespielten Linien und setzt eine Linie
+ * Sucht Boxes mit weniger als zwei gespielten Linien und setzt eine Linie (insofern diese nicht die dritte Linie der benachbarten Box wäre).
  * @return 
  */
     public boolean playSecondPrio() {
