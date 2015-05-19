@@ -1,9 +1,12 @@
 package GameControl;
 
 import GameModel.Board;
-import GameModel.Opponent;
+import Opponent.Opponent;
+import Opponent.ComputerBrain;
 import GameModel.Player;
 import GameView.GameView;
+import GameControl.MoveExecutor;
+import Opponent.Network;
 
 /**
  * Hauptverwaltung. Initiiere Spielfeld, Spieler, Netzwerk etc.
@@ -19,12 +22,21 @@ public class MainControl {
     private Flow flow;
     private Board board;
     private GameView gameView;
-    private MoveChecker moveChecker;
+    private MoveExecutor moveExecutor;
 
-    public MainControl() {
+    public MainControl(String newOpponent) {
         this.board = new Board(4);
         this.gameView = new GameView(this.board);
-        //this.moveChecker = new MoveChecker(board);
+        this.moveExecutor = new MoveExecutor(board);
+        if (newOpponent.equals("Computer")) {
+            this.opponent = new ComputerBrain(board, moveExecutor);
+            }
+        else if (newOpponent.equals("Network")) {
+            this.opponent = new Network();
+        }
+        else {
+           //Cancel...
+        }
 
         gameStart();
     }
@@ -51,7 +63,7 @@ public class MainControl {
 
                 case "run":
                     System.out.println(stateStart);
-                    this.flow = new Flow(moveChecker, opponent, user);
+                    this.flow = new Flow(moveExecutor, opponent, user);
                     while (flow.gameIsRunning()) {
                         //wait
                     }
@@ -72,9 +84,9 @@ public class MainControl {
     }
 
     /**
-     * Startpunkt des ganzen Programms!
+     * Startpunkt des ganzen Programms! Eingabe Argument entweder "Computer" oder "Network", je nach gewünschtem Gegner
      */
     public static void main(String[] args) {
-        MainControl mainControl = new MainControl();
+        MainControl mainControl = new MainControl(args[0]);
     }
 }

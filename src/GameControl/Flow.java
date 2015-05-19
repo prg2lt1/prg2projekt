@@ -1,6 +1,6 @@
 package GameControl;
 
-import GameModel.Opponent;
+import Opponent.Opponent;
 import GameModel.Player;
 
 /**
@@ -15,10 +15,10 @@ public class Flow implements Runnable {
     private boolean runGame = true;
     private Opponent opponent;
     private Player user;
-    public MoveChecker moveChecker;
+    public MoveExecutor moveChecker;
     Thread flow = new Thread(this);
 
-    public Flow(MoveChecker newMoveChecker, Opponent newOpponent, Player newUser) {
+    public Flow(MoveExecutor newMoveChecker, Opponent newOpponent, Player newUser) {
         System.out.println("------------ new Flow");
         this.moveChecker = newMoveChecker;
         this.opponent = newOpponent;

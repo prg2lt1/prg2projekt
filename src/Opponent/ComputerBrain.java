@@ -8,21 +8,26 @@ package Opponent;
 import GameModel.Board;
 import GameModel.Box;
 import GameModel.Line;
+import GameControl.MoveExecutor;
 
 /**
  *
  * @author tobias
  */
-public class ComputerBrain {
+public class ComputerBrain extends Opponent {
 
     Board board;
+    MoveExecutor myExecutor;
+    
 
     /**
      *
      * @param board wird von Opponent->Computer übergeben.
      */
-    public ComputerBrain(Board board) {
+    public ComputerBrain(Board board, MoveExecutor moveExecutor) {
         this.board = board;
+        myExecutor = moveExecutor;
+        
     }
 
     public void play() {
@@ -39,16 +44,20 @@ public class ComputerBrain {
  * @return 
  */
     public boolean playFirstPrio() {
-
-        for (Box b : board.getBoxes()) {
+        
+        boolean playedMove = false;
+        
+        for (int i = 0; i < board.getBoxes().size() && !playedMove; i++) {
+            
+            Box b = board.getBoxes().get(i);
             if (b.getNumberOfLines() == 3) {
-                SomeClass.addLastLine();    //NOCH ZU ERSTELLEN: Klasse die Linien "hinzufügen" kann.      
-                return true;
+                playedMove = playPossibleLine(b);   
+                
             }
-            else {
-                return false;
-            }
+            
+           
         }
+        return playedMove;
     }
 /**
  * Sucht Boxes mit weniger als zwei gespielten Linien und setzt eine Linie
@@ -56,39 +65,35 @@ public class ComputerBrain {
  */
     public boolean playSecondPrio() {
 
-        
-        for (Box c : board.getBoxes()) {
+        boolean playedMove = false;
+        for (int i = 0; i < board.getBoxes().size() && !playedMove; i++) {
             
-            int boxIndex = board.getBoxes().indexOf(c);
           
-            if (c.getNumberOfLines() < 2 && c.getBottomLine().getOwner() == null) {
-                if(neighbourNotCritical(c, boxIndex)) {
-                    addBottomLine
+            Box c = board.getBoxes().get(i);
+          
+            if (c.getNumberOfLines() < 2 && c.getBottomLine().getOwner() == null && !criticalNeighbour(c.getBottomLine(), i) ) {
+                    playedMove = playSpecificLine(c.getBottomLine());
                 }
-            }
-            else if (c.getNumberOfLines() < 2 && c.getTopLine().getOwner() == null) {
-                    }
+            else if (c.getNumberOfLines() < 2 && c.getTopLine().getOwner() == null && !criticalNeighbour(c.getTopLine(), i) ) {
+                    playedMove = playSpecificLine(c.getTopLine());
+                }
             
-            else if (c.getNumberOfLines() < 2 && c.getRightLine().getOwner() == null) {
-                    
-                    }
-            else if (c.getNumberOfLines() < 2 && c.getLeftLine().getOwner() == null) {
-                    
-                    }
-                       
-                Box bcheck = findNeighbourBox(t, boxIndex);  
-                Line t = c.getBottomLine();
-                
-                if (bcheck == null || bcheck.getNumberOfLines() < 2) {
-
+            else if (c.getNumberOfLines() < 2 && c.getLeftLine().getOwner() == null && !criticalNeighbour(c.getLeftLine(), i) ) {
+                    playedMove = playSpecificLine(c.getLeftLine());
                 }
+            else if (c.getNumberOfLines() < 2 && c.getRightLine().getOwner() == null && !criticalNeighbour(c.getRightLine(), i) ) {
+                    playedMove = playSpecificLine(c.getRightLine());
+                }
+            
+                }
+        return playedMove;
 
-            }
+            
         }
-    }
+    
     
     public boolean playThirdPrio() {
-        
+        return true;
     }
 
     private Box findNeighbourBox(Line t, int boxIndex) {
@@ -97,7 +102,7 @@ public class ComputerBrain {
         Box neighbourBox = null;
         
         //Boxes mit kleinerem Index durchsuchen
-        for(int i = 0; i<boxIndex; i++) {
+        for(int i = 0; i < boxIndex; i++) {
             
             Box b = board.getBoxes().get(boxIndex);
             Line m = b.getBottomLine();
@@ -122,22 +127,43 @@ public class ComputerBrain {
         
                 if(t.equals(w) || t.equals(x) || t.equals(y) || t.equals(z)) {
                     found = true;
-                    neighbourBox = board.getBoxes().get(i);
+                    neighbourBox = board.getBoxes().get(j);
 
                 }
             }
         }
         return neighbourBox;
-}       }
+    }       
 
-    private boolean neighbourNotCritical (Box b, Line l) {
-        int index = ...
-        Box c = findNeighbourBox(l, b);
+    private boolean criticalNeighbour (Line t, int boxIndex) {
+        
         boolean critical = false;
-        if (b.getNumberOfLines() > 1) {
+        Box c = findNeighbourBox(t, boxIndex);
+        if (c.getNumberOfLines() > 1) {
             critical = true;
         }
         return critical;
     }
+    
+    
+    private boolean playPossibleLine (Box b) {
+        int lineIndex;
+        if (b.getBottomLine() == null) {
+            lineIndex = board.getLines().indexOf(b.getBottomLine());
+            myExecutor.playLine(lineIndex, this);
+            return true;
+        }
+        else {
+            return false;
+
+            }
+    }
+    
+    private boolean playSpecificLine (Line t) {
+        int lineIndex = board.getLines().indexOf(t);
+            myExecutor.playLine(lineIndex, this);
+            return true;
+        }
+    
          
 }

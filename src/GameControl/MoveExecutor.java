@@ -8,22 +8,27 @@ package GameControl;
 import GameModel.Line;
 import GameModel.Player;
 import GameModel.Board;
+import Opponent.Opponent;
+import Opponent.ComputerBrain;
+import Opponent.Network;
+
 
 /**
  *
  * @author tobias
  */
-public class MoveChecker {
+public class MoveExecutor {
 
     Player activePlayer;
-    Line clickedLine;
     Board board;
     boolean validMove;
+    Opponent opponent;
 
-    public MoveChecker(Board newBoard) {
+    public MoveExecutor(Board newBoard) {
 
         this.board = newBoard;
-
+       
+        
     }
 
     public void inputLine(Line inputLine) {
@@ -38,7 +43,7 @@ public class MoveChecker {
         }
 }
 
-public boolean emptyLine(Line clickedLine) {
+    public boolean emptyLine(Line clickedLine) {
         return board.getLines().contains(clickedLine);
         
     }
@@ -46,4 +51,9 @@ public boolean emptyLine(Line clickedLine) {
     public void setActivePlayer(Player newPlayer){
         this.activePlayer = newPlayer;
     }
+    
+    public void playLine (int LineIndex, Player p) {
+        board.getLines().get(LineIndex).setOwner(p);
+    }
+    
 }

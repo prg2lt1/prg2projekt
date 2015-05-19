@@ -32,6 +32,10 @@ public class Line {
       
     }    
     
+    public void setOwner (Player p) {
+        this.owner = p;
+    }
+    
     public Dot getStartingDot() {
         return startingDot;
     }
