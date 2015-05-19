@@ -17,27 +17,17 @@ public class MainControl {
 
     private String stateStart = "prepare";
     private Player user;
-    private Opponent opponent;
+    private Opponent opponent = null;
 
     private Flow flow;
     private Board board;
     private GameView gameView;
     private MoveExecutor moveExecutor;
 
-    public MainControl(String newOpponent) {
+    public MainControl() {
         this.board = new Board(4);
         this.gameView = new GameView(this.board);
         this.moveExecutor = new MoveExecutor(board);
-        if (newOpponent.equals("Computer")) {
-            this.opponent = new ComputerBrain(board, moveExecutor);
-            }
-        else if (newOpponent.equals("Network")) {
-            this.opponent = new Network();
-        }
-        else {
-           //Cancel...
-        }
-
         gameStart();
     }
 
@@ -55,9 +45,26 @@ public class MainControl {
 
                 case "getOpponent":
                     System.out.println(stateStart);
-                    opponent = new Opponent("Yami Yugi");
-                    //Choose Opponent
-                    //or get Invited
+                    if (opponent == null) {
+                        String newOpponent = "-1";
+                        newOpponent = ChooseOpponentGUI.getOpponent();
+                        while (newOpponent.equals("-1")) {
+                            try {
+                                MainControl.class.wait();
+                            } catch (InterruptedException e) {
+                                System.out.println("waiting interrupted"
+                                        + e.getMessage());
+                            }
+                            System.out.println(newOpponent);
+                            if (newOpponent.equals("Computer")) {
+                                this.opponent = new ComputerBrain(board, moveExecutor);
+                            } else if (newOpponent.equals("Network")) {
+                                this.opponent = new Network();
+                            } else {
+                                System.out.println("unknownOpponentFound");
+                            }
+                        }
+                    }
                     stateStart = "run";
                     break;
 
@@ -84,9 +91,10 @@ public class MainControl {
     }
 
     /**
-     * Startpunkt des ganzen Programms! Eingabe Argument entweder "Computer" oder "Network", je nach gewünschtem Gegner
+     * Startpunkt des ganzen Programms! Eingabe Argument entweder "Computer"
+     * oder "Network", je nach gewünschtem Gegner
      */
     public static void main(String[] args) {
-        MainControl mainControl = new MainControl("Computer");
+        MainControl mainControl = new MainControl();
     }
 }

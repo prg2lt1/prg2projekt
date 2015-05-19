@@ -25,6 +25,10 @@ public class Flow implements Runnable {
         this.user = newUser;
         flow.start();
     }
+        public Flow() {
+        System.out.println("------------ new Flow without params");
+        flow.start();
+    }
 
     /**
      * gib true zürück, solange die Partie läuft.

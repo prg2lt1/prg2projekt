@@ -25,6 +25,8 @@ public class ChooseOpponentGUI extends JFrame{
     private DefaultComboBoxModel list = new DefaultComboBoxModel();
     private JPanel myPanel = new JPanel();
     private JButton okButton = new JButton("OK");
+    private static String choosenOpponent = null;
+    private static boolean okPressed = false;
 
     public ChooseOpponentGUI() {
 
@@ -40,7 +42,7 @@ public class ChooseOpponentGUI extends JFrame{
         adversary = new JComboBox(list);
 
         //Frame:
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
         add(adversary);
         add(okButton);
@@ -51,7 +53,8 @@ public class ChooseOpponentGUI extends JFrame{
         setSize(300, 100);
         setVisible(true);
 
-        //adversary.setSelectedIndex(0);
+        //ActionListener to ComboBox
+        //Not needed to get choosen mode!!
         adversary.addActionListener(new ActionListener() {
 
             @Override
@@ -64,6 +67,10 @@ public class ChooseOpponentGUI extends JFrame{
             }
         });    
     }
+    
+    /**
+     * ActionListerner to OK-Button
+     */
     public void okButtonAction() {
         okButton.addActionListener(new ActionListener() {
 
@@ -72,12 +79,32 @@ public class ChooseOpponentGUI extends JFrame{
 
                 if (e.getSource() == okButton) {
                     System.out.println("OK");
+                    choosenOpponent = (String) adversary.getSelectedItem();
+                    //System.out.println((String) adversary.getSelectedItem());
+                    okPressed = true;
+                    setVisible(false);
                 }
             }
         });
     }
-
-    public static void main(String[] args) {
-        JFrame test = new ChooseOpponentGUI();
+    /**
+     * static damits kompakter wird
+     * synchronized mit dem Versuch, dass auf die Eingabe gewartet wird.
+     * Bessere Ideen sind willkommen...
+     * @return String mit dem Gegnernamen ("Computer" oder "Network")
+     */
+    public static synchronized String getOpponent(){
+        ChooseOpponentGUI chooseOpponentGUI = new ChooseOpponentGUI();
+        /**
+        do{
+            System.out.println("wait'ng");
+        }while(okPressed);
+        */
+        try{
+        ChooseOpponentGUI.class.wait();
+        }
+        catch(InterruptedException e){
+        System.out.println("waiting interrupted" + e.getMessage());}
+        return choosenOpponent;
     }
 }
