@@ -26,7 +26,6 @@ public class ChooseOpponentGUI extends JFrame{
     private JPanel myPanel = new JPanel();
     private JButton okButton = new JButton("OK");
     private static String choosenOpponent = null;
-    private static boolean okPressed = false;
 
     public ChooseOpponentGUI() {
 
@@ -81,15 +80,15 @@ public class ChooseOpponentGUI extends JFrame{
                     System.out.println("OK");
                     choosenOpponent = (String) adversary.getSelectedItem();
                     //System.out.println((String) adversary.getSelectedItem());
-                    okPressed = true;
-                    setVisible(false);
+                    //notifyAll(); Sollte wohl von ausserhalb des Monitors abgerufen werden..
+                    setVisible(false);//Frame ausblenden.
                 }
             }
         });
     }
     /**
      * static damits kompakter wird
-     * synchronized mit dem Versuch, dass auf die Eingabe gewartet wird.
+     * synchronized mit dem Versuch, dass auf die Eingabe gewartet wird. (oop10)
      * Bessere Ideen sind willkommen...
      * @return String mit dem Gegnernamen ("Computer" oder "Network")
      */

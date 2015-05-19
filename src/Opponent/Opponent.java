@@ -14,18 +14,20 @@ import GameModel.Player;
 public class Opponent extends Player {
 
     private String ipNmb;
+    private int port;
 
     public Opponent() {
         super();
     }
-    
+
     public Opponent(String newName) {
         super(newName);
     }
-    
-    public Opponent(String newName, String newIp) {
+
+    public Opponent(String newName, String newIp, int newPort) {
         super(newName);
         this.ipNmb = newIp;
+        this.port = newPort;
     }
 
     public void setIp(String newIp) {
@@ -35,4 +37,18 @@ public class Opponent extends Player {
     public String getIp() {
         return this.ipNmb;
     }
+
+    public void setport(int newPort) {
+        this.port = newPort;
+    }
+
+    public int getPort() {
+        return this.port;
+    }
+
+    public boolean playTurn() {
+        //ComputerBrain.play whatever...
+        return true;
+    }
+
 }
