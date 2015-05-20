@@ -9,24 +9,31 @@ import GameModel.Board;
 import GameModel.Box;
 import GameModel.Line;
 import GameControl.MoveExecutor;
-
+import java.util.Random;
 /**
  *
  * @author tobias
  */
 public class ComputerBrain extends Opponent {
 
-    Board board;
-    MoveExecutor myExecutor;
+    private Board board;
+    private MoveExecutor myExecutor;
+    private Random randomInt;
+    private int numberOfLines;
+    
     
 
     /**
      *
-     * @param board wird von Opponent->Computer übergeben.
+     * @param
      */
     public ComputerBrain(Board board, MoveExecutor moveExecutor) {
+        super();
         this.board = board;
         myExecutor = moveExecutor;
+        randomInt = new Random();
+        numberOfLines = board.getLines().size();
+
         
     }
 
@@ -38,7 +45,11 @@ public class ComputerBrain extends Opponent {
         if (!foundMove) {
             foundMove = playSecondPrio();
         }
+        if (!foundMove) {
+            playThirdPrio();
+        }
     }
+    
 /**
  * Sucht Boxes mit drei Linien und komplettiert sie.
  * @return 
@@ -93,7 +104,27 @@ public class ComputerBrain extends Opponent {
     
     
     public boolean playThirdPrio() {
-        return true;
+        boolean foundMove = false;
+        while(!foundMove) {
+            
+            Line l = getRandomLine();
+            if (l.getOwner() == null) {
+                foundMove = playSpecificLine(l);
+            }
+        }
+        return false;
+    }
+    
+    
+    /**
+     * 
+     * @return a random Line, taken through index in ArrayList<Line>.
+     */
+    private Line getRandomLine() {
+        
+        int r = randomInt.nextInt(numberOfLines);
+        return board.getLines().get(r);
+        
     }
 
     private Box findNeighbourBox(Line t, int boxIndex) {
@@ -148,15 +179,29 @@ public class ComputerBrain extends Opponent {
     
     private boolean playPossibleLine (Box b) {
         int lineIndex;
-        if (b.getBottomLine() == null) {
+        boolean playedLine = false;
+        if (b.getBottomLine().getOwner() == null) {
             lineIndex = board.getLines().indexOf(b.getBottomLine());
             myExecutor.playLine(lineIndex, this);
-            return true;
+            playedLine = true;
         }
-        else {
-            return false;
-
-            }
+        else if (b.getTopLine().getOwner() == null) {
+            lineIndex = board.getLines().indexOf(b.getTopLine());
+            myExecutor.playLine(lineIndex, this);
+            playedLine = true;
+        }
+        else if (b.getLeftLine().getOwner() == null) {
+            lineIndex = board.getLines().indexOf(b.getLeftLine());
+            myExecutor.playLine(lineIndex, this);
+            playedLine = true;
+        }
+        else if (b.getRightLine().getOwner() == null) {
+            lineIndex = board.getLines().indexOf(b.getRightLine());
+            myExecutor.playLine(lineIndex, this);
+            playedLine = true;
+        }
+        
+        return playedLine;
     }
     
     private boolean playSpecificLine (Line t) {

@@ -5,6 +5,8 @@
  */
 package GameModel;
 
+import GameModel.Board;
+
 /**
  *
  * @author tobias
