@@ -67,7 +67,13 @@ public class Network extends Opponent {
         int len = packet.getLength();
         
         System.out.println("received data" + data);
-        return (new String(data, 0, len));
+        String strData = new String(data, 0, len);
+        String[] tmp = strData.split(" ");
+        
+        System.out.println("ip " + tmp[0]);
+        System.out.println("port " + tmp[1]);
+        
+        return (strData);
     }
 
     @Override
