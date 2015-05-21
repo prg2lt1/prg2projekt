@@ -8,9 +8,8 @@ package GameControl;
 import GameModel.Line;
 import GameModel.Player;
 import GameModel.Board;
-import Opponent.Opponent;
+import Opponent.NetworkPlayer;
 import Opponent.ComputerBrain;
-import Opponent.Network;
 
 
 /**
@@ -22,7 +21,7 @@ public class MoveExecutor {
     Player activePlayer;
     Board board;
     boolean validMove;
-    Opponent opponent;
+    NetworkPlayer opponent;
 
     public MoveExecutor(Board newBoard) {
 

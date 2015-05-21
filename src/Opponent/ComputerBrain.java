@@ -28,7 +28,7 @@ public class ComputerBrain extends Opponent {
      * @param
      */
     public ComputerBrain(Board board, MoveExecutor moveExecutor) {
-        super();
+        super("Computer");
         this.board = board;
         myExecutor = moveExecutor;
         randomInt = new Random();
@@ -112,7 +112,7 @@ public class ComputerBrain extends Opponent {
                 foundMove = playSpecificLine(l);
             }
         }
-        return false;
+        return foundMove;
     }
     
     
@@ -178,12 +178,14 @@ public class ComputerBrain extends Opponent {
     
     
     private boolean playPossibleLine (Box b) {
+        
         int lineIndex;
         boolean playedLine = false;
+        
         if (b.getBottomLine().getOwner() == null) {
             lineIndex = board.getLines().indexOf(b.getBottomLine());
             myExecutor.playLine(lineIndex, this);
-            playedLine = true;
+            playedLine = true;           
         }
         else if (b.getTopLine().getOwner() == null) {
             lineIndex = board.getLines().indexOf(b.getTopLine());

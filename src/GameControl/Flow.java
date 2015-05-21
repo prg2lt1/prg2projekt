@@ -1,7 +1,8 @@
 package GameControl;
 
-import Opponent.Opponent;
+import Opponent.NetworkPlayer;
 import GameModel.Player;
+import Opponent.Opponent;
 
 /**
  * Flow enthält die Zustandsautomaten, welche den Spielverlauf abbilden sollen.

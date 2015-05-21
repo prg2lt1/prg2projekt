@@ -4,51 +4,15 @@
  * and open the template in the editor.
  */
 package Opponent;
-
 import GameModel.Player;
-
 /**
  *
- * @author Lorenz
+ * @author tobias
  */
 public class Opponent extends Player {
-
-    private String ipNmb;
-    private int port;
-
-    public Opponent() {
-        super();
+    
+    public Opponent(String name) {
+      super(name);  
     }
-
-    public Opponent(String newName) {
-        super(newName);
-    }
-
-    public Opponent(String newName, String newIp, int newPort) {
-        super(newName);
-        this.ipNmb = newIp;
-        this.port = newPort;
-    }
-
-    public void setIp(String newIp) {
-        this.ipNmb = newIp;
-    }
-
-    public String getIp() {
-        return this.ipNmb;
-    }
-
-    public void setport(int newPort) {
-        this.port = newPort;
-    }
-
-    public int getPort() {
-        return this.port;
-    }
-
-    public boolean playTurn() {
-        //ComputerBrain.play whatever...
-        return true;
-    }
-
+    
 }

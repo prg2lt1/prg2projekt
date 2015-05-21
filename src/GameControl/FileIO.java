@@ -11,12 +11,11 @@ import java.util.List;
  *
  * @author Lorenz
  */
-public class FileIO {
+public interface FileIO {
 
     //readList(".\\src\\ch\\hslu\\prg2\\Training\\savedGame.txt");
     
-    private FileIO() {
-    }
+   
 
     /**
      * schreibt im file fileName eine Liste als Klartext (Objekt für Objekt).

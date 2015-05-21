@@ -1,12 +1,12 @@
 package GameControl;
 
 import GameModel.Board;
-import Opponent.Opponent;
+import Opponent.NetworkPlayer;
 import Opponent.ComputerBrain;
+import Opponent.Opponent;
 import GameModel.Player;
 import GameView.GameView;
 import GameControl.MoveExecutor;
-import Opponent.Network;
 
 /**
  * Hauptverwaltung. Initiiere Spielfeld, Spieler, Netzwerk etc.
@@ -59,7 +59,7 @@ public class MainControl {
                             if (newOpponent.equals("Computer")) {
                                 this.opponent = new ComputerBrain(board, moveExecutor);
                             } else if (newOpponent.equals("Network")) {
-                                this.opponent = new Network();
+                                this.opponent = new NetworkPlayer();        //Hier müsste nach Netzwerkgegner gesucht werden.
                             } else {
                                 System.out.println("unknownOpponentFound");
                             }
