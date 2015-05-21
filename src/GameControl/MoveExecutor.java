@@ -51,8 +51,17 @@ public class MoveExecutor {
         this.activePlayer = newPlayer;
     }
     
-    public void playLine (int LineIndex, Player p) {
+    public boolean playLine (int LineIndex, Player p) {
+        
+        boolean playedLine = false;
+        
+        if (board.getLines().get(LineIndex).getOwner() == null) {
         board.getLines().get(LineIndex).setOwner(p);
+        playedLine = true;
+        }
+        
+        return playedLine;
+        
     }
     
 }

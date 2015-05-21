@@ -19,8 +19,8 @@ public class MainControl {
     private Player user;
     private Opponent opponent = null;
 
-    private Flow flow;
     private Board board;
+    private Flow flow;
     private GameView gameView;
     private MoveExecutor moveExecutor;
 
