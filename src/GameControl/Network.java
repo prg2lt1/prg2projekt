@@ -17,7 +17,7 @@ import java.net.UnknownHostException;
  *
  * @author tobias
  */
-public class Network extends NetworkPlayer {
+public class Network {
 
     private byte[] data = new byte[1024];
     private DatagramSocket socket;
