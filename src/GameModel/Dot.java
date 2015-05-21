@@ -5,46 +5,38 @@
  */
 package GameModel;
 
-import java.awt.Color;
-
 /**
  *
- * @author tobias
+ * @author Tobias Heer
  *
  *
  */
 public final class Dot {
+    private final int x, y;
 
-    private int x, y, radius;
-    private Color fillColor;
-
+    /**
+     * 
+     * @param x
+     * @param y 
+     */
     public Dot(int x, int y) {
         this.x = x;
         this.y = y;
-        this.radius = 20;
-        this.fillColor = Color.GRAY;
     }
 
-    public Dot(int x, int y, int radius, Color color) {
-        this.x = x;
-        this.y = y;
-        this.radius = radius;
-        this.fillColor = color;
-    }
-
+    /**
+     * 
+     * @return x position of the dot
+     */
     public int getX() {
         return this.x;
     }
 
+    /**
+     * 
+     * @return y position of the dot
+     */
     public int getY() {
         return this.y;
-    }
-
-    public int getRadius() {
-        return this.radius;
-    }
-
-    public final Color getFillColor() {
-        return this.fillColor;
     }
 }

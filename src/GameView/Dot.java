@@ -9,7 +9,7 @@ import java.awt.Color;
 
 /**
  *
- * @author tobias
+ * @author Frowin Imholz
  *
  *
  */

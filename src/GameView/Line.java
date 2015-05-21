@@ -5,7 +5,8 @@
  */
 package GameView;
 
-import javafx.scene.paint.Color;
+import java.awt.Color;
+
 
 
 /**
