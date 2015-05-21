@@ -15,6 +15,7 @@ import GameControl.MoveExecutor;
  */
 public class MainControl {
 
+    private String newOpponent;
     private String stateStart = "prepare";
     private Player user;
     private Opponent opponent = null;
@@ -46,24 +47,25 @@ public class MainControl {
                 case "getOpponent":
                     System.out.println(stateStart);
                     if (opponent == null) {
-                        String newOpponent = "-1";
-                        newOpponent = ChooseOpponentGUI.getOpponent();
-                        while (newOpponent.equals("-1")) {
-                            try {
-                                MainControl.class.wait();
-                            } catch (InterruptedException e) {
-                                System.out.println("waiting interrupted"
-                                        + e.getMessage());
-                            }
-                            System.out.println(newOpponent);
-                            if (newOpponent.equals("Computer")) {
-                                this.opponent = new ComputerBrain(board, moveExecutor);
-                            } else if (newOpponent.equals("Network")) {
-                                this.opponent = new NetworkPlayer();        //Hier müsste nach Netzwerkgegner gesucht werden.
-                            } else {
-                                System.out.println("unknownOpponentFound");
-                            }
-                        }
+
+                        ChooseOpponentGUI chooseOpponent = new ChooseOpponentGUI();
+                        newOpponent = chooseOpponent.getOpponent();
+
+                        stateStart = "opponentSet";
+                        System.out.println(newOpponent);
+                    } else {
+                        stateStart = "run";
+                    }
+                    break;
+
+                case "opponentSet":
+                    System.out.println(stateStart);
+                    if (newOpponent.equals("Computer")) {
+                        this.opponent = new ComputerBrain(board, moveExecutor);
+                    } else if (newOpponent.equals("Network")) {
+                        this.opponent = new NetworkPlayer();        //Hier müsste nach Netzwerkgegner gesucht werden.
+                    } else {
+                        System.out.println("unknownOpponentFound");
                     }
                     stateStart = "run";
                     break;
