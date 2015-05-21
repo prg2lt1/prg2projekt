@@ -217,12 +217,12 @@ public final class GameView extends JFrame implements ActionListener {
         Iterator<Line> itrLines = board.getLines().iterator();
         while (itrLines.hasNext()) {
             Line line = (Line) itrLines.next();
-            int startX = originX + dotSpace * line.getStartingDotX();
-            int startY = originY + dotSpace * line.getStartingDotY();
-            int endX = originX + dotSpace * line.getEndingDotX();
-            int endY = originY + dotSpace * line.getEndingDotY();
+            int startX = originX + dotSpace * line.getStartingDotX() + line.getStartingDot().getRadius()/2;
+            int startY = originY + dotSpace * line.getStartingDotY() + line.getStartingDot().getRadius()/2;
+            int endX = originX + dotSpace * line.getEndingDotX() + line.getStartingDot().getRadius()/2;
+            int endY = originY + dotSpace * line.getEndingDotY() + line.getStartingDot().getRadius()/2;
             //System.out.println("[info] Line from [" + line.getStartingDotX() + "][" + line.getStartingDotY() + "] to [" + line.getEndingDotX() + "][" + line.getEndingDotY() + "]");
-            g.setColor(Color.GREEN);
+            g.setColor(Color.GRAY);
             g.fillRect(startX, startY, (endX - startX) + 5, (endY - startY) + 5);
         }
     }
