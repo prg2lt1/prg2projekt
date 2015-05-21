@@ -6,6 +6,7 @@
 package GameModel;
 
 import java.util.ArrayList;
+import GameControl.Flow;
 
 /**
  *
@@ -29,6 +30,7 @@ public class Board {
         dotList = createDots();
         lineList = createLines();
         boxList = createBoxes();
+        
 
     }
 
