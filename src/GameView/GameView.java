@@ -1,8 +1,6 @@
 package GameView;
 
 import GameModel.Board;
-import GameModel.Dot;
-import GameModel.Line;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -27,10 +25,13 @@ public final class GameView extends JFrame implements ActionListener {
 
     private final int width;
     private final int height;
-    Board board;
+    private final Board board;
     private final int dotSpace;
     private final int originX;
     private final int originY;
+    
+    private ArrayList<Dot> dotList;
+    private ArrayList<Line> lineList;
 
     private final JMenuBar menuBar;
     private final JMenu menuGame;
@@ -43,11 +44,10 @@ public final class GameView extends JFrame implements ActionListener {
     private final JButton saveGame;
     private final JButton loadGame;
 
-    private final ArrayList<Dot> dotMatrix;
-
     /**
      * Der Konstruktor zeichnet das Fenster mit dem Menu, den Buttons und der
      * Spielflaeche.
+     * @param board
      */
     public GameView(Board board) {
         super("Dots & Boxes");
@@ -59,6 +59,9 @@ public final class GameView extends JFrame implements ActionListener {
         dotSpace = 150;
         originX = (width - (board.getSize() - 1) * dotSpace) / 2;
         originY = (height - (board.getSize() - 1) * dotSpace) / 2;
+        
+        dotList = new ArrayList<>();
+        lineList = new ArrayList<>();
 
         menuBar = new JMenuBar();
         menuGame = new JMenu("Game");
@@ -69,8 +72,6 @@ public final class GameView extends JFrame implements ActionListener {
         miHelpAbout = new JMenuItem("About");
         saveGame = new JButton("saveGame");
         loadGame = new JButton("loadGame");
-
-        dotMatrix = new ArrayList<>();
 
         drawMenu();
         drawGamePanel();
@@ -113,11 +114,7 @@ public final class GameView extends JFrame implements ActionListener {
         gamePanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                //Line line = coordinateToLine(e.getX(), e.getY());
-                //moveChecker.inputLine(line);
-                coordinateToLine(e.getX(), e.getY());
-                //System.out.print("\n[info] Line from [" + line.getStartingDot().getX() + "][" + line.getStartingDot().getY() + "]");
-                //System.out.print("                to [" + line.getEndingDot().getX() + "][" + line.getEndingDot().getY() + "]");
+                System.out.println("[info] mouse pressed...");
             }
         });
     }
@@ -153,11 +150,11 @@ public final class GameView extends JFrame implements ActionListener {
         }
     }
 
+    /*
     // konvertiert X-&Y-Koordinaten zu Linie
     private void coordinateToLine(int x, int y) {
         int pointX = coordinateToXPoint(x);
         int pointY = coordinateToYPoint(y);
-        boolean isHorizontal = coordinatesToLevel(x, y); //horizontal = true, vertical = false
         System.out.println("[info] point [" + pointX + "][" + pointY + "]");
         //System.out.println("[info] isHorizontal: " + isHorizontal);
 
@@ -173,25 +170,7 @@ public final class GameView extends JFrame implements ActionListener {
             }
         }
         //return null;
-    }
-
-    /*
-     * returns the level of the click.
-     * horizontal = true, vertical = false
-     */
-    private boolean coordinatesToLevel(int x, int y) {
-        int tolerance = 10;
-        int xnom = coordinateToXPoint(x) * dotSpace + originX;
-        int ynom = coordinateToYPoint(y) * dotSpace + originY;
-        int xmin = xnom - tolerance;
-        int ymin = ynom - tolerance;
-        int xmax = xnom + tolerance;
-        int ymax = ynom + tolerance;
-        if (ymin <= y && y <= ymax) {
-            System.out.println("[info] y ok.");
-        }
-        return false;
-    }
+    }*/
     
     private int coordinateToXPoint(int x) {
         return (x - originX) / dotSpace;
@@ -203,28 +182,32 @@ public final class GameView extends JFrame implements ActionListener {
 
     // zeichnet die Punkte
     private void drawDots(Graphics g) {
-        Iterator<Dot> itr = board.getDots().iterator();
+        Iterator<GameModel.Dot> itr = board.getDots().iterator();
         while (itr.hasNext()) {
-            Dot dot = (Dot) itr.next();
+            GameModel.Dot gameModelDot = (GameModel.Dot) itr.next();
+            Dot dot = new Dot(gameModelDot.getX()*dotSpace+originX, gameModelDot.getY()*dotSpace+originY);
+            dotList.add(dot);
             //System.out.println("[info] dot position: [" + dot.getX() + "],[" + dot.getY() + "]");
-            g.setColor(dot.getFillColor());
-            g.fillOval(dotSpace * dot.getX() + originX, dotSpace * dot.getY() + originY, dot.getRadius(), dot.getRadius());
+            g.setColor(dot.getColor());
+            g.fillOval(dot.getX(), dot.getY(), dot.getRadius(), dot.getRadius());
         }
     }
 
     // zeichnet die Linien
     private void drawLines(Graphics g) {
-        Iterator<Line> itrLines = board.getLines().iterator();
-        while (itrLines.hasNext()) {
-            Line line = (Line) itrLines.next();
-            int startX = originX + dotSpace * line.getStartingDotX() + line.getStartingDot().getRadius()/2;
-            int startY = originY + dotSpace * line.getStartingDotY() + line.getStartingDot().getRadius()/2;
-            int endX = originX + dotSpace * line.getEndingDotX() + line.getStartingDot().getRadius()/2;
-            int endY = originY + dotSpace * line.getEndingDotY() + line.getStartingDot().getRadius()/2;
+        /*Iterator<GameModel.Line> itr = board.getLines().iterator();
+        while (itr.hasNext()) {
+            GameModel.Line gameModelLine = (GameModel.Line) itr.next();
+            Line line = new Line(gameModelLine.getStartingDot(), gameModelLine.getEndingDot());
+            lineList.add(line);
+            int startX = line.getStartingDotX();
+            int startY = line.getStartingDotY();
+            int endX = line.getEndingDotX();
+            int endY = line.getEndingDotY();
             //System.out.println("[info] Line from [" + line.getStartingDotX() + "][" + line.getStartingDotY() + "] to [" + line.getEndingDotX() + "][" + line.getEndingDotY() + "]");
-            g.setColor(Color.GRAY);
+            g.setColor(line.getColor());
             g.fillRect(startX, startY, (endX - startX) + 5, (endY - startY) + 5);
-        }
+        }*/
     }
 
     @Override
