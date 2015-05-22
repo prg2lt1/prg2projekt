@@ -12,11 +12,12 @@ import Opponent.Opponent;
  */
 public class Flow {
 
-    private enum FlowStates {
+    public enum FlowStates {
 
         userTurn,
         opponentTurn,
         gameOver,
+        error
     }
 
     public MoveExecutor moveExecuter;
@@ -63,22 +64,14 @@ public class Flow {
      *
      * @param newState
      */
-    public void setState(String newState) {
-        if (newState.equals("userTurn")) {
-            stateRun = FlowStates.userTurn;
-        } else if (newState.equals("opponentTurn")) {
-            stateRun = FlowStates.opponentTurn;
-        } else if (newState.equals("gameOver")) {
-            stateRun = FlowStates.gameOver;
-        } else {
-            System.out.println("Unknown command in setState");
-        }
+    public void setState(FlowStates newState) {
+        stateRun = newState;
     }
 
     /**
      * gibt den Zustand zurück.
      */
-    public String getStateRun() {
+    public String getState() {
         return stateRun.toString();
     }
 

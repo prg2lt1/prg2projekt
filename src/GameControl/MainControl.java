@@ -92,7 +92,7 @@ public class MainControl {
             switch (stateStart) {
                 case prepare:
                     System.out.println(stateStart);
-                    user = new Player("lokal Player");
+                    user = new Player("user");
 
                     stateStart = ControlStates.getOpponent;
                     break;

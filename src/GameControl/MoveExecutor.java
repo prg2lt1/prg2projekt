@@ -48,39 +48,35 @@ public class MoveExecutor {
         
     }
     
-    public String playLine (int lineIndex, Player p) {
+    public Flow.FlowStates playLine (int lineIndex, Player p) {
         
-        String answer = "Played move resulted in Error"; 
+        Flow.FlowStates answer = Flow.FlowStates.error; 
         Line l = board.getLines().get(lineIndex);
         
         if (l.getOwner() == null) {
         l.setOwner(p);
-            if(board.allBoxesComplete()) {
-                answer = "gameOver";
+           // if(board.allBoxesComplete()) {
+             //   answer = Flow.FlowStates.gameOver;
             }
             else if(l.getFirstTouchingBox().isBoxComplete() || l.getSecondTouchingBox().isBoxComplete()) {
                 if (p instanceof Opponent) {
-                    answer = "opponentTurn";
+                    answer = Flow.FlowStates.opponentTurn;
                 }
                 else {
-                    answer = "userTurn";
+                    answer = Flow.FlowStates.userTurn;
                 }
             }
             
             else {
                 if (p instanceof Opponent) {
-                    answer = "userTurn";
+                    answer = Flow.FlowStates.userTurn;
                     
                 }
                 else {
-                    answer = "opponentTurn";
+                    answer = Flow.FlowStates.opponentTurn;
                 }
             }
-            
-            
-        
-               
-            }
+         
             return answer;
         }
         
