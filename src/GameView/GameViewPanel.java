@@ -32,13 +32,11 @@ public final class GameViewPanel extends JPanel {
      * @param board
      * @param flow
      */
-    public GameViewPanel(Board board, Flow flow) {
+    public GameViewPanel(Board board) {
         this.board = board;
         this.dotSpace = 150;
         this.xSpace = 150;
         this.ySpace = 35;
-
-        this.flow = flow;
 
         dotList = new ArrayList<>();
         lineList = new ArrayList<>();

@@ -32,14 +32,14 @@ public class MainControl {
 
     private Board board;
     private Flow flow;
-    private GameViewFrame gameView;
+    private GameViewFrame gameViewFrame;
     private MoveExecutor moveExecutor;
     private UserInput userInput;
 
     public MainControl() {
         this.userInput = new UserInput(this);
         this.board = new Board(4);
-        this.gameView = new GameViewFrame(this.board, this.flow);
+        this.gameViewFrame = new GameViewFrame(this.board);
         this.moveExecutor = new MoveExecutor(board);
         
         gameStart();
@@ -110,7 +110,7 @@ public class MainControl {
                 case run:
                     System.out.println(stateStart);
                     this.flow = new Flow(moveExecutor, opponent, user);
-                    
+                    gameViewFrame.setFlow(this.flow);
                     stateStart = ControlStates.wait;
                     break;
 
