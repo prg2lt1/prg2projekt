@@ -29,7 +29,7 @@ public class MainControl {
 
     public MainControl() {
         this.board = new Board(4);
-       // this.gameView = new GameViewFrame(this.board, this.flow);
+        this.gameView = new GameViewFrame(this.board, this.flow);
         this.moveExecutor = new MoveExecutor(board);
         this.chooseOpponent = new ChooseOpponentGUI(this);
         gameStart();
@@ -87,16 +87,15 @@ public class MainControl {
                     break;
 
                 case "wait":
-                    System.out.println(stateStart);
+                    //System.out.println(stateStart);
                     break;
 
                 case "run":
                     System.out.println(stateStart);
                     this.flow = new Flow(moveExecutor, opponent, user);
                     while (flow.gameIsRunning()) {
-                        //wait
                     }
-                    stateStart = "endGame";
+                    
                     break;
 
                 case "endGame":
