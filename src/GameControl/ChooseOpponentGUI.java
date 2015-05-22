@@ -18,7 +18,7 @@ import java.awt.event.ActionListener;
  *
  * @author tobias
  */
-public class ChooseOpponentGUI extends JFrame{
+public class ChooseOpponentGUI extends JFrame {
 
     private String[] choose = new String[2];
     private JComboBox adversary;
@@ -49,11 +49,12 @@ public class ChooseOpponentGUI extends JFrame{
 
         this.setResizable(false);
         this.setLocation(600, 300);
-        setSize(300, 100);
-        setVisible(true);
+        this.setSize(300, 100);
 
-        //ActionListener to ComboBox
-        //Not needed to get choosen mode!!
+        /**
+         * ActionListener to ComboBox.
+         * Not needed to get choosen mode!!
+         */
         adversary.addActionListener(new ActionListener() {
 
             @Override
@@ -61,12 +62,12 @@ public class ChooseOpponentGUI extends JFrame{
 
                 JComboBox cb = (JComboBox) e.getSource();
                 String input = (String) cb.getSelectedItem();
-                System.out.println(input);
+                //System.out.println(input);
                 //updateLabel(input);
             }
-        });    
+        });
     }
-    
+
     /**
      * ActionListerner to OK-Button
      */
@@ -80,30 +81,23 @@ public class ChooseOpponentGUI extends JFrame{
                     System.out.println("OK");
                     choosenOpponent = (String) adversary.getSelectedItem();
                     //System.out.println((String) adversary.getSelectedItem());
-                    //notifyAll(); Sollte wohl von ausserhalb des Monitors abgerufen werden..
+
                     setVisible(false);//Frame ausblenden.
                 }
             }
         });
     }
+
     /**
-     * static damits kompakter wird
-     * synchronized mit dem Versuch, dass auf die Eingabe gewartet wird. (oop10)
-     * Bessere Ideen sind willkommen...
+     * static damits kompakter wird synchronized mit dem Versuch, dass auf die
+     * Eingabe gewartet wird. (oop10) Bessere Ideen sind willkommen...
+     *
      * @return String mit dem Gegnernamen ("Computer" oder "Network")
      */
-    public static synchronized String getOpponent(){
-        ChooseOpponentGUI chooseOpponentGUI = new ChooseOpponentGUI();
-        /**
-        do{
-            System.out.println("wait'ng");
-        }while(okPressed);
-        */
-        try{
-        ChooseOpponentGUI.class.wait();
-        }
-        catch(InterruptedException e){
-        System.out.println("waiting interrupted" + e.getMessage());}
+    public String getOpponent() {
+         this.setVisible(true);
+        System.out.println("wait'ng");
+        while(choosenOpponent == null){}
         return choosenOpponent;
     }
 }

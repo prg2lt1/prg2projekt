@@ -100,14 +100,4 @@ public class FlowTest {
         assertEquals(true, instance.isUserTurn());
     }
 
-    /**
-     * Test of setOpponentTurn method, of class Flow.
-     */
-    @Test
-    public void testGameOver() {
-        Flow instance = new Flow();
-        instance.setGameOver();
-        assertEquals(false, instance.flow.isAlive());
-    }
-
 }
