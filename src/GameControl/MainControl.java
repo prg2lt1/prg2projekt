@@ -36,11 +36,16 @@ public class MainControl {
     }
 
     public void setState(String newState) {
-        this.stateStart = "OpponetSet";
+        if (newState.equals("OpponentSet")) {
+            this.stateStart = "OpponetSet";
+        }
+        else{
+            System.out.println("unknown command in setState MainControl");
+        }
     }
 
     public void setOpponent(String newOpponent) {
-        newOpponent = chooseOpponent.getOpponent();
+
         System.out.println("getOpponent got" + newOpponent);
         if (newOpponent.equals("Computer")) {
             this.opponent = new ComputerBrain(board, moveExecutor);
@@ -66,7 +71,7 @@ public class MainControl {
 
                 case "getOpponent":
                     System.out.println(stateStart);
-                    chooseOpponent.askForOpponent();
+                    chooseOpponent.getOpponent();
 
                     stateStart = "wait";
                     break;
