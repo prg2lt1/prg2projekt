@@ -1,5 +1,6 @@
 package GameView;
 
+import GameControl.Flow;
 import GameModel.Board;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -30,8 +31,10 @@ public final class GameView extends JFrame implements ActionListener {
     private final int originX;
     private final int originY;
     
-    private ArrayList<Dot> dotList;
-    private ArrayList<Line> lineList;
+    private final Flow flow;
+
+    private final ArrayList<Dot> dotList;
+    private final ArrayList<Line> lineList;
 
     private final JMenuBar menuBar;
     private final JMenu menuGame;
@@ -47,9 +50,11 @@ public final class GameView extends JFrame implements ActionListener {
     /**
      * Der Konstruktor zeichnet das Fenster mit dem Menu, den Buttons und der
      * Spielflaeche.
+     *
      * @param board
+     * @param flow
      */
-    public GameView(Board board) {
+    public GameView(Board board, Flow flow) {
         super("Dots & Boxes");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -60,6 +65,8 @@ public final class GameView extends JFrame implements ActionListener {
         originX = (width - (board.getSize() - 1) * dotSpace) / 2;
         originY = (height - (board.getSize() - 1) * dotSpace) / 2;
         
+        this.flow = flow;
+
         dotList = new ArrayList<>();
         lineList = new ArrayList<>();
 
@@ -151,27 +158,26 @@ public final class GameView extends JFrame implements ActionListener {
     }
 
     /*
-    // konvertiert X-&Y-Koordinaten zu Linie
-    private void coordinateToLine(int x, int y) {
-        int pointX = coordinateToXPoint(x);
-        int pointY = coordinateToYPoint(y);
-        System.out.println("[info] point [" + pointX + "][" + pointY + "]");
-        //System.out.println("[info] isHorizontal: " + isHorizontal);
+     // konvertiert X-&Y-Koordinaten zu Linie
+     private void coordinateToLine(int x, int y) {
+     int pointX = coordinateToXPoint(x);
+     int pointY = coordinateToYPoint(y);
+     System.out.println("[info] point [" + pointX + "][" + pointY + "]");
+     //System.out.println("[info] isHorizontal: " + isHorizontal);
 
-        Iterator<Line> itrLines = board.getLines().iterator();
-        while (itrLines.hasNext()) {
-            Line line = (Line) itrLines.next();
-            if (line.getStartingDot().getX() == pointX) {
-                //if (line.getStartingDot().getY() == pointY ) {
-                    //System.out.print("\n[info] line from point [" + line.getStartingDot().getX() + "][" + line.getStartingDot().getY() + "]");
-                    //System.out.print(" to [" + line.getEndingDot().getX() + "][" + line.getEndingDot().getY() + "]");
+     Iterator<Line> itrLines = board.getLines().iterator();
+     while (itrLines.hasNext()) {
+     Line line = (Line) itrLines.next();
+     if (line.getStartingDot().getX() == pointX) {
+     //if (line.getStartingDot().getY() == pointY ) {
+     //System.out.print("\n[info] line from point [" + line.getStartingDot().getX() + "][" + line.getStartingDot().getY() + "]");
+     //System.out.print(" to [" + line.getEndingDot().getX() + "][" + line.getEndingDot().getY() + "]");
 
-                //}
-            }
-        }
-        //return null;
-    }*/
-    
+     //}
+     }
+     }
+     //return null;
+     }*/
     private int coordinateToXPoint(int x) {
         return (x - originX) / dotSpace;
     }
@@ -185,9 +191,11 @@ public final class GameView extends JFrame implements ActionListener {
         Iterator<GameModel.Dot> itr = board.getDots().iterator();
         while (itr.hasNext()) {
             GameModel.Dot gameModelDot = (GameModel.Dot) itr.next();
-            Dot dot = new Dot(gameModelDot.getX()*dotSpace+originX, gameModelDot.getY()*dotSpace+originY);
-            dotList.add(dot);
-            //System.out.println("[info] dot position: [" + dot.getX() + "],[" + dot.getY() + "]");
+            if (dotList.size() < board.getDots().size()) {
+                Dot dot = new Dot(gameModelDot.getX() * dotSpace + originX, gameModelDot.getY() * dotSpace + originY);
+                dotList.add(dot);
+            }
+            Dot dot = dotList.get(board.getDots().indexOf(gameModelDot));
             g.setColor(dot.getColor());
             g.fillOval(dot.getX(), dot.getY(), dot.getRadius(), dot.getRadius());
         }
@@ -195,19 +203,23 @@ public final class GameView extends JFrame implements ActionListener {
 
     // zeichnet die Linien
     private void drawLines(Graphics g) {
-        /*Iterator<GameModel.Line> itr = board.getLines().iterator();
+        Iterator<GameModel.Line> itr = board.getLines().iterator();
         while (itr.hasNext()) {
             GameModel.Line gameModelLine = (GameModel.Line) itr.next();
-            Line line = new Line(gameModelLine.getStartingDot(), gameModelLine.getEndingDot());
+            int startingDotX = gameModelLine.getStartingDot().getX();
+            int startingDotY = gameModelLine.getStartingDot().getY();
+            int endingDotX = gameModelLine.getEndingDot().getX();
+            int endingDotY = gameModelLine.getEndingDot().getY();
+            /*Line line = new Line(gameModelLine.getStartingDot().getX(), gameModelLine.getEndingDot());
             lineList.add(line);
             int startX = line.getStartingDotX();
             int startY = line.getStartingDotY();
             int endX = line.getEndingDotX();
-            int endY = line.getEndingDotY();
+            int endY = line.getEndingDotY();*/
             //System.out.println("[info] Line from [" + line.getStartingDotX() + "][" + line.getStartingDotY() + "] to [" + line.getEndingDotX() + "][" + line.getEndingDotY() + "]");
-            g.setColor(line.getColor());
-            g.fillRect(startX, startY, (endX - startX) + 5, (endY - startY) + 5);
-        }*/
+            g.setColor(Color.GRAY);
+            g.fillRect(startingDotX, startingDotY, (endingDotX - startingDotX) + 5, (endingDotY - startingDotY) + 5);
+        }
     }
 
     @Override
