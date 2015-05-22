@@ -26,7 +26,7 @@ public final class Dot {
     public Dot(int x, int y) {
         this.x = x;
         this.y = y;
-        this.radius = 20;
+        this.radius = 25;
         this.color = Color.GRAY;
     }
     

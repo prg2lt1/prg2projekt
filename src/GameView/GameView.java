@@ -30,7 +30,7 @@ public final class GameView extends JFrame implements ActionListener {
     private final int dotSpace;
     private final int originX;
     private final int originY;
-    
+
     private final Flow flow;
 
     private final ArrayList<Dot> dotList;
@@ -64,7 +64,7 @@ public final class GameView extends JFrame implements ActionListener {
         dotSpace = 150;
         originX = (width - (board.getSize() - 1) * dotSpace) / 2;
         originY = (height - (board.getSize() - 1) * dotSpace) / 2;
-        
+
         this.flow = flow;
 
         dotList = new ArrayList<>();
@@ -121,7 +121,15 @@ public final class GameView extends JFrame implements ActionListener {
         gamePanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                System.out.println("[info] mouse pressed...");
+                System.out.println("[info] click at: " + e.getX() + "/" + e.getY());
+                Iterator<Line> itr = lineList.iterator();
+                while (itr.hasNext()) {
+                    Line line = (Line) itr.next();
+                    if (line.lineMatch(e.getX(), e.getY())) {
+                        System.out.println("[info] line at: " + line.getStartX() + " to " + line.getEndX() + " and " + line.getStartY() + " to " + line.getEndY());
+                        //System.out.println("[info] lineID: "+lineList.indexOf(line));
+                    }
+                }
             }
         });
     }
@@ -157,35 +165,6 @@ public final class GameView extends JFrame implements ActionListener {
         }
     }
 
-    /*
-     // konvertiert X-&Y-Koordinaten zu Linie
-     private void coordinateToLine(int x, int y) {
-     int pointX = coordinateToXPoint(x);
-     int pointY = coordinateToYPoint(y);
-     System.out.println("[info] point [" + pointX + "][" + pointY + "]");
-     //System.out.println("[info] isHorizontal: " + isHorizontal);
-
-     Iterator<Line> itrLines = board.getLines().iterator();
-     while (itrLines.hasNext()) {
-     Line line = (Line) itrLines.next();
-     if (line.getStartingDot().getX() == pointX) {
-     //if (line.getStartingDot().getY() == pointY ) {
-     //System.out.print("\n[info] line from point [" + line.getStartingDot().getX() + "][" + line.getStartingDot().getY() + "]");
-     //System.out.print(" to [" + line.getEndingDot().getX() + "][" + line.getEndingDot().getY() + "]");
-
-     //}
-     }
-     }
-     //return null;
-     }*/
-    private int coordinateToXPoint(int x) {
-        return (x - originX) / dotSpace;
-    }
-
-    private int coordinateToYPoint(int y) {
-        return (y - originY + dotSpace) / dotSpace;
-    }
-
     // zeichnet die Punkte
     private void drawDots(Graphics g) {
         Iterator<GameModel.Dot> itr = board.getDots().iterator();
@@ -197,7 +176,7 @@ public final class GameView extends JFrame implements ActionListener {
             }
             Dot dot = dotList.get(board.getDots().indexOf(gameModelDot));
             g.setColor(dot.getColor());
-            g.fillOval(dot.getX(), dot.getY(), dot.getRadius(), dot.getRadius());
+            g.fillOval(dot.getX() - dot.getRadius() / 2, dot.getY() - dot.getRadius() / 2, dot.getRadius(), dot.getRadius());
         }
     }
 
@@ -206,19 +185,24 @@ public final class GameView extends JFrame implements ActionListener {
         Iterator<GameModel.Line> itr = board.getLines().iterator();
         while (itr.hasNext()) {
             GameModel.Line gameModelLine = (GameModel.Line) itr.next();
-            int startingDotX = gameModelLine.getStartingDot().getX();
-            int startingDotY = gameModelLine.getStartingDot().getY();
-            int endingDotX = gameModelLine.getEndingDot().getX();
-            int endingDotY = gameModelLine.getEndingDot().getY();
-            /*Line line = new Line(gameModelLine.getStartingDot().getX(), gameModelLine.getEndingDot());
-            lineList.add(line);
-            int startX = line.getStartingDotX();
-            int startY = line.getStartingDotY();
-            int endX = line.getEndingDotX();
-            int endY = line.getEndingDotY();*/
-            //System.out.println("[info] Line from [" + line.getStartingDotX() + "][" + line.getStartingDotY() + "] to [" + line.getEndingDotX() + "][" + line.getEndingDotY() + "]");
-            g.setColor(Color.GRAY);
-            g.fillRect(startingDotX, startingDotY, (endingDotX - startingDotX) + 5, (endingDotY - startingDotY) + 5);
+            if (lineList.size() < board.getLines().size()) {
+                int startX = gameModelLine.getStartingDot().getX() * dotSpace + originX;
+                int startY = gameModelLine.getStartingDot().getY() * dotSpace + originY;
+                int endX = gameModelLine.getEndingDot().getX() * dotSpace + originX;
+                int endY = gameModelLine.getEndingDot().getY() * dotSpace + originY;
+                lineList.add(new Line(startX, startY, endX, endY));
+            }
+            Line line = lineList.get(board.getLines().indexOf(gameModelLine));
+
+            if (gameModelLine.getOwner() instanceof Opponent.Opponent) {
+                Color colorByPlayer = Color.RED;
+            } else if (gameModelLine.getOwner() instanceof GameModel.Player) {
+                Color colorByPlayer = Color.BLUE;
+            } else {
+                Color colorByPlayer = Color.GRAY;
+            }
+            g.setColor(line.getColor());
+            g.fillRect(line.getStartX(), line.getStartY(), (line.getEndX() - line.getStartX()) + 5, (line.getEndY() - (line.getStartY()) + 5));
         }
     }
 

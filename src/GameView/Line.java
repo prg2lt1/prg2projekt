@@ -15,35 +15,68 @@ import java.awt.Color;
  * 
  */
 public class Line {
-    private final Dot startingDot;
-    private final Dot endingDot;
-    private final Color color;
+    private final int startX;
+    private final int startY;
+    private final int endX;
+    private final int endY;
+    private final int tolerance;
+    private Color color;
     
     /**
      * 
-     * @param startingDot
-     * @param endingDot
+     * @param startX
+     * @param startY
+     * @param endX
+     * @param endY
      */
-    public Line(Dot startingDot, Dot endingDot) {
-        this.startingDot = startingDot;
-        this.endingDot = endingDot;
+    public Line(int startX, int startY, int endX, int endY) {
+        this.startX = startX;
+        this.startY = startY;
+        this.endX = endX;
+        this.endY = endY;
+        this.tolerance = 10;
         this.color = Color.GRAY;
     }
     
     /**
      * 
-     * @return starting dot of the line
+     * @return starting x position of the line
      */
-    public Dot getStartingDot() {
-        return this.startingDot;
+    public int getStartX() {
+        return this.startX;
     }
     
     /**
      * 
-     * @return ending dot of the line
+     * @return starting y position of the line
      */
-    public Dot getEndingDot() {
-        return this.endingDot;
+    public int getStartY() {
+        return this.startY;
+    }
+    
+    /**
+     * 
+     * @return ending x position of the line
+     */
+    public int getEndX() {
+        return this.endX;
+    }
+    
+    /**
+     * 
+     * @return ending y position of the line
+     */
+    public int getEndY() {
+        return this.endY;
+    }
+    
+    /**
+     * 
+     * @param newColor
+     * @return new color of the line
+     */
+    public void setColor(Color newColor) {
+        this.color = newColor;
     }
     
     /**
@@ -52,5 +85,24 @@ public class Line {
      */
     public Color getColor() {
         return this.color;
+    }
+    
+    /**
+     * 
+     * @param x position
+     * @param y position
+     * @return true, if line matched
+     */
+    public boolean lineMatch(int x, int y) {
+        System.out.print("\nx from "+this.startX);
+        System.out.print(" to "+this.endX);
+        System.out.print(" and y from "+this.startY);
+        System.out.print(" to "+this.endY);
+        if (this.startX <= x && x <= this.endX) {
+            if (this.startY <= y && y <= this.endY+tolerance) {
+                return true;
+            }
+        }
+        return false;
     }
 }
