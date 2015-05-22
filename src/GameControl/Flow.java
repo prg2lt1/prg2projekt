@@ -13,6 +13,7 @@ import Opponent.Opponent;
 public class Flow {
 
     private enum stateRunn {
+
         userTurn,
         opponentTurn,
         gameOver,
@@ -22,11 +23,11 @@ public class Flow {
     private boolean runGame = true;
     private Opponent opponent;
     private Player user;
-    public MoveExecutor moveChecker;
+    public MoveExecutor moveExecuter;
 
-    public Flow(MoveExecutor newMoveChecker, Opponent newOpponent, Player newUser) {
+    public Flow(MoveExecutor newMoveExecuter, Opponent newOpponent, Player newUser) {
         System.out.println("------------ new Flow");
-        this.moveChecker = newMoveChecker;
+        this.moveExecuter = newMoveExecuter;
         this.opponent = newOpponent;
         this.user = newUser;
 
@@ -80,12 +81,34 @@ public class Flow {
             return false;
         }
     }
-    
-        public Player getCurrentPlayer() {
+
+    /**
+     * Gibt den Player am Zug zurück
+     *
+     * @return Player
+     */
+    public Player getCurrentPlayer() {
         if (stateRun == "opponentTurn") {
-            return true;
+            return opponent;
         } else {
-            return false;
+            return user;
+        }
+    }
+
+    /**
+     * Setzt den neuen SpielStatus.
+     *
+     * @param newState
+     */
+    public void setState(String newState) {
+        if (newState.equals("userTurn")) {
+            stateRun = "userTurn";
+        } else if (newState.equals("opponentTurn")) {
+            stateRun = "opponentTurn";
+        } else if (newState.equals("gameOver")) {
+            stateRun = "gameOver";
+        } else {
+            System.out.println("Unknown command in setState");
         }
     }
 
@@ -103,13 +126,14 @@ public class Flow {
         stateRun = "gameOver";
         runGame = false;
     }
-    
+
     /**
      * lokaler Spieler übergibt Linienindex für an MoveExecuter
-     * @param index 
+     *
+     * @param index
      */
-    public void playLine(int index){
-        moveExecuter.playLine(int index, Player )
+    public void playLine(int index) {
+        this.setState(this.moveExecuter.playLine(index, this.getCurrentPlayer()));
     }
 
     /**
@@ -117,36 +141,27 @@ public class Flow {
      * sobald das Spiel aufgebaut ist, wird er aufgerufen
      */
     public void run() {
-        System.out.println("new Thread! Flow");
+        System.out.println("Flow");
         do {
             switch (stateRun) {
                 case "userTurn":
                     System.out.println(stateRun);
-                    //moveChecker.setActivePlayer(user);
-                    //wait for Input
-                    //validate Turn
-                    //execute Turn
-                    //repaint Field
-
                     break;
 
                 case "opponentTurn":
                     System.out.println(stateRun);
-                    //moveChecker.setActivePlayer(opponent);
-                    //validate Turn
-                    //execute Turn
-                    //repaint Field
                     break;
 
                 case "gameOver": //nur break;
                     System.out.println(stateRun);
+                    this.runGame = false;
                     break;
 
                 default:
                     System.out.println("unknown Command in Flow");
                     break;
             }
-        } while (stateRun != "gameOver");
-        System.out.println("Thread's dying now. Flow");
+        } while (!runGame);
+        System.out.println("end of Flow");
     }
 }

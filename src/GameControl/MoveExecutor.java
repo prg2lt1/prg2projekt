@@ -10,6 +10,7 @@ import GameModel.Player;
 import GameModel.Board;
 import Opponent.NetworkPlayer;
 import Opponent.ComputerBrain;
+import Opponent.Opponent;
 
 
 /**
@@ -30,38 +31,59 @@ public class MoveExecutor {
         
     }
 
-    public void inputLine(Line inputLine) {
+   // public void inputLine(Line inputLine) {
 
         //Linie kontrollieren:
-        if (emptyLine(inputLine)) {
+       // if (emptyLine(inputLine)) {
             //inputLine.setOwner(activePlayer);
             //Linie sichtbar machen
             
             //Boxen kontrollieren (eine vollständig geworden?)
             //Problem: wie kann man Zug umschalten.. keinen Zugriff auf Flow...
-        }
-}
+        //}
+
 
     public boolean emptyLine(Line clickedLine) {
         return board.getLines().contains(clickedLine);
         
     }
     
-    public void setActivePlayer(Player newPlayer){
-        this.activePlayer = newPlayer;
-    }
-    
-    public boolean playLine (int LineIndex, Player p) {
+    public String playLine (int lineIndex, Player p) {
         
-        boolean playedLine = false;
+        String answer = "Played move resulted in Error"; 
+        Line l = board.getLines().get(lineIndex);
         
-        if (board.getLines().get(LineIndex).getOwner() == null) {
-        board.getLines().get(LineIndex).setOwner(p);
-        playedLine = true;
+        if (l.getOwner() == null) {
+        l.setOwner(p);
+            if(board.allBoxesComplete()) {
+                answer = "gameOver";
+            }
+            else if(l.getFirstTouchingBox().isBoxComplete() || l.getSecondTouchingBox().isBoxComplete()) {
+                if (p instanceof Opponent) {
+                    answer = "opponentTurn";
+                }
+                else {
+                    answer = "userTurn";
+                }
+            }
+            
+            else {
+                if (p instanceof Opponent) {
+                    answer = "userTurn";
+                    
+                }
+                else {
+                    answer = "opponentTurn";
+                }
+            }
+            
+            
+        
+               
+            }
+            return answer;
         }
         
-        return playedLine;
-        
     }
     
-}
+

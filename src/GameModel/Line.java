@@ -17,6 +17,8 @@ public class Line {
     private final Dot startingDot;
     private final Dot endingDot;
     private Player owner;
+    private Box partOfBox1;
+    private Box partOfBox2;
   
    
     /**
@@ -29,11 +31,14 @@ public class Line {
         startingDot = start;
         endingDot = end;
         owner = null;
+        partOfBox1 = null;
+        partOfBox2 = null;
       
     }    
     
     public void setOwner (Player p) {
         this.owner = p;
+       
     }
     
     public Dot getStartingDot() {
@@ -62,6 +67,26 @@ public class Line {
     
     public Player getOwner() {
         return owner;
+    }
+    
+    public Box getFirstTouchingBox() {
+        return partOfBox1;
+    }
+    
+    public Box getSecondTouchingBox() {
+        return partOfBox2;
+    }
+    
+    public void setFirstTouchingBox(Box first) {
+      
+        partOfBox1 = first;
+        
+    }
+    
+     public void setSecondTouchingBox(Box second) {
+      
+        partOfBox2 = second;
+        
     }
     
    
