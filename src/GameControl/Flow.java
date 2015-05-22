@@ -10,32 +10,37 @@ import Opponent.Opponent;
  *
  * @author Lorenz
  */
-public class Flow implements Runnable {
+public class Flow {
+
+    private enum stateRunn {
+        userTurn,
+        opponentTurn,
+        gameOver,
+    }
 
     private String stateRun = "userTurn"; //"opponentTurn";
     private boolean runGame = true;
     private Opponent opponent;
     private Player user;
     public MoveExecutor moveChecker;
-    Thread flow = new Thread(this);
 
     public Flow(MoveExecutor newMoveChecker, Opponent newOpponent, Player newUser) {
         System.out.println("------------ new Flow");
         this.moveChecker = newMoveChecker;
         this.opponent = newOpponent;
         this.user = newUser;
-        flow.start();
+
     }
-        public Flow() {
+
+    public Flow() {
         System.out.println("------------ new Flow without params");
-        flow.start();
     }
 
     /**
      * gib true zürück, solange die Partie läuft.
      */
     public boolean gameIsRunning() {
-            return runGame;
+        return runGame;
     }
 
     /**
@@ -95,7 +100,6 @@ public class Flow implements Runnable {
      * run() ist der innere Zustandsautomat, welcher das aktuelle Spiel leitet.
      * sobald das Spiel aufgebaut ist, wird er aufgerufen
      */
-    @Override
     public void run() {
         System.out.println("new Thread! Flow");
         do {
@@ -126,14 +130,7 @@ public class Flow implements Runnable {
                     System.out.println("unknown Command in Flow");
                     break;
             }
-
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                System.out.println("Interrupt while sleeping in Run() " + e.getMessage());
-            }
-
-        } while (runGame != false);
+        } while (stateRun != "gameOver");
         System.out.println("Thread's dying now. Flow");
     }
 }
