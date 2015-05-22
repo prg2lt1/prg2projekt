@@ -13,9 +13,9 @@ import GameView.UserInput;
  *
  * @author Lorenz
  */
-public class MainControl {
-    
-        private enum ControlStates {
+public class MainControl implements FileIO {
+
+    private enum ControlStates {
 
         prepare,
         getOpponent,
@@ -41,31 +41,32 @@ public class MainControl {
         this.board = new Board(4);
         this.gameViewFrame = new GameViewFrame(this.board);
         this.moveExecutor = new MoveExecutor(board);
-        
+
         gameStart();
     }
 
     /**
      * nicht verwendet
-     * @param newState 
+     *
+     * @param newState
      */
     public void setState(String newState) {
         if (newState.equals("endGame")) {
             this.stateStart = ControlStates.endGame;
-        }
-        else{
+        } else {
             System.out.println("unknown command in setState MainControl");
         }
     }
 
     /**
      * Gegner wird von Anzeige gesetzt
-     * @param newOpponent 
+     *
+     * @param newOpponent
      */
     public void setOpponent(String newOpponent) {
 
         System.out.println("getOpponent got" + newOpponent);
-        
+
         if (newOpponent.equals("Computer")) {
             this.opponent = new ComputerBrain(board, moveExecutor);
         } else if (newOpponent.equals("Network")) {
@@ -74,16 +75,35 @@ public class MainControl {
         } else {
             System.out.println("unknownOpponentFound");
         }
-        
+
         this.stateStart = ControlStates.run;
     }
-    
-    public void setUserName(String newName){
+
+    public void setUserName(String newName) {
         user.setName(newName);
     }
-    
-    public void setBoardSize(int newSize){
+
+    public void setBoardSize(int newSize) {
         //board = new Board(newSize);
+        updateBoard();
+    }
+
+    public void saveGame() {
+        if (flow.getState() == Flow.FlowStates.userTurn) {
+            FileIO.saveBoard(board);
+            userInput.Message("Game was saved", "Sucess");
+        } else {
+            userInput.Message("You can only save, when it's your turn", "Error");
+        }
+    }
+
+    public void loadGame() {
+        this.board = FileIO.loadBoard();
+        flow.setState(Flow.FlowStates.userTurn);
+    }
+
+    public void updateBoard() {
+        //geht in die Klassen das Board ersetzen...
     }
 
     public void gameStart() {

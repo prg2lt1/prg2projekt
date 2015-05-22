@@ -1,6 +1,5 @@
 package GameControl;
 
-import Opponent.NetworkPlayer;
 import GameModel.Player;
 import Opponent.Opponent;
 
@@ -36,21 +35,12 @@ public class Flow {
     }
 
     public Flow() {
-        System.out.println("------------ new Flow without params");
     }
 
-    /**
-     * gib true zürück, solange die Partie läuft.
-     */
     public boolean gameIsRunning() {
         return runGame;
     }
 
-    /**
-     * Gibt den Player am Zug zurück
-     *
-     * @return Player
-     */
     public Player getCurrentPlayer() {
         if (stateRun == FlowStates.userTurn) {
             return opponent;
@@ -59,25 +49,14 @@ public class Flow {
         }
     }
 
-    /**
-     * Setzt den neuen SpielStatus.
-     *
-     * @param newState
-     */
     public void setState(FlowStates newState) {
         stateRun = newState;
     }
-
-    /**
-     * gibt den Zustand zurück.
-     */
-    public String getState() {
-        return stateRun.toString();
+    
+    public FlowStates getState() {
+        return stateRun;
     }
 
-    /**
-     * setzt gameOver und beendet den thread.
-     */
     public void setGameOver() {
         stateRun = FlowStates.gameOver;
         runGame = false;

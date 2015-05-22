@@ -5,15 +5,15 @@
  */
 package GameModel;
 
+import GameControl.FileIO;
 import java.util.ArrayList;
-import GameControl.Flow;
-import GameModel.Line;
+import java.io.Serializable;
 
 /**
  *
  * @author tobias
  */
-public class Board {
+public class Board implements Serializable{
 
     private int size;
     private ArrayList<Dot> dotList;

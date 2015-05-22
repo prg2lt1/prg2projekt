@@ -1,21 +1,50 @@
-//Still buggy as Hell
 package GameControl;
 
+import GameModel.Board;
 import GameModel.Box;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
 /**
  *
  * @author Lorenz
  */
 public interface FileIO {
 
-    //readList(".\\src\\ch\\hslu\\prg2\\Training\\savedGame.txt");
-    
-   
+    static String fileName = ".savedGame.txt";
+
+    static void saveBoard(Board board) {
+
+        try (ObjectOutputStream oStream = new ObjectOutputStream(new FileOutputStream(fileName));) {
+            oStream.writeObject(board);
+        } catch (IOException e) {
+            System.out.println("Filename's wrong " + e.getMessage());
+        }
+    }
+
+    static Board loadBoard() {
+        Board board = null;
+        try (ObjectInputStream iStream = new ObjectInputStream(new FileInputStream(fileName));) {
+            Object object = iStream.readObject();
+            if (object instanceof Board) {
+                board = (Board) object;
+            }
+
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Filename's wrong " + e.getMessage());
+        }
+        return board;
+    }
 
     /**
      * schreibt im file fileName eine Liste als Klartext (Objekt für Objekt).
@@ -23,9 +52,8 @@ public interface FileIO {
      * @param list
      * @param fileName
      */
-    
-    public static void writeList(List list, String fileName) {
-/**
+    static void writeList(List list, String fileName) {
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));) {
             String line, part;
             int x1, y1, x2, y2, r;
@@ -33,41 +61,30 @@ public interface FileIO {
             Iterator listItr = list.iterator();
 
             while (listItr.hasNext()) {
-            
-                if (listItr.next().getClass().equals(Box) {
-                    Box box = (Box) listItr;
-                    x1 = box.getX1();
-                    y1 = box.getY1();
-                    x2 = box.getX2();
-                    y2 = box.getY2();
-                    line = String.format("B %s %s %s %s", x1, y1, x2, y2);
-                } else if (listItr.getClass().equals(Line)) {
-                    Line obj = (Line) listItr;
-                    x1 = obj.getX1();
-                    y1 = obj.getY1();
-                    x2 = obj.getX2();
-                    y2 = obj.getY2();
-                    line = String.format("L %s %s %s %s", x1, y1, x2, y2);
-                } else if (listItr.getClass().equals(Dot)) {
-                   // Dot dot = listItr;
-                    //x1 = obj.getX();
-                    //y1 = obj.getY();
-                    //r = obj.getRadius();
-                    line = String.format("D %s %s", x1, y1);
-                } else {
-                    System.out.println("Tried writing List with undefined Object-Type to file" + list.get(i));
-                    break;
-                }
-                writer.write(line);
-                listItr.next();
+                /**
+                 * if (listItr.next().getClass().equals(Box)) { Box box = (Box)
+                 * listItr; x1 = box.getX1(); y1 = box.getY1(); x2 =
+                 * box.getX2(); y2 = box.getY2(); line = String.format("B %s %s
+                 * %s %s", x1, y1, x2, y2); } else if
+                 * (listItr.getClass().equals(Line)) { Line obj = (Line)
+                 * listItr; x1 = obj.getX1(); y1 = obj.getY1(); x2 =
+                 * obj.getX2(); y2 = obj.getY2(); line = String.format("L %s %s
+                 * %s %s", x1, y1, x2, y2); } else if
+                 * (listItr.getClass().equals(Dot)) { // Dot dot = listItr; //x1
+                 * = obj.getX(); //y1 = obj.getY(); //r = obj.getRadius(); line
+                 * = String.format("D %s %s", x1, y1); } else {
+                 * System.out.println("Tried writing List with undefined
+                 * Object-Type to file" + list.get(i)); break; }
+                 *
+                 * writer.write(line); listItr.next();
+                 */
             }
 
         } catch (IOException ex) {
             System.out.println("Couldn't write list " + ex);
         }
-        **/
+
     }
-    
 
     /**
      * liest aus dem file fileName eine Liste (Objekt für Objekt).
@@ -101,7 +118,7 @@ public interface FileIO {
                         x2 = Integer.parseInt(tokens[3]);
                         y2 = Integer.parseInt(tokens[4]);
                         System.out.println("Line " + line);
-                       // list.add(new Line(number, x1, y1, x2, y2));
+                        // list.add(new Line(number, x1, y1, x2, y2));
                         break;
 
                     case "D":
@@ -109,7 +126,7 @@ public interface FileIO {
                         y1 = Integer.parseInt(tokens[2]);
                         r = Integer.parseInt(tokens[3]);
                         System.out.println("Dot " + line);
-                       // list.add(new Dot(number, x1, y1, r));
+                        // list.add(new Dot(number, x1, y1, r));
                         break;
                 }
                 number++;
@@ -118,7 +135,7 @@ public interface FileIO {
             System.out.println("Couldn't write list " + ex);
         }
         list.add(new Box(number));
-        
+
         return list;
     }
 

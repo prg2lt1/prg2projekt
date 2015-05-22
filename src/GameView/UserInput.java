@@ -96,4 +96,12 @@ public class UserInput extends JOptionPane {
         }
         mainControl.setBoardSize(value);
     }
+
+    public void Message(String text, String title) {
+        //custom title, error icon
+        JOptionPane.showMessageDialog(this,
+                text,
+                title,
+                JOptionPane.WARNING_MESSAGE);
+    }
 }

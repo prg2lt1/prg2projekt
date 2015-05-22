@@ -5,18 +5,19 @@
  */
 package GameModel;
 
-import GameModel.Board;
+import GameControl.FileIO;
 
 /**
  *
  * @author tobias
  */
-public class BoardTest {
+public class BoardTest implements FileIO {
     
     public static void main(final String[] args) {
         
         
         Board t = new Board(4);
+        //t = FileIO.loadBoard();
         System.out.println("Dots (y/x):");
        for(int i = 0; i < t.getDots().size(); i++) {
            System.out.print(t.getDots().get(i).getY());
@@ -120,6 +121,8 @@ public class BoardTest {
            
            
        }
+       
+       FileIO.saveBoard(t);
     }
     
 }
