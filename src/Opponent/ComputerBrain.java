@@ -170,9 +170,14 @@ public class ComputerBrain extends Opponent {
         
         boolean critical = false;
         Box c = findNeighbourBox(t, boxIndex);
-        if (c.getNumberOfLines() > 1) {
+        if (c == null) {
+        
+        }
+        
+        else if (c.getNumberOfLines() > 1) {
             critical = true;
         }
+        
         return critical;
     }
     

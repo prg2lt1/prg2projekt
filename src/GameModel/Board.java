@@ -30,7 +30,6 @@ public class Board {
         dotList = createDots();
         lineList = createLines();
         boxList = createBoxes();
-        
 
     }
 
@@ -114,6 +113,29 @@ public class Board {
         }
 
         return boxList;
+    }
+
+    private void assignBoxesToLines() {
+        Box[] touchedBoxes = new Box[2];
+        touchedBoxes[0] = null;
+        touchedBoxes[1] = null;
+        for (Line l : getLines()) {
+            for (Box b : getBoxes()) {
+                if (b.getBottomLine() == l) {
+                    touchedBoxes[0] = b;
+                }
+                if (b.getTopLine() == l) {
+
+                    touchedBoxes[0] = b;
+                }
+                if (b.getBottomLine() == l) {
+                    touchedBoxes[0] = b;
+                }
+                if (b.getBottomLine() == l) {
+                    touchedBoxes[0] = b;
+                }
+            }
+        }
     }
 
     public ArrayList<Box> getBoxes() {
