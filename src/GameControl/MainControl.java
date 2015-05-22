@@ -129,7 +129,10 @@ public class MainControl implements FileIO {
 
                 case run:
                     System.out.println(stateStart);
+                    System.out.println("[debug] start new flow");
                     this.flow = new Flow(moveExecutor, opponent, user);
+                    System.out.println("[debug] new flow started");
+                    System.out.println("[debug] Flow: " + this.flow);
                     gameViewFrame.setFlow(this.flow);
                     stateStart = ControlStates.wait;
                     break;

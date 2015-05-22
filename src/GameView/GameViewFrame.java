@@ -21,7 +21,7 @@ public final class GameViewFrame extends JFrame implements ActionListener {
     private final Board board;
     private Flow flow;
 
-    private JPanel gameViewPanel;
+    private final GameViewPanel gameViewPanel;
     private final JMenuBar menuBar;
     private final JMenu menuGame;
     private final JMenu menuHelp;
@@ -35,7 +35,6 @@ public final class GameViewFrame extends JFrame implements ActionListener {
      * Spielflaeche.
      *
      * @param board
-     * @param flow
      */
     public GameViewFrame(Board board) {
         super("Dots & Boxes");
@@ -44,9 +43,7 @@ public final class GameViewFrame extends JFrame implements ActionListener {
         width = 800;
         height = 600;
         this.board = board;
-        System.out.println("[info] flow: "+flow);
 
-        gameViewPanel = new GameViewPanel(this.board);
         menuBar = new JMenuBar();
         menuGame = new JMenu("Game");
         menuHelp = new JMenu("Help");
@@ -71,16 +68,18 @@ public final class GameViewFrame extends JFrame implements ActionListener {
         miGameExit.addActionListener(this);
         miHelpAbout.addActionListener(this);
 
+        gameViewPanel = new GameViewPanel(this.board);
         this.add(gameViewPanel);
 
         setLocation(400, 200);
         setSize(width, height);
         setVisible(true);
     }
-    
-    public void setFlow(Flow flow){
+
+    public void setFlow(Flow flow) {
         this.flow = flow;
-        //gameViewPanel.setFlow(flow);
+        gameViewPanel.setFlow(this.flow);
+        System.out.println("[debug] flow: " + this.flow);
     }
 
     @Override

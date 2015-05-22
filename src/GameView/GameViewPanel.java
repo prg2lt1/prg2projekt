@@ -62,6 +62,7 @@ public final class GameViewPanel extends JPanel {
     
     public void setFlow(Flow flow){
         this.flow = flow;
+        System.out.println("[debug] flow: " + this.flow);
     }
 
     // zeichnet die Punkte
