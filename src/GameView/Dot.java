@@ -14,10 +14,15 @@ import java.awt.Color;
  *
  */
 public final class Dot {
-
     private final int x, y, radius;
     private final Color color;
 
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param dotID 
+     */
     public Dot(int x, int y) {
         this.x = x;
         this.y = y;

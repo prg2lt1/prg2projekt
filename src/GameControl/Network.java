@@ -23,7 +23,7 @@ public class Network {
     private DatagramSocket socket;
     private InetAddress address;
     private int port;
-    private String serverIp = "127.0.0.1";
+    private String serverIp = "192.168.1.105";
     private int ServerPort = 5500;
 
     /**

@@ -22,7 +22,7 @@ public class Line {
     /**
      * 
      * @param startingDot
-     * @param endingDot 
+     * @param endingDot
      */
     public Line(Dot startingDot, Dot endingDot) {
         this.startingDot = startingDot;

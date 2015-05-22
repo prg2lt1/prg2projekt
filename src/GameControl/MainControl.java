@@ -27,7 +27,7 @@ public class MainControl {
 
     public MainControl() {
         this.board = new Board(4);
-        this.gameView = new GameView(this.board);
+        this.gameView = new GameView(this.board,this.flow);
         this.moveExecutor = new MoveExecutor(board);
         gameStart();
     }
@@ -39,23 +39,26 @@ public class MainControl {
                 case "prepare":
                     System.out.println(stateStart);
                     user = new Player("Me");
-
-                    //init network
-                    stateStart = "getOpponent";
+                   
+                    
+                                        if (opponent == null) {
+                                             stateStart = "getOpponent";
+                                        }
+                                        else {
+                                             stateStart = "run";
+                                        }
                     break;
 
                 case "getOpponent":
                     System.out.println(stateStart);
-                    if (opponent == null) {
+
 
                         ChooseOpponentGUI chooseOpponent = new ChooseOpponentGUI();
                         newOpponent = chooseOpponent.getOpponent();
 
                         stateStart = "opponentSet";
-                        System.out.println(newOpponent);
-                    } else {
-                        stateStart = "run";
-                    }
+                        System.out.println("getOpponent got" + newOpponent);
+
                     break;
 
                 case "opponentSet":
@@ -63,7 +66,8 @@ public class MainControl {
                     if (newOpponent.equals("Computer")) {
                         this.opponent = new ComputerBrain(board, moveExecutor);
                     } else if (newOpponent.equals("Network")) {
-                        this.opponent = new NetworkPlayer();        //Hier müsste nach Netzwerkgegner gesucht werden.
+                        this.opponent = new NetworkPlayer();        
+                        //Hier müsste nach Netzwerkgegner gesucht werden.
                     } else {
                         System.out.println("unknownOpponentFound");
                     }
