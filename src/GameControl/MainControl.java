@@ -29,12 +29,16 @@ public class MainControl {
 
     public MainControl() {
         this.board = new Board(4);
-        this.gameView = new GameViewFrame(this.board, this.flow);
+       // this.gameView = new GameViewFrame(this.board, this.flow);
         this.moveExecutor = new MoveExecutor(board);
         this.chooseOpponent = new ChooseOpponentGUI(this);
         gameStart();
     }
 
+    /**
+     * nicht verwendet
+     * @param newState 
+     */
     public void setState(String newState) {
         if (newState.equals("OpponentSet")) {
             this.stateStart = "OpponetSet";
@@ -44,9 +48,14 @@ public class MainControl {
         }
     }
 
+    /**
+     * Gegner wird von Anzeige gesetzt
+     * @param newOpponent 
+     */
     public void setOpponent(String newOpponent) {
 
         System.out.println("getOpponent got" + newOpponent);
+        
         if (newOpponent.equals("Computer")) {
             this.opponent = new ComputerBrain(board, moveExecutor);
         } else if (newOpponent.equals("Network")) {
@@ -55,7 +64,8 @@ public class MainControl {
         } else {
             System.out.println("unknownOpponentFound");
         }
-        this.stateStart = "setOpponent()";
+        
+        this.stateStart = "run";
     }
 
     public void gameStart() {
@@ -78,12 +88,6 @@ public class MainControl {
 
                 case "wait":
                     System.out.println(stateStart);
-                    break;
-
-                case "opponentSet":
-                    System.out.println(stateStart);
-
-                    stateStart = "run";
                     break;
 
                 case "run":

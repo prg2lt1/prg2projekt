@@ -86,17 +86,15 @@ public class ChooseOpponentGUI extends JFrame {
 
                     setVisible(false);//Frame ausblenden.
                     mainControl.setOpponent((String) adversary.getSelectedItem());
-                    mainControl.setState("OpponetSet");
                 }
             }
         });
     }
 
     /**
-     * @return String mit dem Gegnernamen ("Computer" oder "Network")
+     * zeigt das Fenster an.
      */
     public void getOpponent() {
         this.setVisible(true);
-        System.out.println("wait'ng");
     }
 }
