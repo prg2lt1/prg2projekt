@@ -69,7 +69,7 @@ public final class GameViewFrame extends JFrame implements ActionListener {
         miGameExit.addActionListener(this);
         miHelpAbout.addActionListener(this);
 
-        JPanel gameViewPanel = new JPanel();
+        JPanel gameViewPanel = new GameViewPanel(this.board, this.flow);
         add(gameViewPanel);
 
         setLocation(400, 200);

@@ -34,7 +34,7 @@ public class Line {
         this.startY = startY;
         this.endX = endX;
         this.endY = endY;
-        this.tolerance = 10;
+        this.tolerance = 15;
         this.color = Color.GRAY;
     }
     
@@ -94,12 +94,8 @@ public class Line {
      * @return true, if line matched
      */
     public boolean lineMatch(int x, int y) {
-        System.out.print("\nx from "+this.startX);
-        System.out.print(" to "+this.endX);
-        System.out.print(" and y from "+this.startY);
-        System.out.print(" to "+this.endY);
-        if (this.startX <= x && x <= this.endX) {
-            if (this.startY <= y && y <= this.endY+tolerance) {
+        if (this.startX-tolerance <= x && x <= this.endX+tolerance) {
+            if (this.startY-tolerance <= y && y <= this.endY+tolerance) {
                 return true;
             }
         }
