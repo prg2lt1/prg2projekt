@@ -19,7 +19,7 @@ public final class GameViewFrame extends JFrame implements ActionListener {
     private final int width;
     private final int height;
     private final Board board;
-    private final Flow flow;
+    private Flow flow;
 
     private final JMenuBar menuBar;
     private final JMenu menuGame;
@@ -44,6 +44,7 @@ public final class GameViewFrame extends JFrame implements ActionListener {
         height = 600;
         this.board = board;
         this.flow = flow;
+        System.out.println("[info] flow: "+flow);
 
         menuBar = new JMenuBar();
         menuGame = new JMenu("Game");
@@ -75,6 +76,10 @@ public final class GameViewFrame extends JFrame implements ActionListener {
         setLocation(400, 200);
         setSize(width, height);
         setVisible(true);
+    }
+    
+    public void setFlow(Flow flow){
+        this.flow = flow;
     }
 
     @Override

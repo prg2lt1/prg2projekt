@@ -3,7 +3,6 @@ package GameView;
 import GameControl.Flow;
 import GameModel.Board;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -18,9 +17,10 @@ public final class GameViewPanel extends JPanel {
 
     private final Board board;
     private final int dotSpace;
-    private final int space;
+    private final int xSpace;
+    private final int ySpace;
 
-    private final Flow flow;
+    private Flow flow;
 
     private final ArrayList<Dot> dotList;
     private final ArrayList<Line> lineList;
@@ -35,7 +35,8 @@ public final class GameViewPanel extends JPanel {
     public GameViewPanel(Board board, Flow flow) {
         this.board = board;
         this.dotSpace = 150;
-        this.space = 50;
+        this.xSpace = 150;
+        this.ySpace = 35;
 
         this.flow = flow;
 
@@ -49,18 +50,20 @@ public final class GameViewPanel extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                //System.out.println("[info] click at: " + e.getX() + "/" + e.getY());
                 Iterator<Line> itr = lineList.iterator();
                 while (itr.hasNext()) {
                     Line line = (Line) itr.next();
                     if (line.lineMatch(e.getX(), e.getY())) {
-                        //System.out.println("[info] line at: " + line.getStartX() + " to " + line.getEndX() + " and " + line.getStartY() + " to " + line.getEndY());
                         System.out.println("[info] lineID: "+lineList.indexOf(line));
                         flow.playLine(lineList.indexOf(line));
                     }
                 }
             }
         });
+    }
+    
+    public void setFlow(Flow flow){
+        this.flow = flow;
     }
 
     // zeichnet die Punkte
@@ -69,7 +72,7 @@ public final class GameViewPanel extends JPanel {
         while (itr.hasNext()) {
             GameModel.Dot gameModelDot = (GameModel.Dot) itr.next();
             if (dotList.size() < board.getDots().size()) {
-                Dot dot = new Dot(gameModelDot.getX() * dotSpace + space, gameModelDot.getY() * dotSpace + space);
+                Dot dot = new Dot(gameModelDot.getX() * dotSpace + xSpace, gameModelDot.getY() * dotSpace + ySpace);
                 dotList.add(dot);
             }
             Dot dot = dotList.get(board.getDots().indexOf(gameModelDot));
@@ -84,10 +87,10 @@ public final class GameViewPanel extends JPanel {
         while (itr.hasNext()) {
             GameModel.Line gameModelLine = (GameModel.Line) itr.next();
             if (lineList.size() < board.getLines().size()) {
-                int startX = gameModelLine.getStartingDot().getX() * dotSpace + space;
-                int startY = gameModelLine.getStartingDot().getY() * dotSpace + space;
-                int endX = gameModelLine.getEndingDot().getX() * dotSpace + space;
-                int endY = gameModelLine.getEndingDot().getY() * dotSpace + space;
+                int startX = gameModelLine.getStartingDot().getX() * dotSpace + xSpace;
+                int startY = gameModelLine.getStartingDot().getY() * dotSpace + ySpace;
+                int endX = gameModelLine.getEndingDot().getX() * dotSpace + xSpace;
+                int endY = gameModelLine.getEndingDot().getY() * dotSpace + ySpace;
                 lineList.add(new Line(startX, startY, endX, endY));
             }
             Line line = lineList.get(board.getLines().indexOf(gameModelLine));
