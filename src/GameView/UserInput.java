@@ -62,7 +62,7 @@ public class UserInput extends JOptionPane {
         } else {
             //If you're here, the return value was null/empty.
             System.out.println("choose!");
-            s = "Player";
+            s = "n0oBb4sH3r1337";
         }
 
         mainControl.setUserName(s);
@@ -95,10 +95,5 @@ public class UserInput extends JOptionPane {
             value = 4;
         }
         mainControl.setBoardSize(value);
-    }
-
-    public static void main(String[] args) {
-        UserInput inp1 = new UserInput(null);
-        inp1.setPlayerName();
     }
 }

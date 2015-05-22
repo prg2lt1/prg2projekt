@@ -12,18 +12,18 @@ import Opponent.Opponent;
  */
 public class Flow {
 
-    private enum stateRunn {
+    private enum FlowStates {
 
         userTurn,
         opponentTurn,
         gameOver,
     }
 
-    private String stateRun = "userTurn"; //"opponentTurn";
+    public MoveExecutor moveExecuter;
+    private FlowStates stateRun = FlowStates.userTurn;
     private boolean runGame = true;
     private Opponent opponent;
     private Player user;
-    public MoveExecutor moveExecuter;
 
     public Flow(MoveExecutor newMoveExecuter, Opponent newOpponent, Player newUser) {
         System.out.println("------------ new Flow");
@@ -46,50 +46,12 @@ public class Flow {
     }
 
     /**
-     * gibt den nächsten Spielzug dem Spieler frei.
-     */
-    public void setUserTurn() {
-        System.out.println("set UserTurn");
-        stateRun = "userTurn";
-    }
-
-    /**
-     * gibt den nächsten Spielzug dem Gegner frei.
-     */
-    public void setOpponentTurn() {
-        System.out.println("set OpponentTurn");
-        stateRun = "opponentTurn";
-    }
-
-    /**
-     * gib true zürück, wenn der Spieler dran ist.
-     */
-    public boolean isUserTurn() {
-        if (stateRun == "userTurn") {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * gibt true zurück, wenn der Gegner dran ist.
-     */
-    public boolean isOpponentTurn() {
-        if (stateRun == "opponentTurn") {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
      * Gibt den Player am Zug zurück
      *
      * @return Player
      */
     public Player getCurrentPlayer() {
-        if (stateRun == "opponentTurn") {
+        if (stateRun == FlowStates.userTurn) {
             return opponent;
         } else {
             return user;
@@ -103,11 +65,11 @@ public class Flow {
      */
     public void setState(String newState) {
         if (newState.equals("userTurn")) {
-            stateRun = "userTurn";
+            stateRun = FlowStates.userTurn;
         } else if (newState.equals("opponentTurn")) {
-            stateRun = "opponentTurn";
+            stateRun = FlowStates.opponentTurn;
         } else if (newState.equals("gameOver")) {
-            stateRun = "gameOver";
+            stateRun = FlowStates.gameOver;
         } else {
             System.out.println("Unknown command in setState");
         }
@@ -117,14 +79,14 @@ public class Flow {
      * gibt den Zustand zurück.
      */
     public String getStateRun() {
-        return stateRun;
+        return stateRun.toString();
     }
 
     /**
      * setzt gameOver und beendet den thread.
      */
     public void setGameOver() {
-        stateRun = "gameOver";
+        stateRun = FlowStates.gameOver;
         runGame = false;
     }
 
@@ -145,15 +107,15 @@ public class Flow {
         System.out.println("Flow");
         do {
             switch (stateRun) {
-                case "userTurn":
+                case userTurn:
                     //System.out.println(stateRun);
                     break;
 
-                case "opponentTurn":
+                case opponentTurn:
                     //System.out.println(stateRun);
                     break;
 
-                case "gameOver":
+                case gameOver:
                     System.out.println(stateRun);
                     this.runGame = false;
                     break;

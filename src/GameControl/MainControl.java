@@ -14,10 +14,19 @@ import GameView.UserInput;
  * @author Lorenz
  */
 public class MainControl {
+    
+        private enum ControlStates {
+
+        prepare,
+        getOpponent,
+        wait,
+        run,
+        endGame,
+    }
 
     private String newOpponent = "-1";
     private boolean runGame = true;
-    private String stateStart = "prepare";
+    private ControlStates stateStart = ControlStates.prepare;
     private Player user;
     private Opponent opponent = null;
 
@@ -28,10 +37,11 @@ public class MainControl {
     private UserInput userInput;
 
     public MainControl() {
+        this.userInput = new UserInput(this);
         this.board = new Board(4);
         this.gameView = new GameViewFrame(this.board, this.flow);
         this.moveExecutor = new MoveExecutor(board);
-        this.userInput = new UserInput(this);
+        
         gameStart();
     }
 
@@ -40,8 +50,8 @@ public class MainControl {
      * @param newState 
      */
     public void setState(String newState) {
-        if (newState.equals("OpponentSet")) {
-            this.stateStart = "OpponetSet";
+        if (newState.equals("endGame")) {
+            this.stateStart = ControlStates.endGame;
         }
         else{
             System.out.println("unknown command in setState MainControl");
@@ -65,7 +75,7 @@ public class MainControl {
             System.out.println("unknownOpponentFound");
         }
         
-        this.stateStart = "run";
+        this.stateStart = ControlStates.run;
     }
     
     public void setUserName(String newName){
@@ -80,39 +90,37 @@ public class MainControl {
 
         do {
             switch (stateStart) {
-                case "prepare":
+                case prepare:
                     System.out.println(stateStart);
                     user = new Player("lokal Player");
 
-                    stateStart = "getOpponent";
+                    stateStart = ControlStates.getOpponent;
                     break;
 
-                case "getOpponent":
+                case getOpponent:
                     System.out.println(stateStart);
                     userInput.setGameMode();
-
-                    stateStart = "wait";
+                    userInput.setPlayerName();
                     break;
 
-                case "wait":
+                case wait:
                     //System.out.println(stateStart);
                     break;
 
-                case "run":
+                case run:
                     System.out.println(stateStart);
                     this.flow = new Flow(moveExecutor, opponent, user);
-                    while (flow.gameIsRunning()) {
-                    }
                     
+                    stateStart = ControlStates.wait;
                     break;
 
-                case "endGame":
+                case endGame:
                     this.runGame = false;
 
                     if (true) { //Dialog oder ähnliches..
-                        stateStart = "prepare";
+                        stateStart = ControlStates.prepare;
                     } else {
-                        stateStart = "gameFinished";
+                        runGame = false;
                     }
                     break;
             }
