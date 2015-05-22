@@ -146,11 +146,11 @@ public class Flow {
         do {
             switch (stateRun) {
                 case "userTurn":
-                    System.out.println(stateRun);
+                    //System.out.println(stateRun);
                     break;
 
                 case "opponentTurn":
-                    System.out.println(stateRun);
+                    //System.out.println(stateRun);
                     break;
 
                 case "gameOver":
