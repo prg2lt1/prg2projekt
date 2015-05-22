@@ -7,6 +7,7 @@ package GameModel;
 
 import java.util.ArrayList;
 import GameControl.Flow;
+import GameModel.Line;
 
 /**
  *
@@ -30,6 +31,7 @@ public class Board {
         dotList = createDots();
         lineList = createLines();
         boxList = createBoxes();
+        assignBoxesToLines();
 
     }
 
@@ -116,25 +118,43 @@ public class Board {
     }
 
     private void assignBoxesToLines() {
-        Box[] touchedBoxes = new Box[2];
-        touchedBoxes[0] = null;
-        touchedBoxes[1] = null;
-        for (Line l : getLines()) {
-            for (Box b : getBoxes()) {
-                if (b.getBottomLine() == l) {
-                    touchedBoxes[0] = b;
-                }
-                if (b.getTopLine() == l) {
+        Box box1;
+        Box box2;
+        for (Box b : getBoxes()) {
+            
+            Line bottom = b.getBottomLine();
+            Line top = b.getTopLine();
+            Line left = b.getLeftLine();
+            Line right = b.getRightLine();
 
-                    touchedBoxes[0] = b;
-                }
-                if (b.getBottomLine() == l) {
-                    touchedBoxes[0] = b;
-                }
-                if (b.getBottomLine() == l) {
-                    touchedBoxes[0] = b;
-                }
+            if(bottom.getFirstTouchingBox() == null) {
+                bottom.setFirstTouchingBox(b);
             }
+            else {
+                bottom.setSecondTouchingBox(b);
+            }
+            
+            if(top.getFirstTouchingBox() == null) {
+                top.setFirstTouchingBox(b);
+            }
+            else {
+                top.setSecondTouchingBox(b);
+            }
+            
+            if(left.getFirstTouchingBox() == null) {
+                left.setFirstTouchingBox(b);
+            }
+            else {
+                left.setSecondTouchingBox(b);
+            }
+            
+            if(right.getFirstTouchingBox() == null) {
+                right.setFirstTouchingBox(b);
+            }
+            else {
+                right.setSecondTouchingBox(b);
+            }
+            
         }
     }
 

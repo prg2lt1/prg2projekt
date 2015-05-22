@@ -23,6 +23,8 @@ public class BoardTest {
            System.out.println(t.getDots().get(i).getX());
        }
         System.out.println();
+        System.out.println();
+        System.out.println();
         System.out.println("Lines (start/end):");
         
 
@@ -32,6 +34,64 @@ public class BoardTest {
            System.out.print(t.getLines().get(j).getEndingDot().getY());
            System.out.println(t.getLines().get(j).getEndingDot().getX());
            
+           System.out.println();
+           System.out.println();
+           
+           int b = t.getLines().get(j).getFirstTouchingBox().getBoxNumber();
+           System.out.println("Erste betroffene Box");
+           System.out.print(t.getBoxes().get(b).getTopLine().getStartingDot().getY());
+           System.out.print(t.getBoxes().get(b).getTopLine().getStartingDot().getX()+" ");
+           System.out.print(t.getBoxes().get(b).getTopLine().getEndingDot().getY());
+           System.out.print(t.getBoxes().get(b).getTopLine().getEndingDot().getX()+"   ");
+           
+           System.out.print(t.getBoxes().get(b).getRightLine().getStartingDot().getY());
+           System.out.print(t.getBoxes().get(b).getRightLine().getStartingDot().getX()+" ");
+           System.out.print(t.getBoxes().get(b).getRightLine().getEndingDot().getY());
+           System.out.print(t.getBoxes().get(b).getRightLine().getEndingDot().getX()+"   ");
+           
+           System.out.print(t.getBoxes().get(b).getBottomLine().getStartingDot().getY());
+           System.out.print(t.getBoxes().get(b).getBottomLine().getStartingDot().getX()+" ");
+           System.out.print(t.getBoxes().get(b).getBottomLine().getEndingDot().getY());
+           System.out.print(t.getBoxes().get(b).getBottomLine().getEndingDot().getX()+"   ");
+           
+           System.out.print(t.getBoxes().get(b).getLeftLine().getStartingDot().getY());
+           System.out.print(t.getBoxes().get(b).getLeftLine().getStartingDot().getX()+" ");
+           System.out.print(t.getBoxes().get(b).getLeftLine().getEndingDot().getY());
+           System.out.println(t.getBoxes().get(b).getLeftLine().getEndingDot().getX()+"   ");
+           
+           System.out.println();
+           System.out.println();
+           
+           if (t.getLines().get(j).getSecondTouchingBox() != null) {
+           b = t.getLines().get(j).getSecondTouchingBox().getBoxNumber();
+           
+           System.out.println("Zweite betroffene Box");
+           
+           System.out.print(t.getBoxes().get(b).getTopLine().getStartingDot().getY());
+           System.out.print(t.getBoxes().get(b).getTopLine().getStartingDot().getX()+" ");
+           System.out.print(t.getBoxes().get(b).getTopLine().getEndingDot().getY());
+           System.out.print(t.getBoxes().get(b).getTopLine().getEndingDot().getX()+"   ");
+           
+           System.out.print(t.getBoxes().get(b).getRightLine().getStartingDot().getY());
+           System.out.print(t.getBoxes().get(b).getRightLine().getStartingDot().getX()+" ");
+           System.out.print(t.getBoxes().get(b).getRightLine().getEndingDot().getY());
+           System.out.print(t.getBoxes().get(b).getRightLine().getEndingDot().getX()+"   ");
+           
+           System.out.print(t.getBoxes().get(b).getBottomLine().getStartingDot().getY());
+           System.out.print(t.getBoxes().get(b).getBottomLine().getStartingDot().getX()+" ");
+           System.out.print(t.getBoxes().get(b).getBottomLine().getEndingDot().getY());
+           System.out.print(t.getBoxes().get(b).getBottomLine().getEndingDot().getX()+"   ");
+           
+           System.out.print(t.getBoxes().get(b).getLeftLine().getStartingDot().getY());
+           System.out.print(t.getBoxes().get(b).getLeftLine().getStartingDot().getX()+" ");
+           System.out.print(t.getBoxes().get(b).getLeftLine().getEndingDot().getY());
+           System.out.println(t.getBoxes().get(b).getLeftLine().getEndingDot().getX()+"   ");
+           
+           System.out.println();
+           System.out.println();
+           
+           
+            }
        }
         System.out.println();
         System.out.println("Boxes (TopLine, LeftLine, BottomLine, RightLine):");

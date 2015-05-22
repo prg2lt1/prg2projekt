@@ -10,6 +10,7 @@ import GameModel.Player;
 import GameModel.Board;
 import Opponent.NetworkPlayer;
 import Opponent.ComputerBrain;
+import Opponent.Opponent;
 
 
 /**
@@ -51,13 +52,25 @@ public class MoveExecutor {
         this.activePlayer = newPlayer;
     }
     
-    public boolean playLine (int LineIndex, Player p) {
+    public String playLine (int lineIndex, Player p) {
         
-        boolean playedLine = false;
+        String answer1 = 
+        Line l = board.getLines().get(lineIndex);
         
-        if (board.getLines().get(LineIndex).getOwner() == null) {
-        board.getLines().get(LineIndex).setOwner(p);
-        playedLine = true;
+        if (l.getOwner() == null) {
+        l.setOwner(p);
+            if(l.getFirstTouchingBox().isBoxComplete() || l.getSecondTouchingBox().isBoxComplete()) {
+                
+            }
+        
+        }
+        
+        
+         if(p instanceof Opponent) {
+        answer = "userTurn";
+        }
+        else {
+        answer = "opponentTurn";
         }
         
         return playedLine;
