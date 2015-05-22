@@ -31,6 +31,7 @@ public class Flow {
         this.opponent = newOpponent;
         this.user = newUser;
 
+        run();
     }
 
     public Flow() {
@@ -152,7 +153,7 @@ public class Flow {
                     System.out.println(stateRun);
                     break;
 
-                case "gameOver": //nur break;
+                case "gameOver":
                     System.out.println(stateRun);
                     this.runGame = false;
                     break;
@@ -161,7 +162,7 @@ public class Flow {
                     System.out.println("unknown Command in Flow");
                     break;
             }
-        } while (!runGame);
+        } while (runGame);
         System.out.println("end of Flow");
     }
 }
