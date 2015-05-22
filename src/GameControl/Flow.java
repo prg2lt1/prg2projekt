@@ -80,6 +80,14 @@ public class Flow {
             return false;
         }
     }
+    
+        public Player getCurrentPlayer() {
+        if (stateRun == "opponentTurn") {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /**
      * gibt den Zustand zurück.
@@ -94,6 +102,14 @@ public class Flow {
     public void setGameOver() {
         stateRun = "gameOver";
         runGame = false;
+    }
+    
+    /**
+     * lokaler Spieler übergibt Linienindex für an MoveExecuter
+     * @param index 
+     */
+    public void playLine(int index){
+        moveExecuter.playLine(int index, Player )
     }
 
     /**

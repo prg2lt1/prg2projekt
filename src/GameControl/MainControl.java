@@ -27,7 +27,7 @@ public class MainControl {
 
     public MainControl() {
         this.board = new Board(4);
-        this.gameView = new GameView(this.board);
+        this.gameView = new GameView(this.board,this.flow);
         this.moveExecutor = new MoveExecutor(board);
         gameStart();
     }
