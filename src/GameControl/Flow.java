@@ -154,13 +154,14 @@ public class Flow {
 
                 case "gameOver": //nur break;
                     System.out.println(stateRun);
+                    this.runGame = false;
                     break;
 
                 default:
                     System.out.println("unknown Command in Flow");
                     break;
             }
-        } while (stateRun != "gameOver");
+        } while (!runGame);
         System.out.println("end of Flow");
     }
 }

@@ -5,7 +5,7 @@ import Opponent.NetworkPlayer;
 import Opponent.ComputerBrain;
 import Opponent.Opponent;
 import GameModel.Player;
-import GameView.GameView;
+import GameView.GameViewFrame;
 import GameControl.MoveExecutor;
 
 /**
@@ -15,21 +15,42 @@ import GameControl.MoveExecutor;
  */
 public class MainControl {
 
-    private String newOpponent;
+    private String newOpponent = "-1";
+    private boolean runGame = true;
     private String stateStart = "prepare";
     private Player user;
     private Opponent opponent = null;
 
     private Board board;
     private Flow flow;
-    private GameView gameView;
+    private GameViewFrame gameView;
     private MoveExecutor moveExecutor;
+    private ChooseOpponentGUI chooseOpponent;
 
     public MainControl() {
         this.board = new Board(4);
-        this.gameView = new GameView(this.board,this.flow);
+        this.gameView = new GameViewFrame(this.board, this.flow);
         this.moveExecutor = new MoveExecutor(board);
+        this.chooseOpponent = new ChooseOpponentGUI(this);
         gameStart();
+    }
+
+    public void setState(String newState) {
+        this.stateStart = "OpponetSet";
+    }
+
+    public void setOpponent(String newOpponent) {
+        newOpponent = chooseOpponent.getOpponent();
+        System.out.println("getOpponent got" + newOpponent);
+        if (newOpponent.equals("Computer")) {
+            this.opponent = new ComputerBrain(board, moveExecutor);
+        } else if (newOpponent.equals("Network")) {
+            this.opponent = new NetworkPlayer();
+            //Hier müsste nach Netzwerkgegner gesucht werden.
+        } else {
+            System.out.println("unknownOpponentFound");
+        }
+        this.stateStart = "setOpponent()";
     }
 
     public void gameStart() {
@@ -39,38 +60,24 @@ public class MainControl {
                 case "prepare":
                     System.out.println(stateStart);
                     user = new Player("Me");
-                   
-                    
-                                        if (opponent == null) {
-                                             stateStart = "getOpponent";
-                                        }
-                                        else {
-                                             stateStart = "run";
-                                        }
+
+                    stateStart = "getOpponent";
                     break;
 
                 case "getOpponent":
                     System.out.println(stateStart);
+                    chooseOpponent.askForOpponent();
 
+                    stateStart = "wait";
+                    break;
 
-                        ChooseOpponentGUI chooseOpponent = new ChooseOpponentGUI();
-                        newOpponent = chooseOpponent.getOpponent();
-
-                        stateStart = "opponentSet";
-                        System.out.println("getOpponent got" + newOpponent);
-
+                case "wait":
+                    System.out.println(stateStart);
                     break;
 
                 case "opponentSet":
                     System.out.println(stateStart);
-                    if (newOpponent.equals("Computer")) {
-                        this.opponent = new ComputerBrain(board, moveExecutor);
-                    } else if (newOpponent.equals("Network")) {
-                        this.opponent = new NetworkPlayer();        
-                        //Hier müsste nach Netzwerkgegner gesucht werden.
-                    } else {
-                        System.out.println("unknownOpponentFound");
-                    }
+
                     stateStart = "run";
                     break;
 
@@ -84,7 +91,7 @@ public class MainControl {
                     break;
 
                 case "endGame":
-                    //aufräumen?
+                    this.runGame = false;
 
                     if (true) { //Dialog oder ähnliches..
                         stateStart = "prepare";
@@ -93,7 +100,7 @@ public class MainControl {
                     }
                     break;
             }
-        } while (stateStart != "gameFinished");
+        } while (runGame);
     }
 
     /**

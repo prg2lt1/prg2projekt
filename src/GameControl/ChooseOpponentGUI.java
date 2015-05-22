@@ -20,16 +20,19 @@ import java.awt.event.ActionListener;
  */
 public class ChooseOpponentGUI extends JFrame {
 
+    private MainControl mainControl;
     private String[] choose = new String[2];
     private JComboBox adversary;
     private DefaultComboBoxModel list = new DefaultComboBoxModel();
     private JPanel myPanel = new JPanel();
     private JButton okButton = new JButton("OK");
-    private static String choosenOpponent = null;
+    private String choosenOpponent = null;
 
-    public ChooseOpponentGUI() {
+    public ChooseOpponentGUI(MainControl newMainControl) {
 
         super("Choose Opponent");
+        
+        this.mainControl = newMainControl;
 
         //ComboBox
         list.addElement("Computer");
@@ -52,8 +55,7 @@ public class ChooseOpponentGUI extends JFrame {
         this.setSize(300, 100);
 
         /**
-         * ActionListener to ComboBox.
-         * Not needed to get choosen mode!!
+         * ActionListener to ComboBox. Not needed to get choosen mode!!
          */
         adversary.addActionListener(new ActionListener() {
 
@@ -83,21 +85,18 @@ public class ChooseOpponentGUI extends JFrame {
                     //System.out.println((String) adversary.getSelectedItem());
 
                     setVisible(false);//Frame ausblenden.
+                    mainControl.setOpponent((String) adversary.getSelectedItem());
+                    mainControl.setState("OpponetSet");
                 }
             }
         });
     }
 
     /**
-     * static damits kompakter wird synchronized mit dem Versuch, dass auf die
-     * Eingabe gewartet wird. (oop10) Bessere Ideen sind willkommen...
-     *
      * @return String mit dem Gegnernamen ("Computer" oder "Network")
      */
-    public String getOpponent() {
-         this.setVisible(true);
+    public void getOpponent() {
+        this.setVisible(true);
         System.out.println("wait'ng");
-        while(choosenOpponent == null){}
-        return choosenOpponent;
     }
 }
