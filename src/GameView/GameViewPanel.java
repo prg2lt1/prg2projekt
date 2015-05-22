@@ -56,6 +56,7 @@ public final class GameViewPanel extends JPanel {
                     if (line.lineMatch(e.getX(), e.getY())) {
                         //System.out.println("[info] line at: " + line.getStartX() + " to " + line.getEndX() + " and " + line.getStartY() + " to " + line.getEndY());
                         System.out.println("[info] lineID: "+lineList.indexOf(line));
+                        flow.playLine(lineList.indexOf(line));
                     }
                 }
             }
