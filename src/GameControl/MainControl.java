@@ -6,7 +6,7 @@ import Opponent.ComputerBrain;
 import Opponent.Opponent;
 import GameModel.Player;
 import GameView.GameViewFrame;
-import GameControl.MoveExecutor;
+import GameView.UserInput;
 
 /**
  * Hauptverwaltung. Initiiere Spielfeld, Spieler, Netzwerk etc.
@@ -25,13 +25,13 @@ public class MainControl {
     private Flow flow;
     private GameViewFrame gameView;
     private MoveExecutor moveExecutor;
-    private ChooseOpponentGUI chooseOpponent;
+    private UserInput userInput;
 
     public MainControl() {
         this.board = new Board(4);
         this.gameView = new GameViewFrame(this.board, this.flow);
         this.moveExecutor = new MoveExecutor(board);
-        this.chooseOpponent = new ChooseOpponentGUI(this);
+        this.userInput = new UserInput(this);
         gameStart();
     }
 
@@ -67,6 +67,14 @@ public class MainControl {
         
         this.stateStart = "run";
     }
+    
+    public void setUserName(String newName){
+        user.setName(newName);
+    }
+    
+    public void setBoardSize(int newSize){
+        //board = new Board(newSize);
+    }
 
     public void gameStart() {
 
@@ -74,14 +82,14 @@ public class MainControl {
             switch (stateStart) {
                 case "prepare":
                     System.out.println(stateStart);
-                    user = new Player("Me");
+                    user = new Player("lokal Player");
 
                     stateStart = "getOpponent";
                     break;
 
                 case "getOpponent":
                     System.out.println(stateStart);
-                    chooseOpponent.getOpponent();
+                    userInput.setGameMode();
 
                     stateStart = "wait";
                     break;

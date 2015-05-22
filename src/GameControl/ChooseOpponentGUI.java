@@ -97,4 +97,9 @@ public class ChooseOpponentGUI extends JFrame {
     public void getOpponent() {
         this.setVisible(true);
     }
+    
+    public static void main(String[] args){
+        ChooseOpponentGUI gui = new ChooseOpponentGUI(null);
+        gui.getOpponent();
+    }
 }
