@@ -98,33 +98,36 @@ public class MainControl implements FileIO {
         do {
             switch (stateStart) {
                 case prepare:
-                    System.out.println(stateStart);
+                    System.out.println("[debug] " + stateStart);
                     user = new Player("user");
 
                     stateStart = ControlStates.getOpponent;
                     break;
 
                 case getOpponent:
-                    System.out.println(stateStart);
+                    System.out.println("[debug] " + stateStart);
                     userInput.setGameMode();
                     //userInput.setPlayerName();
                     break;
 
                 case wait:
-                    //System.out.println(stateStart);
+                    //System.out.println("[debug] " + stateStart);
                     break;
 
                 case run:
-                    System.out.println(stateStart);
+                    System.out.println("[debug] " + stateStart);
                     System.out.println("[debug] start new flow");
                     this.flow = new Flow(moveExecutor, opponent, user);
                     System.out.println("[debug] new flow started");
                     System.out.println("[debug] Flow: " + this.flow.toString());
+                    System.out.println("[debug] Board: " + this.board.toString());
                     gameViewFrame.setFlow(this.flow);
+                    flow.gameRun();
                     stateStart = ControlStates.wait;
                     break;
 
                 case endGame:
+                    System.out.println("[debug] " + stateStart);
                     this.runGame = false;
 
                     if (true) { //Dialog oder ähnliches..
