@@ -73,7 +73,6 @@ public class Line {
     /**
      * 
      * @param newColor
-     * @return new color of the line
      */
     public void setColor(Color newColor) {
         this.color = newColor;

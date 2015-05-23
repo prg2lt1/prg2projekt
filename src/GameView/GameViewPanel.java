@@ -30,7 +30,6 @@ public final class GameViewPanel extends JPanel {
      * Spielflaeche.
      *
      * @param board
-     * @param flow
      */
     public GameViewPanel(Board board) {
         this.board = board;
@@ -52,17 +51,16 @@ public final class GameViewPanel extends JPanel {
                 while (itr.hasNext()) {
                     Line line = (Line) itr.next();
                     if (line.lineMatch(e.getX(), e.getY())) {
-                        System.out.println("[info] lineID: "+lineList.indexOf(line));
+                        System.out.println("[info] lineID: " + lineList.indexOf(line));
                         flow.playLine(lineList.indexOf(line));
                     }
                 }
             }
         });
     }
-    
-    public void setFlow(Flow flow){
+
+    public void setFlow(Flow flow) {
         this.flow = flow;
-        System.out.println("[debug] flow: " + this.flow);
     }
 
     // zeichnet die Punkte
@@ -94,13 +92,17 @@ public final class GameViewPanel extends JPanel {
             }
             Line line = lineList.get(board.getLines().indexOf(gameModelLine));
 
+            System.out.print("[info] set line " + lineList.indexOf(line) + " to ");
             if (gameModelLine.getOwner() instanceof Opponent.Opponent) {
-                Color colorByPlayer = Color.RED;
+                line.setColor(Color.RED);
+                System.out.print("red\n");
             } else if (gameModelLine.getOwner() instanceof GameModel.Player) {
-                Color colorByPlayer = Color.BLUE;
-            } else {
-                Color colorByPlayer = Color.GRAY;
+                line.setColor(Color.BLUE);
+                System.out.print("blue\n");
+            }else{
+                System.out.print("default (no owner)\n");
             }
+
             g.setColor(line.getColor());
             g.fillRect(line.getStartX(), line.getStartY(), (line.getEndX() - line.getStartX()) + 5, (line.getEndY() - (line.getStartY()) + 5));
         }

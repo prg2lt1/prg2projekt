@@ -1,6 +1,7 @@
 package GameView;
 
 import GameControl.Flow;
+import GameControl.MainControl;
 import GameModel.Board;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,7 +10,6 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 
 /**
  * Dots & Boxes GUI.
@@ -79,7 +79,6 @@ public final class GameViewFrame extends JFrame implements ActionListener {
     public void setFlow(Flow flow) {
         this.flow = flow;
         gameViewPanel.setFlow(this.flow);
-        System.out.println("[debug] flow: " + this.flow);
     }
 
     @Override
