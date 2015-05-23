@@ -46,19 +46,6 @@ public class MainControl implements FileIO {
     }
 
     /**
-     * nicht verwendet
-     *
-     * @param newState
-     */
-    public void setState(String newState) {
-        if (newState.equals("endGame")) {
-            this.stateStart = ControlStates.endGame;
-        } else {
-            System.out.println("unknown command in setState MainControl");
-        }
-    }
-
-    /**
      * Gegner wird von Anzeige gesetzt
      *
      * @param newOpponent
@@ -120,7 +107,7 @@ public class MainControl implements FileIO {
                 case getOpponent:
                     System.out.println(stateStart);
                     userInput.setGameMode();
-                    userInput.setPlayerName();
+                    //userInput.setPlayerName();
                     break;
 
                 case wait:
@@ -132,7 +119,7 @@ public class MainControl implements FileIO {
                     System.out.println("[debug] start new flow");
                     this.flow = new Flow(moveExecutor, opponent, user);
                     System.out.println("[debug] new flow started");
-                    System.out.println("[debug] Flow: " + this.flow);
+                    System.out.println("[debug] Flow: " + this.flow.toString());
                     gameViewFrame.setFlow(this.flow);
                     stateStart = ControlStates.wait;
                     break;

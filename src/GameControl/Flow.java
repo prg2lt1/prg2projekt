@@ -26,15 +26,16 @@ public class Flow {
     private Player user;
 
     public Flow(MoveExecutor newMoveExecuter, Opponent newOpponent, Player newUser) {
-        System.out.println("------------ new Flow");
+        System.out.println("----[debug] new Flow");
         this.moveExecuter = newMoveExecuter;
         this.opponent = newOpponent;
         this.user = newUser;
 
-        run();
+        gameRun();
     }
 
     public Flow() {
+         System.out.println("----[debug] new Flow ohne params");
     }
 
     public boolean gameIsRunning() {
@@ -75,7 +76,7 @@ public class Flow {
      * run() ist der innere Zustandsautomat, welcher das aktuelle Spiel leitet.
      * sobald das Spiel aufgebaut ist, wird er aufgerufen
      */
-    public void run() {
+    public void gameRun() {
         System.out.println("Flow");
         do {
             switch (stateRun) {
