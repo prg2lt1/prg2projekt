@@ -68,6 +68,7 @@ public class Flow {
      * @param index
      */
     public void playLine(int index) {
+        System.out.println("Lineindex in in PLayLine in FLow: " + index);
         this.setState(this.moveExecuter.playLine(index, this.getCurrentPlayer()));
     }
 
