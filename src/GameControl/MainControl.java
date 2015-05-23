@@ -32,9 +32,9 @@ public class MainControl implements FileIO {
 
     private Board board;
     private Flow flow;
-    private GameViewFrame gameViewFrame;
-    private MoveExecutor moveExecutor;
-    private UserInput userInput;
+    private final GameViewFrame gameViewFrame;
+    private final MoveExecutor moveExecutor;
+    private final UserInput userInput;
 
     public MainControl() {
         this.userInput = new UserInput(this);
@@ -54,15 +54,19 @@ public class MainControl implements FileIO {
 
         System.out.println("getOpponent got" + newOpponent);
 
-        if (newOpponent.equals("Computer")) {
-            this.opponent = new ComputerBrain(board, moveExecutor);
-            gameViewFrame.setOpponentName("Computer");
-        } else if (newOpponent.equals("Network")) {
-            this.opponent = new NetworkPlayer();
-            gameViewFrame.setOpponentName("Network");
-            //Hier müsste nach Netzwerkgegner gesucht werden.
-        } else {
-            System.out.println("unknownOpponentFound");
+        switch (newOpponent) {
+            case "Computer":
+                this.opponent = new ComputerBrain(board, moveExecutor);
+                gameViewFrame.setOpponentName("Computer");
+                break;
+            case "Network":
+                this.opponent = new NetworkPlayer();
+                gameViewFrame.setOpponentName("Network");
+                //Hier müsste nach Netzwerkgegner gesucht werden.
+                break;
+            default:
+                System.out.println("unknownOpponentFound");
+                break;
         }
 
         this.stateStart = ControlStates.run;
@@ -142,6 +146,7 @@ public class MainControl implements FileIO {
     /**
      * Startpunkt des ganzen Programms! Eingabe Argument entweder "Computer"
      * oder "Network", je nach gewünschtem Gegner
+     * @param args
      */
     public static void main(String[] args) {
         MainControl mainControl = new MainControl();

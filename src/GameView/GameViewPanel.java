@@ -53,6 +53,7 @@ public final class GameViewPanel extends JPanel {
                     if (line.lineMatch(e.getX(), e.getY())) {
                         System.out.println("[info] lineID: " + lineList.indexOf(line));
                         flow.playLine(lineList.indexOf(line));
+                        repaint();
                     }
                 }
             }
@@ -92,15 +93,14 @@ public final class GameViewPanel extends JPanel {
             }
             Line line = lineList.get(board.getLines().indexOf(gameModelLine));
 
-            System.out.print("[info] set line " + lineList.indexOf(line) + " to ");
             if (gameModelLine.getOwner() instanceof Opponent.Opponent) {
                 line.setColor(Color.RED);
-                System.out.print("red\n");
+            System.out.println("[info] set line " + lineList.indexOf(line) + " to red");
             } else if (gameModelLine.getOwner() instanceof GameModel.Player) {
                 line.setColor(Color.BLUE);
-                System.out.print("blue\n");
+            System.out.println("[info] set line " + lineList.indexOf(line) + " to red");
             }else{
-                System.out.print("default (no owner)\n");
+                //System.out.print("default (no owner)\n");
             }
 
             g.setColor(line.getColor());

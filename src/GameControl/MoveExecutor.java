@@ -10,7 +10,6 @@ import GameModel.Player;
 import GameModel.Board;
 import GameModel.Box;
 import Opponent.NetworkPlayer;
-import Opponent.ComputerBrain;
 import Opponent.Opponent;
 
 
@@ -51,8 +50,8 @@ public class MoveExecutor {
     
     public Flow.FlowStates playLine (int lineIndex, Player p) {
         
-        System.out.println("Lineindex in in PLayLine in MoveExecuter: " + lineIndex);
-        System.out.println("Player in in PLayLine in MoveExecuter: " + p.toString());
+        System.out.println("Lineindex in PLayLine in MoveExecuter: " + lineIndex);
+        System.out.println("Player in PlayLine in MoveExecuter: " + p.toString());
         Flow.FlowStates answer = Flow.FlowStates.error; 
         Line l = board.getLines().get(lineIndex);
         Box firstBox = l.getFirstTouchingBox();
@@ -91,5 +90,4 @@ public class MoveExecutor {
         }
         
     }
-    
-
+   
