@@ -16,17 +16,17 @@ import java.util.Random;
  */
 public class ComputerBrain extends Opponent {
 
-    private Board board;
-    private MoveExecutor myExecutor;
-    private Random randomInt;
-    private int numberOfLines;
+    private final Board board;
+    private final MoveExecutor myExecutor;
+    private final Random randomInt;
+    private final int numberOfLines;
     
     
 
     /**
      *
-     * @param
-     */
+     * @param board
+     * @param moveExecutor */
     public ComputerBrain(Board board, MoveExecutor moveExecutor) {
         super("Computer");
         this.board = board;
