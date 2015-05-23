@@ -49,7 +49,8 @@ public class Flow {
     }
 
     public void setState(FlowStates newState) {
-        stateRun = newState;
+        //stateRun = newState;
+        stateRun = FlowStates.userTurn;
     }
     
     public FlowStates getState() {
