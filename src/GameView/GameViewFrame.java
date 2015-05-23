@@ -1,8 +1,8 @@
 package GameView;
 
 import GameControl.Flow;
-import GameControl.MainControl;
 import GameModel.Board;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
@@ -21,6 +21,7 @@ public final class GameViewFrame extends JFrame implements ActionListener {
     private final Board board;
     private Flow flow;
 
+    private final GameViewSidePanel gameViewSidePanel;
     private final GameViewPanel gameViewPanel;
     private final JMenuBar menuBar;
     private final JMenu menuGame;
@@ -68,8 +69,11 @@ public final class GameViewFrame extends JFrame implements ActionListener {
         miGameExit.addActionListener(this);
         miHelpAbout.addActionListener(this);
 
+        // game panel
+        gameViewSidePanel = new GameViewSidePanel();
         gameViewPanel = new GameViewPanel(this.board);
-        this.add(gameViewPanel);
+        this.add(gameViewSidePanel, BorderLayout.WEST);
+        this.add(gameViewPanel, BorderLayout.CENTER);
 
         setLocation(400, 200);
         setSize(width, height);
@@ -79,6 +83,22 @@ public final class GameViewFrame extends JFrame implements ActionListener {
     public void setFlow(Flow flow) {
         this.flow = flow;
         gameViewPanel.setFlow(this.flow);
+    }
+    
+    public void setPlayerName(String name){
+        gameViewSidePanel.setPlayerName(name);
+    }
+    
+    public void incrementPlayerScore(){
+        gameViewSidePanel.incrementPlayerScore();
+    }
+    
+    public void setOpponentName(String name){
+        gameViewSidePanel.setOpponentName(name);
+    }
+    
+    public void incrementOpponentScore(){
+        gameViewSidePanel.incrementOpponentScore();
     }
 
     @Override

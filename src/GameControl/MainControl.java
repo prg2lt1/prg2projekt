@@ -56,8 +56,10 @@ public class MainControl implements FileIO {
 
         if (newOpponent.equals("Computer")) {
             this.opponent = new ComputerBrain(board, moveExecutor);
+            gameViewFrame.setOpponentName("Computer");
         } else if (newOpponent.equals("Network")) {
             this.opponent = new NetworkPlayer();
+            gameViewFrame.setOpponentName("Network");
             //Hier müsste nach Netzwerkgegner gesucht werden.
         } else {
             System.out.println("unknownOpponentFound");
@@ -68,6 +70,7 @@ public class MainControl implements FileIO {
 
     public void setUserName(String newName) {
         user.setName(newName);
+        gameViewFrame.setPlayerName(newName);
     }
 
     public void setBoardSize(int newSize) {
@@ -107,7 +110,7 @@ public class MainControl implements FileIO {
                 case getOpponent:
                     System.out.println("[debug] " + stateStart);
                     userInput.setGameMode();
-                    //userInput.setPlayerName();
+                    userInput.setPlayerName();
                     break;
 
                 case wait:

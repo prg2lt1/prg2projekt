@@ -34,7 +34,7 @@ public final class GameViewPanel extends JPanel {
     public GameViewPanel(Board board) {
         this.board = board;
         this.dotSpace = 150;
-        this.xSpace = 150;
+        this.xSpace = 100;
         this.ySpace = 35;
 
         dotList = new ArrayList<>();
