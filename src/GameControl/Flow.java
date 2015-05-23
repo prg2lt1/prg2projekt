@@ -30,8 +30,6 @@ public class Flow {
         this.moveExecuter = newMoveExecuter;
         this.opponent = newOpponent;
         this.user = newUser;
-
-        gameRun();
     }
 
     public Flow() {
@@ -77,7 +75,6 @@ public class Flow {
      * sobald das Spiel aufgebaut ist, wird er aufgerufen
      */
     public void gameRun() {
-        System.out.println("Flow");
         do {
             switch (stateRun) {
                 case userTurn:
