@@ -8,6 +8,7 @@ package GameControl;
 import GameModel.Line;
 import GameModel.Player;
 import GameModel.Board;
+import GameModel.Box;
 import Opponent.NetworkPlayer;
 import Opponent.ComputerBrain;
 import Opponent.Opponent;
@@ -50,17 +51,21 @@ public class MoveExecutor {
     
     public Flow.FlowStates playLine (int lineIndex, Player p) {
         
-         System.out.println("Lineindex in in PLayLine in MoveExecuter: " + lineIndex);
-          System.out.println("Player in in PLayLine in MoveExecuter: " + p.toString());
+        System.out.println("Lineindex in in PLayLine in MoveExecuter: " + lineIndex);
+        System.out.println("Player in in PLayLine in MoveExecuter: " + p.toString());
         Flow.FlowStates answer = Flow.FlowStates.error; 
         Line l = board.getLines().get(lineIndex);
+        Box firstBox = l.getFirstTouchingBox();
+        Box secondBox = l.getSecondTouchingBox();
+        
+        
         
         if (l.getOwner() == null) {
         l.setOwner(p);
            // if(board.allBoxesComplete()) {
              //   answer = Flow.FlowStates.gameOver;
-            }
-            else if(l.getFirstTouchingBox().isBoxComplete() || l.getSecondTouchingBox().isBoxComplete()) {
+            
+            if ( (firstBox != null && firstBox.isBoxComplete()) || (secondBox != null && secondBox.isBoxComplete()) ) {
                 if (p instanceof Opponent) {
                     answer = Flow.FlowStates.opponentTurn;
                 }
@@ -72,12 +77,15 @@ public class MoveExecutor {
             else {
                 if (p instanceof Opponent) {
                     answer = Flow.FlowStates.userTurn;
-                    
+                    System.out.println("userTurn");
                 }
                 else {
                     answer = Flow.FlowStates.opponentTurn;
+                    System.out.println("opponentTurn");
+
                 }
             }
+        }
          
             return answer;
         }

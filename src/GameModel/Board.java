@@ -19,6 +19,7 @@ public class Board implements Serializable{
     private ArrayList<Dot> dotList;
     private ArrayList<Line> lineList;
     private ArrayList<Box> boxList;
+    private int nrOfCompletedBoxes;
 
     /**
      *
@@ -156,6 +157,24 @@ public class Board implements Serializable{
             }
             
         }
+    }
+    
+    public boolean allBoxesComplete() {
+        
+        nrOfCompletedBoxes = 0;
+        boolean complete = false;
+        
+        for(Box b : getBoxes()) {
+            if(b.isBoxComplete()) {
+                nrOfCompletedBoxes++;
+                }
+        }
+        
+        if(nrOfCompletedBoxes == getBoxes().size()) {
+            complete = true;
+        }
+        
+        return complete;
     }
 
     public ArrayList<Box> getBoxes() {
