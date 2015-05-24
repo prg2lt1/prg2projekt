@@ -5,7 +5,6 @@
  */
 package GameModel;
 
-import GameControl.FileIO;
 import java.util.ArrayList;
 import java.io.Serializable;
 
@@ -13,9 +12,9 @@ import java.io.Serializable;
  *
  * @author tobias
  */
-public class Board implements Serializable{
+public class Board implements Serializable {
 
-    private int size;
+    private final int size;
     private ArrayList<Dot> dotList;
     private ArrayList<Line> lineList;
     private ArrayList<Box> boxList;
@@ -33,9 +32,7 @@ public class Board implements Serializable{
         lineList = createLines();
         boxList = createBoxes();
         assignBoxesToLines();
-
     }
-
     public int getSize() {
         return this.size;
     }
@@ -55,7 +52,6 @@ public class Board implements Serializable{
                 dotList.add(new Dot(x, y));
             }
         }
-
         return dotList;
     }
 
@@ -71,7 +67,6 @@ public class Board implements Serializable{
             if (index % size == size - 1) {
                 index++;
             }
-
             first = dotList.get(index);
             second = dotList.get(index + 1);
             lineList.add(new Line(first, second));
@@ -82,7 +77,6 @@ public class Board implements Serializable{
             second = dotList.get(index + size);
             lineList.add(new Line(first, second));
         }
-
         return lineList;
     }
 
@@ -112,9 +106,7 @@ public class Board implements Serializable{
 
             horizontalIndex++;
             verticalIndex++;
-
         }
-
         return boxList;
     }
 
@@ -122,58 +114,52 @@ public class Board implements Serializable{
         Box box1;
         Box box2;
         for (Box b : getBoxes()) {
-            
+
             Line bottom = b.getBottomLine();
             Line top = b.getTopLine();
             Line left = b.getLeftLine();
             Line right = b.getRightLine();
 
-            if(bottom.getFirstTouchingBox() == null) {
+            if (bottom.getFirstTouchingBox() == null) {
                 bottom.setFirstTouchingBox(b);
-            }
-            else {
+            } else {
                 bottom.setSecondTouchingBox(b);
             }
-            
-            if(top.getFirstTouchingBox() == null) {
+
+            if (top.getFirstTouchingBox() == null) {
                 top.setFirstTouchingBox(b);
-            }
-            else {
+            } else {
                 top.setSecondTouchingBox(b);
             }
-            
-            if(left.getFirstTouchingBox() == null) {
+
+            if (left.getFirstTouchingBox() == null) {
                 left.setFirstTouchingBox(b);
-            }
-            else {
+            } else {
                 left.setSecondTouchingBox(b);
             }
-            
-            if(right.getFirstTouchingBox() == null) {
+
+            if (right.getFirstTouchingBox() == null) {
                 right.setFirstTouchingBox(b);
-            }
-            else {
+            } else {
                 right.setSecondTouchingBox(b);
             }
-            
         }
     }
-    
+
     public boolean allBoxesComplete() {
-        
+
         nrOfCompletedBoxes = 0;
         boolean complete = false;
-        
-        for(Box b : getBoxes()) {
-            if(b.isBoxComplete()) {
+
+        for (Box b : getBoxes()) {
+            if (b.isBoxComplete()) {
                 nrOfCompletedBoxes++;
-                }
+            }
         }
-        
-        if(nrOfCompletedBoxes == getBoxes().size()) {
+
+        if (nrOfCompletedBoxes == getBoxes().size()) {
             complete = true;
         }
-        
         return complete;
     }
 
@@ -188,5 +174,4 @@ public class Board implements Serializable{
     public ArrayList<Dot> getDots() {
         return dotList;
     }
-
 }

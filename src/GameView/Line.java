@@ -34,7 +34,7 @@ public class Line {
         this.startY = startY;
         this.endX = endX;
         this.endY = endY;
-        this.tolerance = 15;
+        this.tolerance = 10;
         this.color = Color.GRAY;
     }
     

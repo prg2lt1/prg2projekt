@@ -26,14 +26,14 @@ public class Flow {
     private Player user;
 
     public Flow(MoveExecutor newMoveExecuter, Opponent newOpponent, Player newUser) {
-        System.out.println("----[debug] new Flow");
+        System.out.println("[debug (Flow)] new Flow");
         this.moveExecuter = newMoveExecuter;
         this.opponent = newOpponent;
         this.user = newUser;
     }
 
     public Flow() {
-         System.out.println("----[debug] new Flow ohne params");
+         System.out.println("[debug (Flow)] new Flow ohne params");
     }
 
     public boolean gameIsRunning() {
@@ -68,7 +68,7 @@ public class Flow {
      * @param index
      */
     public void playLine(int index) {
-        System.out.println("Lineindex in in PLayLine in FLow: " + index);
+        //System.out.println("[info (Flow)] Lineindex in PlayLine in Flow: " + index);
         this.setState(this.moveExecuter.playLine(index, this.getCurrentPlayer()));
     }
 
@@ -93,10 +93,10 @@ public class Flow {
                     break;
 
                 default:
-                    System.out.println("unknown Command in Flow");
+                    System.out.println("[info (Flow)] unknown Command in Flow");
                     break;
             }
         } while (runGame);
-        System.out.println("end of Flow");
+        System.out.println("[info (Flow)] end of Flow");
     }
 }

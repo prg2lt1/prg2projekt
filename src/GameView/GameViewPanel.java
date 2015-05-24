@@ -51,11 +51,11 @@ public final class GameViewPanel extends JPanel {
                 while (itr.hasNext()) {
                     Line line = (Line) itr.next();
                     if (line.lineMatch(e.getX(), e.getY())) {
-                        System.out.println("[info] lineID: " + lineList.indexOf(line));
+                        System.out.println("[info (GameViewPanel)] clicked lineID: " + lineList.indexOf(line));
                         flow.playLine(lineList.indexOf(line));
-                        repaint();
                     }
                 }
+                repaint();
             }
         });
     }
@@ -95,12 +95,12 @@ public final class GameViewPanel extends JPanel {
 
             if (gameModelLine.getOwner() instanceof Opponent.Opponent) {
                 line.setColor(Color.RED);
-            System.out.println("[info] set line " + lineList.indexOf(line) + " to red");
+                System.out.println("[info (GameViewPanel)] set line " + lineList.indexOf(line) + " to red");
             } else if (gameModelLine.getOwner() instanceof GameModel.Player) {
                 line.setColor(Color.BLUE);
-            System.out.println("[info] set line " + lineList.indexOf(line) + " to red");
-            }else{
-                //System.out.print("default (no owner)\n");
+                System.out.println("[info (GameViewPanel)] set line " + lineList.indexOf(line) + " to blue");
+            } else {
+                System.out.print("default (no owner)\n");
             }
 
             g.setColor(line.getColor());

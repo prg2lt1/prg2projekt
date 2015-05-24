@@ -37,8 +37,8 @@ public class Line {
     }    
     
     public void setOwner (Player p) {
+        System.out.println("[debug (Line)] set owner: " + p);
         this.owner = p;
-       
     }
     
     public Dot getStartingDot() {
@@ -66,31 +66,25 @@ public class Line {
     }
     
     public Player getOwner() {
-        return owner;
+        return this.owner;
     }
     
     public Box getFirstTouchingBox() {
-        return partOfBox1;
+        return this.partOfBox1;
     }
     
     public Box getSecondTouchingBox() {
-        return partOfBox2;
+        return this.partOfBox2;
     }
     
     public void setFirstTouchingBox(Box first) {
-      
-        partOfBox1 = first;
-        
+        this.partOfBox1 = first;
     }
     
      public void setSecondTouchingBox(Box second) {
-      
-        partOfBox2 = second;
-        
+        this.partOfBox2 = second;
     }
-    
-   
-    
+     
     public int getCoordinates() {
         return Integer.parseInt(String.valueOf(startingDot+""+endingDot));
     }

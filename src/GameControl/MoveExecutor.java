@@ -12,7 +12,6 @@ import GameModel.Box;
 import Opponent.NetworkPlayer;
 import Opponent.Opponent;
 
-
 /**
  *
  * @author tobias
@@ -27,67 +26,51 @@ public class MoveExecutor {
     public MoveExecutor(Board newBoard) {
 
         this.board = newBoard;
-       
-        
+
     }
 
    // public void inputLine(Line inputLine) {
-
-        //Linie kontrollieren:
-       // if (emptyLine(inputLine)) {
-            //inputLine.setOwner(activePlayer);
-            //Linie sichtbar machen
-            
-            //Boxen kontrollieren (eine vollständig geworden?)
-            //Problem: wie kann man Zug umschalten.. keinen Zugriff auf Flow...
-        //}
-
-
+    //Linie kontrollieren:
+    // if (emptyLine(inputLine)) {
+    //inputLine.setOwner(activePlayer);
+    //Linie sichtbar machen
+    //Boxen kontrollieren (eine vollständig geworden?)
+    //Problem: wie kann man Zug umschalten.. keinen Zugriff auf Flow...
+    //}
     public boolean emptyLine(Line clickedLine) {
         return board.getLines().contains(clickedLine);
-        
     }
-    
-    public Flow.FlowStates playLine (int lineIndex, Player p) {
-        
-        System.out.println("Lineindex in PLayLine in MoveExecuter: " + lineIndex);
-        System.out.println("Player in PlayLine in MoveExecuter: " + p.toString());
-        Flow.FlowStates answer = Flow.FlowStates.error; 
+
+    public Flow.FlowStates playLine(int lineIndex, Player p) {
+
+        //System.out.println("Lineindex in PlayLine in MoveExecuter: " + lineIndex);
+        //System.out.println("Player in PlayLine in MoveExecuter: " + p.toString());
+        Flow.FlowStates answer = Flow.FlowStates.error;
         Line l = board.getLines().get(lineIndex);
         Box firstBox = l.getFirstTouchingBox();
         Box secondBox = l.getSecondTouchingBox();
-        
-        
-        
-        if (l.getOwner() == null) {
-        l.setOwner(p);
-           // if(board.allBoxesComplete()) {
-             //   answer = Flow.FlowStates.gameOver;
-            
-            if ( (firstBox != null && firstBox.isBoxComplete()) || (secondBox != null && secondBox.isBoxComplete()) ) {
-                if (p instanceof Opponent) {
-                    answer = Flow.FlowStates.opponentTurn;
-                }
-                else {
-                    answer = Flow.FlowStates.userTurn;
-                }
-            }
-            
-            else {
-                if (p instanceof Opponent) {
-                    answer = Flow.FlowStates.userTurn;
-                    System.out.println("userTurn");
-                }
-                else {
-                    answer = Flow.FlowStates.opponentTurn;
-                    System.out.println("opponentTurn");
 
+        if (l.getOwner() == null) {
+            l.setOwner(p);
+            // if(board.allBoxesComplete()) {
+            //   answer = Flow.FlowStates.gameOver;
+
+            if ((firstBox != null && firstBox.isBoxComplete()) || (secondBox != null && secondBox.isBoxComplete())) {
+                if (p instanceof Opponent) {
+                    answer = Flow.FlowStates.opponentTurn;
+                } else {
+                    answer = Flow.FlowStates.userTurn;
+                }
+            } else {
+                if (p instanceof Opponent) {
+                    answer = Flow.FlowStates.userTurn;
+                    System.out.println("[info (MoveExecutor)] userTurn");
+                } else {
+                    answer = Flow.FlowStates.opponentTurn;
+                    System.out.println("[info (MoveExecutor)] opponentTurn");
                 }
             }
         }
-         
-            return answer;
-        }
-        
+        return answer;
     }
-   
+}

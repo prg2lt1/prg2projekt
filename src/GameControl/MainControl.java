@@ -16,7 +16,6 @@ import GameView.UserInput;
 public class MainControl implements FileIO {
 
     private enum ControlStates {
-
         prepare,
         getOpponent,
         wait,
@@ -52,7 +51,7 @@ public class MainControl implements FileIO {
      */
     public void setOpponent(String newOpponent) {
 
-        System.out.println("getOpponent got" + newOpponent);
+        System.out.println("[info (MainControl)] Opponent: " + newOpponent);
 
         switch (newOpponent) {
             case "Computer":
@@ -65,7 +64,7 @@ public class MainControl implements FileIO {
                 //Hier müsste nach Netzwerkgegner gesucht werden.
                 break;
             default:
-                System.out.println("unknownOpponentFound");
+                System.out.println("[error (MainControl)] unknownOpponentFound");
                 break;
         }
 
@@ -105,20 +104,20 @@ public class MainControl implements FileIO {
         do {
             switch (stateStart) {
                 case prepare:
-                    System.out.println("[debug] " + stateStart);
+                    System.out.println("[debug (MainControl)] state stateStart: " + stateStart);
                     user = new Player("user");
 
                     stateStart = ControlStates.getOpponent;
                     break;
 
                 case getOpponent:
-                    System.out.println("[debug] " + stateStart);
+                    System.out.println("[debug (MainControl)] state getOpponent: " + stateStart);
                     userInput.setGameMode();
                     userInput.setPlayerName();
                     break;
 
                 case wait:
-                    System.out.println("[debug] " + stateStart);
+                    System.out.println("[debug (MainControl)] state wait: " + stateStart);
                     break;
 
                 case run:
@@ -130,7 +129,7 @@ public class MainControl implements FileIO {
                     break;
 
                 case endGame:
-                    System.out.println("[debug] " + stateStart);
+                    System.out.println("[debug (MainControl)] state endGame: " + stateStart);
                     this.runGame = false;
 
                     if (true) { //Dialog oder ähnliches..

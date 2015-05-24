@@ -20,8 +20,7 @@ public final class Dot {
     /**
      * 
      * @param x
-     * @param y
-     * @param dotID 
+     * @param y 
      */
     public Dot(int x, int y) {
         this.x = x;
