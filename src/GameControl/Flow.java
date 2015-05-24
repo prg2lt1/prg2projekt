@@ -42,9 +42,9 @@ public class Flow {
 
     public Player getCurrentPlayer() {
         if (stateRun == FlowStates.userTurn) {
-            return opponent;
-        } else {
             return user;
+        } else {
+            return opponent;
         }
     }
 

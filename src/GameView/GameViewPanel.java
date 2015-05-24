@@ -47,15 +47,19 @@ public final class GameViewPanel extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                Iterator<Line> itr = lineList.iterator();
-                while (itr.hasNext()) {
-                    Line line = (Line) itr.next();
-                    if (line.lineMatch(e.getX(), e.getY())) {
-                        System.out.println("[info (GameViewPanel)] clicked lineID: " + lineList.indexOf(line));
-                        flow.playLine(lineList.indexOf(line));
+                if (flow.getCurrentPlayer() instanceof Opponent.Opponent) {
+                    System.out.println("[info (GameViewPanel)] not your turn!");
+                } else {
+                    Iterator<Line> itr = lineList.iterator();
+                    while (itr.hasNext()) {
+                        Line line = (Line) itr.next();
+                        if (line.lineMatch(e.getX(), e.getY())) {
+                            //System.out.println("[info (GameViewPanel)] clicked lineID: " + lineList.indexOf(line));
+                            flow.playLine(lineList.indexOf(line));
+                        }
                     }
+                    repaint();
                 }
-                repaint();
             }
         });
     }
@@ -94,13 +98,13 @@ public final class GameViewPanel extends JPanel {
             Line line = lineList.get(board.getLines().indexOf(gameModelLine));
 
             if (gameModelLine.getOwner() instanceof Opponent.Opponent) {
-                line.setColor(Color.RED);
-                System.out.println("[info (GameViewPanel)] set line " + lineList.indexOf(line) + " to red");
-            } else if (gameModelLine.getOwner() instanceof GameModel.Player) {
                 line.setColor(Color.BLUE);
                 System.out.println("[info (GameViewPanel)] set line " + lineList.indexOf(line) + " to blue");
+            } else if (gameModelLine.getOwner() instanceof GameModel.Player) {
+                line.setColor(Color.RED);
+                System.out.println("[info (GameViewPanel)] set line " + lineList.indexOf(line) + " to red");
             } else {
-                System.out.print("default (no owner)\n");
+                //System.out.println("default (no owner)");
             }
 
             g.setColor(line.getColor());
