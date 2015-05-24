@@ -108,9 +108,14 @@ public class Flow {
                     System.out.println(stateRun);
                     this.runGame = false;
                     break;
+                    
+                case error:
+                    System.out.println(stateRun);
+                    break;
 
                 default:
-                    System.out.println("[info (Flow)] unknown Command in Flow");
+                    System.out.println("[info (Flow)] unknown Command in Flow: " + stateRun.toString());
+                    
                     break;
             }
         } while (runGame);
