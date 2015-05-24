@@ -116,12 +116,15 @@ public final class GameViewFrame extends JFrame implements ActionListener {
         }
         if (e.getSource() == miSaveGame) {
             System.out.println("[info (GameViewFrame)] safe game");
+            mainControl.saveGame();
         }
         if (e.getSource() == miLoadGame) {
             System.out.println("[info (GameViewFrame)] load game");
+            mainControl.loadGame();
         }
         if (e.getSource() == miHelpAbout) {
             System.out.println("[info (GameViewFrame)] show about window");
+            mainControl.showAbout();
         }
     }
 }

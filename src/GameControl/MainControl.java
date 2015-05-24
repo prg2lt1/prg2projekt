@@ -78,7 +78,7 @@ public class MainControl implements FileIO {
 
     public void setBoardSize(int newSize) {
         //board = new Board(newSize);
-        updateBoard();
+        //updateClasses();
     }
 
     public void saveGame() {
@@ -93,10 +93,17 @@ public class MainControl implements FileIO {
     public void loadGame() {
         this.board = FileIO.loadBoard();
         flow.setState(Flow.FlowStates.userTurn);
+        updateClasses();
+    }
+    
+    public void showAbout(){
+        userInput.Message(("Try to complete as many Boxes as possible.\n authors: Frowin Imholz, Tobias Heer, Lorenz Schilter"),
+                "About");
     }
 
-    public void updateBoard() {
-        //geht in die Klassen das Board ersetzen...
+    public void updateClasses() {
+        gameViewFrame.setBoard(this.board);
+        gameViewFrame.setFlow(this.flow);
     }
 
     public void gameStart() {
