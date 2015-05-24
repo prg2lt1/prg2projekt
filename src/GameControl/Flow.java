@@ -2,6 +2,7 @@ package GameControl;
 
 import GameModel.Player;
 import Opponent.Opponent;
+import Opponent.ComputerBrain;
 
 /**
  * Flow enthält die Zustandsautomaten, welche den Spielverlauf abbilden sollen.
@@ -16,7 +17,9 @@ public class Flow {
         userTurn,
         opponentTurn,
         gameOver,
-        error
+        error,
+        wait
+       
     }
 
     public MoveExecutor moveExecuter;
@@ -88,6 +91,18 @@ public class Flow {
 
                 case opponentTurn:
                     //System.out.println(stateRun);
+                    //this.setState(Flow.FlowStates.wait);
+                    if(opponent instanceof ComputerBrain){
+                        this.playLine(((ComputerBrain) opponent).play());
+                        System.out.println("AI called play");
+                    }
+                    else {
+                        //do network stuff...
+                    }
+                    break;
+                    
+                case wait:
+                    System.out.println("waiting");
                     break;
 
                 case gameOver:

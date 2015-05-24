@@ -10,6 +10,7 @@ import GameModel.Box;
 import GameModel.Line;
 import GameControl.MoveExecutor;
 import java.util.Random;
+import GameControl.Flow;
 
 /**
  *
@@ -34,16 +35,19 @@ public class ComputerBrain extends Opponent {
         numberOfLines = board.getLines().size();
     }
 
-    public void play() {
+    public int play() {
 
-        boolean foundMove = false;
-        foundMove = playFirstPrio();
-        if (!foundMove) {
-            foundMove = playSecondPrio();
+        int playedIndex = -1;
+        //boolean foundMove = false;
+        //foundMove = playFirstPrio();
+        playedIndex = playFirstPrio();
+        if (playedIndex == -1) {
+            playedIndex = playSecondPrio();
         }
-        if (!foundMove) {
-            playThirdPrio();
+        if (playedIndex == -1) {
+            playedIndex = playThirdPrio();
         }
+        return playedIndex;
     }
 
     /**
@@ -51,17 +55,19 @@ public class ComputerBrain extends Opponent {
      *
      * @return
      */
-    public boolean playFirstPrio() {
+    public int playFirstPrio() {
 
-        boolean playedMove = false;
-
-        for (int i = 0; i < board.getBoxes().size() && !playedMove; i++) {
+        //boolean playedMove = false;
+        int playedIndex = -1;
+        for (int i = 0; i < board.getBoxes().size() && playedIndex == -1; i++) {
             Box b = board.getBoxes().get(i);
             if (b.getNumberOfLines() == 3) {
-                playedMove = playPossibleLine(b);
+                playedIndex = choosePossibleLine(b);
+               // playedMove = playPossibleLine(b);
             }
         }
-        return playedMove;
+        System.out.println("AI first prio played");
+        return playedIndex;
     }
 
     /**
@@ -70,36 +76,40 @@ public class ComputerBrain extends Opponent {
      *
      * @return
      */
-    public boolean playSecondPrio() {
+    public int playSecondPrio() {
 
-        boolean playedMove = false;
-        for (int i = 0; i < board.getBoxes().size() && !playedMove; i++) {
+        int playedIndex = -1;
+        //boolean playedMove = false;
+        for (int i = 0; i < board.getBoxes().size() && playedIndex == -1; i++) {
 
             Box c = board.getBoxes().get(i);
 
             if (c.getNumberOfLines() < 2 && c.getBottomLine().getOwner() == null && !criticalNeighbour(c.getBottomLine(), i)) {
-                playedMove = playSpecificLine(c.getBottomLine());
+                playedIndex = chooseSpecificLine(c.getBottomLine());
             } else if (c.getNumberOfLines() < 2 && c.getTopLine().getOwner() == null && !criticalNeighbour(c.getTopLine(), i)) {
-                playedMove = playSpecificLine(c.getTopLine());
+                playedIndex = chooseSpecificLine(c.getTopLine());
             } else if (c.getNumberOfLines() < 2 && c.getLeftLine().getOwner() == null && !criticalNeighbour(c.getLeftLine(), i)) {
-                playedMove = playSpecificLine(c.getLeftLine());
+                playedIndex = chooseSpecificLine(c.getLeftLine());
             } else if (c.getNumberOfLines() < 2 && c.getRightLine().getOwner() == null && !criticalNeighbour(c.getRightLine(), i)) {
-                playedMove = playSpecificLine(c.getRightLine());
+                playedIndex = chooseSpecificLine(c.getRightLine());
             }
         }
-        return playedMove;
+        System.out.println("AI second prio chosen");
+        return playedIndex;
     }
 
-    public boolean playThirdPrio() {
-        boolean foundMove = false;
-        while (!foundMove) {
+    public int playThirdPrio() {
+        //boolean foundMove = false;
+        int lineIndex = -1;
+        while (lineIndex == -1) {
 
             Line l = getRandomLine();
             if (l.getOwner() == null) {
-                foundMove = playSpecificLine(l);
+                lineIndex = chooseSpecificLine(l);
             }
         }
-        return foundMove;
+        System.out.println("AI third prio played");
+        return lineIndex;
     }
 
     /**
@@ -162,34 +172,35 @@ public class ComputerBrain extends Opponent {
         return critical;
     }
 
-    private boolean playPossibleLine(Box b) {
+    private int choosePossibleLine(Box b) {
 
-        int lineIndex;
-        boolean playedLine = false;
+        int lineIndex = -1;
+        //boolean playedLine = false;
 
         if (b.getBottomLine().getOwner() == null) {
             lineIndex = board.getLines().indexOf(b.getBottomLine());
-            myExecutor.playLine(lineIndex, this);
-            playedLine = true;
+            //myExecutor.playLine(lineIndex, this);
+            
+            //playedLine = true;
         } else if (b.getTopLine().getOwner() == null) {
             lineIndex = board.getLines().indexOf(b.getTopLine());
-            myExecutor.playLine(lineIndex, this);
-            playedLine = true;
+            //myExecutor.playLine(lineIndex, this);
+            //playedLine = true;
         } else if (b.getLeftLine().getOwner() == null) {
             lineIndex = board.getLines().indexOf(b.getLeftLine());
-            myExecutor.playLine(lineIndex, this);
-            playedLine = true;
+            //myExecutor.playLine(lineIndex, this);
+            //playedLine = true;
         } else if (b.getRightLine().getOwner() == null) {
             lineIndex = board.getLines().indexOf(b.getRightLine());
-            myExecutor.playLine(lineIndex, this);
-            playedLine = true;
+            //myExecutor.playLine(lineIndex, this);
+            //playedLine = true;
         }
-        return playedLine;
+        return lineIndex;
     }
 
-    private boolean playSpecificLine(Line t) {
+    private int chooseSpecificLine(Line t) {
         int lineIndex = board.getLines().indexOf(t);
-        myExecutor.playLine(lineIndex, this);
-        return true;
+        //myExecutor.playLine(lineIndex, this);
+        return lineIndex;
     }
 }
