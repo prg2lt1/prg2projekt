@@ -7,94 +7,110 @@ package GameView;
 
 import java.awt.Color;
 
-
-
 /**
+ * Line class
  *
  * @author Frowin Imholz
- * 
+ *
  */
 public class Line {
+
     private final int startX;
     private final int startY;
-    private final int endX;
-    private final int endY;
+    private final int width;
+    private final int height;
     private final int tolerance;
+    private final Color defaultColor;
     private Color color;
-    
+
     /**
-     * 
+     *
      * @param startX
      * @param startY
      * @param endX
      * @param endY
+     * @param thickness
      */
-    public Line(int startX, int startY, int endX, int endY) {
-        this.startX = startX;
-        this.startY = startY;
-        this.endX = endX;
-        this.endY = endY;
+    public Line(int startX, int startY, int endX, int endY, int thickness) {
+        if (startX == endX) {
+            this.width = thickness;
+            this.startX = startX - this.width / 2;
+        } else {
+            this.width = endX - startX;
+            this.startX = startX;
+        }
+        if (startY == endY) {
+            this.height = thickness;
+            this.startY = startY - this.height / 2;
+        } else {
+            this.height = endY - startY;
+            this.startY = startY;
+        }
+
         this.tolerance = 10;
-        this.color = Color.GRAY;
+        this.defaultColor = Color.GRAY;
+        this.color = defaultColor;
     }
-    
+
     /**
-     * 
-     * @return starting x position of the line
+     *
+     * @return start position x of the line
      */
     public int getStartX() {
         return this.startX;
     }
-    
+
     /**
-     * 
-     * @return starting y position of the line
+     *
+     * @return start position y of the line
      */
     public int getStartY() {
         return this.startY;
     }
-    
+
     /**
-     * 
-     * @return ending x position of the line
+     *
+     * @return width of the line
      */
-    public int getEndX() {
-        return this.endX;
+    public int getWidth() {
+        return this.width;
     }
-    
+
     /**
-     * 
-     * @return ending y position of the line
+     *
+     * @return height of the line
      */
-    public int getEndY() {
-        return this.endY;
+    public int getHeight() {
+        return this.height;
     }
-    
+
     /**
-     * 
-     * @param newColor
+     *
+     * @param color
      */
-    public void setColor(Color newColor) {
-        this.color = newColor;
+    public void setColor(Color color) {
+        if (color != this.defaultColor){
+            this.color = color;
+        }
     }
-    
+
     /**
-     * 
+     *
      * @return color of the line
      */
     public Color getColor() {
         return this.color;
     }
-    
+
     /**
-     * 
+     *
      * @param x position
      * @param y position
      * @return true, if line matched
      */
     public boolean lineMatch(int x, int y) {
-        if (this.startX-tolerance <= x && x <= this.endX+tolerance) {
-            if (this.startY-tolerance <= y && y <= this.endY+tolerance) {
+        if (this.startX - this.tolerance <= x && x <= this.startX + this.width + this.tolerance) {
+            if (this.startY - this.tolerance <= y && y <= this.startY + this.height + this.tolerance) {
                 return true;
             }
         }

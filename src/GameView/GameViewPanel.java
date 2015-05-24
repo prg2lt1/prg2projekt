@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 
 /**
  * Dots & Boxes GUI.
+ * @author Frowin Imholz
  */
 public final class GameViewPanel extends JPanel {
 
@@ -83,7 +84,7 @@ public final class GameViewPanel extends JPanel {
             }
             Dot dot = dotList.get(board.getDots().indexOf(gameModelDot));
             g.setColor(dot.getColor());
-            g.fillOval(dot.getX() - dot.getRadius() / 2, dot.getY() - dot.getRadius() / 2, dot.getRadius(), dot.getRadius());
+            g.fillOval(dot.getX(), dot.getY(), 2*dot.getRadius(), 2*dot.getRadius());
         }
     }
 
@@ -97,7 +98,8 @@ public final class GameViewPanel extends JPanel {
                 int startY = gameModelLine.getStartingDot().getY() * dotSpace + ySpace;
                 int endX = gameModelLine.getEndingDot().getX() * dotSpace + xSpace;
                 int endY = gameModelLine.getEndingDot().getY() * dotSpace + ySpace;
-                lineList.add(new Line(startX, startY, endX, endY));
+                int thickness = 4;
+                lineList.add(new Line(startX, startY, endX, endY, thickness));
             }
             Line line = lineList.get(board.getLines().indexOf(gameModelLine));
 
@@ -112,7 +114,7 @@ public final class GameViewPanel extends JPanel {
             }
 
             g.setColor(line.getColor());
-            g.fillRect(line.getStartX(), line.getStartY(), (line.getEndX() - line.getStartX()) + 5, (line.getEndY() - (line.getStartY()) + 5));
+            g.fillRect(line.getStartX(), line.getStartY(), line.getWidth(), line.getHeight());
         }
     }
 

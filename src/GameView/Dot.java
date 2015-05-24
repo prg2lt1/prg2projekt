@@ -23,9 +23,9 @@ public final class Dot {
      * @param y 
      */
     public Dot(int x, int y) {
-        this.x = x;
-        this.y = y;
-        this.radius = 25;
+        this.radius = 10;
+        this.x = x - radius;
+        this.y = y - radius;
         this.color = Color.GRAY;
     }
     

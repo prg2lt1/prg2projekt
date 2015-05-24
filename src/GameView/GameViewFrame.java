@@ -18,7 +18,7 @@ public final class GameViewFrame extends JFrame implements ActionListener {
 
     private final int width;
     private final int height;
-    private MainControl mainControl;
+    private final MainControl mainControl;
     private Board board;
     private Flow flow;
 
@@ -37,6 +37,7 @@ public final class GameViewFrame extends JFrame implements ActionListener {
      * Spielflaeche.
      *
      * @param mainControl
+     * @param board
      */
     public GameViewFrame(MainControl mainControl, Board board) {
         super("Dots & Boxes");

@@ -100,8 +100,7 @@ public class MainControl implements FileIO {
     }
     
     public void showAbout(){
-        userInput.Message(("Try to complete as many Boxes as possible.\n authors: Frowin Imholz, Tobias Heer, Lorenz Schilter"),
-                "About");
+        userInput.Message(("Try to complete as many Boxes as possible.\nAuthors: Frowin Imholz, Tobias Heer, Lorenz Schilter"),"About");
     }
 
     public void updateClasses() {
