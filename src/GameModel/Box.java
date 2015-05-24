@@ -5,11 +5,13 @@
  */
 package GameModel;
 
+import java.io.Serializable;
+
 /**
  *
  * @author tobias
  */
-public class Box {
+public class Box implements Serializable {
     
     private final int boxNumber;
     private Line topLine;

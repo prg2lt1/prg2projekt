@@ -5,13 +5,15 @@
  */
 package GameModel;
 
+import java.io.Serializable;
+
 
 /**
  *
  * @author tobias
  * 
  */
-public class Line {
+public class Line implements Serializable {
     
    
     private final Dot startingDot;

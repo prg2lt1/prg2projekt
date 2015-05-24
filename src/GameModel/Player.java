@@ -1,10 +1,12 @@
 package GameModel;
 
+import java.io.Serializable;
+
 /**
  *
  * @author tobias
  */
-public class Player {
+public class Player implements Serializable {
 
     private String name;
     private int nmbOfBoxes;

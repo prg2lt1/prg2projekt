@@ -82,12 +82,15 @@ public class MainControl implements FileIO {
     }
 
     public void saveGame() {
+        FileIO.saveBoard(board);
+        /**
         if (flow.getState() == Flow.FlowStates.userTurn) {
             FileIO.saveBoard(board);
             userInput.Message("Game was saved", "Sucess");
         } else {
             userInput.Message("You can only save, when it's your turn", "Error");
         }
+        */
     }
 
     public void loadGame() {

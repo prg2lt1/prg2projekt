@@ -5,13 +5,15 @@
  */
 package GameModel;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Tobias Heer
  *
  *
  */
-public final class Dot {
+public final class Dot implements Serializable {
     private final int x, y;
 
     /**
