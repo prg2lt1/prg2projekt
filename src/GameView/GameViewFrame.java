@@ -1,6 +1,7 @@
 package GameView;
 
 import GameControl.Flow;
+import GameControl.MainControl;
 import GameModel.Board;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -17,7 +18,8 @@ public final class GameViewFrame extends JFrame implements ActionListener {
 
     private final int width;
     private final int height;
-    private final Board board;
+    private MainControl mainControl;
+    private Board board;
     private Flow flow;
 
     private final GameViewSidePanel gameViewSidePanel;
@@ -34,14 +36,15 @@ public final class GameViewFrame extends JFrame implements ActionListener {
      * Der Konstruktor zeichnet das Fenster mit dem Menu, den Buttons und der
      * Spielflaeche.
      *
-     * @param board
+     * @param mainControl
      */
-    public GameViewFrame(Board board) {
+    public GameViewFrame(MainControl mainControl, Board board) {
         super("Dots & Boxes");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         width = 800;
         height = 600;
+        this.mainControl = mainControl;
         this.board = board;
 
         menuBar = new JMenuBar();
@@ -82,6 +85,11 @@ public final class GameViewFrame extends JFrame implements ActionListener {
     public void setFlow(Flow flow) {
         this.flow = flow;
         gameViewPanel.setFlow(this.flow);
+    }
+    
+    public void setBoard(Board board){
+        this.board = board;
+        gameViewPanel.setBoard(this.board);
     }
     
     public void setPlayerName(String name){
