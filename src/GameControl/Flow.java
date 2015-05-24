@@ -94,7 +94,6 @@ public class Flow {
                     //this.setState(Flow.FlowStates.wait);
                     if(opponent instanceof ComputerBrain){
                         this.playLine(((ComputerBrain) opponent).play());
-                        System.out.println("AI called play");
                     }
                     else {
                         //do network stuff...

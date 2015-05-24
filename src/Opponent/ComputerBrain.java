@@ -66,7 +66,7 @@ public class ComputerBrain extends Opponent {
                // playedMove = playPossibleLine(b);
             }
         }
-        System.out.println("First prio resulted in" + lineIndex);
+        System.out.println("First prio resulted in " + lineIndex);
         return lineIndex;
     }
 
@@ -94,7 +94,7 @@ public class ComputerBrain extends Opponent {
                 lineIndex = chooseSpecificLine(c.getRightLine());
             }
         }
-        System.out.println("First prio resulted in" + lineIndex);
+        System.out.println("Second prio resulted in " + lineIndex);
         return lineIndex;
     }
 
@@ -108,7 +108,7 @@ public class ComputerBrain extends Opponent {
                 lineIndex = chooseSpecificLine(l);
             }
         }
-        System.out.println("First prio resulted in" + lineIndex);
+        System.out.println("Third prio resulted in " + lineIndex);
         return lineIndex;
     }
 

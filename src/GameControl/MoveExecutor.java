@@ -60,9 +60,12 @@ public class MoveExecutor {
 
             if ((firstBox != null && firstBox.isBoxComplete()) || (secondBox != null && secondBox.isBoxComplete())) {
                 if (p instanceof Opponent) {
+                    System.out.println("[info (MoveExecutor)] opponentTurn once again");
                     answer = Flow.FlowStates.opponentTurn;
                 } else {
+                    System.out.println("[info (MoveExecutor)] userTurn once again");
                     answer = Flow.FlowStates.userTurn;
+
                 }
             } else {
                 if (p instanceof Opponent) {
