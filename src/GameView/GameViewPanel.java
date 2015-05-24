@@ -15,12 +15,12 @@ import javax.swing.JPanel;
  */
 public final class GameViewPanel extends JPanel {
 
-    private final Board board;
+    private Board board;
+    private Flow flow;
+        
     private final int dotSpace;
     private final int xSpace;
     private final int ySpace;
-
-    private Flow flow;
 
     private final ArrayList<Dot> dotList;
     private final ArrayList<Line> lineList;
@@ -28,7 +28,7 @@ public final class GameViewPanel extends JPanel {
     /**
      * Der Konstruktor zeichnet das Fenster mit dem Menu, den Buttons und der
      * Spielflaeche.
-     *
+     * 
      * @param board
      */
     public GameViewPanel(Board board) {
@@ -66,6 +66,10 @@ public final class GameViewPanel extends JPanel {
 
     public void setFlow(Flow flow) {
         this.flow = flow;
+    }
+    
+    public void setBoard(Board board){
+        this.board = board;
     }
 
     // zeichnet die Punkte
