@@ -48,9 +48,12 @@ public class Flow {
         }
     }
 
+    /**
+     * MoveExecuter setzt den nächsten Spieler. überprüft die Boxen.
+     * @param newState 
+     */
     public void setState(FlowStates newState) {
-        //stateRun = newState;
-        stateRun = FlowStates.userTurn;
+        stateRun = newState;
     }
     
     public FlowStates getState() {
