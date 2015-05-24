@@ -105,10 +105,10 @@ public final class GameViewPanel extends JPanel {
 
             if (gameModelLine.getOwner() instanceof Opponent.Opponent) {
                 line.setColor(Color.BLUE);
-                System.out.println("[info (GameViewPanel)] set line " + lineList.indexOf(line) + " to blue");
+                //System.out.println("[info (GameViewPanel)] set line " + lineList.indexOf(line) + " to blue");
             } else if (gameModelLine.getOwner() instanceof GameModel.Player) {
                 line.setColor(Color.RED);
-                System.out.println("[info (GameViewPanel)] set line " + lineList.indexOf(line) + " to red");
+                //System.out.println("[info (GameViewPanel)] set line " + lineList.indexOf(line) + " to red");
             } else {
                 //System.out.println("default (no owner)");
             }
@@ -118,10 +118,24 @@ public final class GameViewPanel extends JPanel {
         }
     }
 
+    // zeichnet die Boxen
+    private void drawBoxes(Graphics g) {
+        Iterator<GameModel.Box> itr = board.getBoxes().iterator();
+        while (itr.hasNext()) {
+            GameModel.Box gameModelBox = (GameModel.Box) itr.next();
+            if (gameModelBox.isBoxComplete()) {
+                int boxNumber = gameModelBox.getBoxNumber();
+                g.setColor(Color.ORANGE);
+                g.fillRect(boxNumber * dotSpace + xSpace, boxNumber * dotSpace + ySpace, 50, 50);
+            }
+        }
+    }
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);
         drawDots(g);
         drawLines(g);
+        //drawBoxes(g);
     }
 }

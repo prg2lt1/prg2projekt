@@ -61,6 +61,7 @@ public class Box implements Serializable {
         
         if(getNumberOfLines() == 4) {
         isComplete = true;
+        System.out.println("[debug] box completed");
         
         }
         return isComplete;
