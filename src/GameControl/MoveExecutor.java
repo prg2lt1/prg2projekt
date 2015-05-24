@@ -52,8 +52,11 @@ public class MoveExecutor {
 
         if (l.getOwner() == null) {
             l.setOwner(p);
-            // if(board.allBoxesComplete()) {
-            //   answer = Flow.FlowStates.gameOver;
+            System.out.println("owner set");
+            
+            if(board.allBoxesComplete()) {
+               answer = Flow.FlowStates.gameOver;
+            }
 
             if ((firstBox != null && firstBox.isBoxComplete()) || (secondBox != null && secondBox.isBoxComplete())) {
                 if (p instanceof Opponent) {
