@@ -58,16 +58,16 @@ public class ComputerBrain extends Opponent {
     public int playFirstPrio() {
 
         //boolean playedMove = false;
-        int playedIndex = -1;
-        for (int i = 0; i < board.getBoxes().size() && playedIndex == -1; i++) {
+        int lineIndex = -1;
+        for (int i = 0; i < board.getBoxes().size() && lineIndex == -1; i++) {
             Box b = board.getBoxes().get(i);
             if (b.getNumberOfLines() == 3) {
-                playedIndex = choosePossibleLine(b);
+                lineIndex = choosePossibleLine(b);
                // playedMove = playPossibleLine(b);
             }
         }
-        System.out.println("AI first prio played");
-        return playedIndex;
+        System.out.println("First prio resulted in" + lineIndex);
+        return lineIndex;
     }
 
     /**
@@ -78,24 +78,24 @@ public class ComputerBrain extends Opponent {
      */
     public int playSecondPrio() {
 
-        int playedIndex = -1;
+        int lineIndex = -1;
         //boolean playedMove = false;
-        for (int i = 0; i < board.getBoxes().size() && playedIndex == -1; i++) {
+        for (int i = 0; i < board.getBoxes().size() && lineIndex == -1; i++) {
 
             Box c = board.getBoxes().get(i);
 
             if (c.getNumberOfLines() < 2 && c.getBottomLine().getOwner() == null && !criticalNeighbour(c.getBottomLine(), i)) {
-                playedIndex = chooseSpecificLine(c.getBottomLine());
+                lineIndex = chooseSpecificLine(c.getBottomLine());
             } else if (c.getNumberOfLines() < 2 && c.getTopLine().getOwner() == null && !criticalNeighbour(c.getTopLine(), i)) {
-                playedIndex = chooseSpecificLine(c.getTopLine());
+                lineIndex = chooseSpecificLine(c.getTopLine());
             } else if (c.getNumberOfLines() < 2 && c.getLeftLine().getOwner() == null && !criticalNeighbour(c.getLeftLine(), i)) {
-                playedIndex = chooseSpecificLine(c.getLeftLine());
+                lineIndex = chooseSpecificLine(c.getLeftLine());
             } else if (c.getNumberOfLines() < 2 && c.getRightLine().getOwner() == null && !criticalNeighbour(c.getRightLine(), i)) {
-                playedIndex = chooseSpecificLine(c.getRightLine());
+                lineIndex = chooseSpecificLine(c.getRightLine());
             }
         }
-        System.out.println("AI second prio chosen");
-        return playedIndex;
+        System.out.println("First prio resulted in" + lineIndex);
+        return lineIndex;
     }
 
     public int playThirdPrio() {
@@ -108,7 +108,7 @@ public class ComputerBrain extends Opponent {
                 lineIndex = chooseSpecificLine(l);
             }
         }
-        System.out.println("AI third prio played");
+        System.out.println("First prio resulted in" + lineIndex);
         return lineIndex;
     }
 
