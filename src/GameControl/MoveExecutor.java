@@ -54,13 +54,7 @@ public class MoveExecutor {
             
             l.setOwner(p);
             
-            if (firstBox != null) {
-            firstBox.updateOwner(p);
-            }
-            
-            if (secondBox != null) {
-            secondBox.updateOwner(p);
-            }
+           
             
             System.out.println("owner set");
             
