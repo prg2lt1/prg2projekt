@@ -7,6 +7,7 @@ import Opponent.Opponent;
 import GameModel.Player;
 import GameView.GameViewFrame;
 import GameView.UserInput;
+import GameView.EndOfGame;
 
 /**
  * Hauptverwaltung. Initiiere Spielfeld, Spieler, Netzwerk etc.
@@ -36,12 +37,15 @@ public class MainControl implements FileIO {
     private MoveExecutor moveExecutor;
     private GameViewFrame gameViewFrame;
     private final UserInput userInput;
+    private EndOfGame endOfGame;
 
     public MainControl() {
         this.userInput = new UserInput(this);
         this.board = new Board(boardSize);
         this.gameViewFrame = new GameViewFrame(this, this.board);
         this.moveExecutor = new MoveExecutor(board);
+        this.endOfGame = new EndOfGame(this);
+        
 
         this.gameStart();
     }
@@ -142,7 +146,7 @@ public class MainControl implements FileIO {
 
                 case run:
                     //System.out.println("[debug] " + stateStart);
-                    this.flow = new Flow(moveExecutor, opponent, user);
+                    this.flow = new Flow(moveExecutor, opponent, user, endOfGame);
                     gameViewFrame.setFlow(this.flow);
                     flow.gameRun();
                     stateStart = ControlStates.wait;

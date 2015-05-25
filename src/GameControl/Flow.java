@@ -1,6 +1,7 @@
 package GameControl;
 
 import GameModel.Player;
+import GameView.EndOfGame;
 import Opponent.Opponent;
 import Opponent.ComputerBrain;
 
@@ -27,13 +28,15 @@ public class Flow {
     private Player user;
     private Network network;
     private FlowStates stateRun = FlowStates.userTurn;
+    private EndOfGame endGame;
     private boolean runGame = true;
 
-    public Flow(MoveExecutor newMoveExecuter, Opponent newOpponent, Player newUser) {
+    public Flow(MoveExecutor newMoveExecuter, Opponent newOpponent, Player newUser, EndOfGame endOfGame) {
         System.out.println("[debug (Flow)] new Flow");
         this.moveExecuter = newMoveExecuter;
         this.opponent = newOpponent;
         this.user = newUser;
+        endGame = endOfGame;
     }
 
     public boolean gameIsRunning() {
@@ -104,6 +107,7 @@ public class Flow {
                 case gameOver:
                     System.out.println(stateRun);
                     this.runGame = false;
+                    endGame.setVisible();
                     break;
 
                 case error:
