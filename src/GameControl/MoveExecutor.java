@@ -11,12 +11,13 @@ import GameModel.Board;
 import GameModel.Box;
 import Opponent.NetworkPlayer;
 import Opponent.Opponent;
+import java.io.Serializable;
 
 /**
  *
  * @author tobias
  */
-public class MoveExecutor {
+public class MoveExecutor implements Serializable{
 
     Player activePlayer;
     Board board;
