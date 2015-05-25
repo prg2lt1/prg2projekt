@@ -30,6 +30,7 @@ public class MainControl implements FileIO {
     private ControlStates stateStart = ControlStates.prepare;
     private Player user;
     private Opponent opponent = null;
+    //private GameOver gameOver = new GameOver(this);
 
     private Board board;
     private Flow flow;
@@ -150,8 +151,11 @@ public class MainControl implements FileIO {
                     break;
 
                 case endGame:
+                    runGame = false;
                     System.out.println("[debug (MainControl)] state endGame: " + stateStart);
                     userInput.GameOver();
+                   // gameOver.gameOver();
+                    
             }
         } while (runGame);
     }

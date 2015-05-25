@@ -122,6 +122,7 @@ public class UserInput extends JOptionPane {
             System.exit(0);
         }
     }
+    
 
     public void Message(String text, String title) {
         //custom message and title, warning icon
