@@ -49,5 +49,13 @@ public class Box {
     
     public int getStartY() {
         return this.startY;
+    }  
+    
+    public int getEndX() {
+        return this.endX;
+    }  
+    
+    public int getEndY() {
+        return this.endY;
     }    
 }

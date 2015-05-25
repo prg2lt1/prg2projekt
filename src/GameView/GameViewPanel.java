@@ -6,30 +6,33 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import static java.lang.Math.sqrt;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JPanel;
 
 /**
  * Dots & Boxes GUI.
+ *
  * @author Frowin Imholz
  */
 public final class GameViewPanel extends JPanel {
 
     private Board board;
     private Flow flow;
-        
+
     private final int dotSpace;
     private final int xSpace;
     private final int ySpace;
 
     private final ArrayList<Dot> dotList;
     private final ArrayList<Line> lineList;
+    private final ArrayList<Box> boxList;
 
     /**
      * Der Konstruktor zeichnet das Fenster mit dem Menu, den Buttons und der
      * Spielflaeche.
-     * 
+     *
      * @param board
      */
     public GameViewPanel(Board board) {
@@ -40,6 +43,7 @@ public final class GameViewPanel extends JPanel {
 
         dotList = new ArrayList<>();
         lineList = new ArrayList<>();
+        boxList = new ArrayList<>();
 
         // draw game panel
         setBackground(Color.white);
@@ -68,8 +72,8 @@ public final class GameViewPanel extends JPanel {
     public void setFlow(Flow flow) {
         this.flow = flow;
     }
-    
-    public void setBoard(Board board){
+
+    public void setBoard(Board board) {
         this.board = board;
     }
 
@@ -84,7 +88,7 @@ public final class GameViewPanel extends JPanel {
             }
             Dot dot = dotList.get(board.getDots().indexOf(gameModelDot));
             g.setColor(dot.getColor());
-            g.fillOval(dot.getX(), dot.getY(), 2*dot.getRadius(), 2*dot.getRadius());
+            g.fillOval(dot.getX(), dot.getY(), 2 * dot.getRadius(), 2 * dot.getRadius());
         }
     }
 
@@ -98,7 +102,7 @@ public final class GameViewPanel extends JPanel {
                 int startY = gameModelLine.getStartingDot().getY() * dotSpace + ySpace;
                 int endX = gameModelLine.getEndingDot().getX() * dotSpace + xSpace;
                 int endY = gameModelLine.getEndingDot().getY() * dotSpace + ySpace;
-                int thickness = 4;
+                int thickness = 6;
                 lineList.add(new Line(startX, startY, endX, endY, thickness));
             }
             Line line = lineList.get(board.getLines().indexOf(gameModelLine));
@@ -123,10 +127,28 @@ public final class GameViewPanel extends JPanel {
         Iterator<GameModel.Box> itr = board.getBoxes().iterator();
         while (itr.hasNext()) {
             GameModel.Box gameModelBox = (GameModel.Box) itr.next();
-            if (gameModelBox.isBoxComplete()) {
-                int boxNumber = gameModelBox.getBoxNumber();
-                g.setColor(Color.ORANGE);
-                g.fillRect(boxNumber * dotSpace + xSpace, boxNumber * dotSpace + ySpace, 50, 50);
+            if (boxList.size() < board.getBoxes().size()) {
+                int boxModulo = gameModelBox.getBoxNumber() % (int) sqrt(board.getBoxes().size());
+                int boxDivider = gameModelBox.getBoxNumber() / (int) sqrt(board.getBoxes().size() + 1);
+                //System.out.println("[debug (GameViewPanel)] boxModulo=" + boxModulo + " boxDivider=" + boxDivider);
+                int startX = boxModulo * dotSpace + xSpace + 10;
+                int endX = (boxModulo + 1) * dotSpace + xSpace - 10;
+                int startY = boxDivider * dotSpace + ySpace + 10;
+                int endY = (boxDivider + 1) * dotSpace + ySpace - 10;
+                //System.out.println("[debug (GameViewPanel)] startX=" + startX + " endX=" + endX + " startY=" + startY + " endY=" + endY);
+                boxList.add(new Box(startX, startY, endX, endY, gameModelBox.getOwner()));
+                //System.out.println("[debug (GameViewPanel)] box " + board.getBoxes().indexOf(gameModelBox) + " owned by " + gameModelBox.getOwner());
+                //System.out.println("[debug (GameViewPanel)] box " + board.getBoxes().indexOf(gameModelBox) + " starts at " + startX + ", " + startY);
+            }
+            Box box = boxList.get(board.getBoxes().indexOf(gameModelBox));
+            box.setOwner(gameModelBox.getOwner());
+            //System.out.println("[debug (GameViewPanel)] box " + board.getBoxes().indexOf(gameModelBox) + " owned by " + box.getOwner());
+            if (box.getOwner() instanceof Opponent.Opponent) {
+                g.setColor(Color.BLUE);
+                g.fillRect(box.getStartX(), box.getStartY(), box.getEndX() - box.getStartX(), box.getEndY() - box.getStartY());
+            } else if (box.getOwner() instanceof GameModel.Player) {
+                g.setColor(Color.RED);
+                g.fillRect(box.getStartX(), box.getStartY(), box.getEndX() - box.getStartX(), box.getEndY() - box.getStartY());
             }
         }
     }
@@ -136,6 +158,6 @@ public final class GameViewPanel extends JPanel {
         super.paint(g);
         drawDots(g);
         drawLines(g);
-        //drawBoxes(g);
+        drawBoxes(g);
     }
 }
