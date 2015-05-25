@@ -7,7 +7,6 @@ import Opponent.Opponent;
 import GameModel.Player;
 import GameView.GameViewFrame;
 import GameView.UserInput;
-import GameView.EndOfGame;
 
 /**
  * Hauptverwaltung. Initiiere Spielfeld, Spieler, Netzwerk etc.
@@ -20,7 +19,7 @@ public class MainControl implements FileIO {
 
         prepare,
         getOpponent,
-        wait,
+        setFlow,
         run,
         endGame,
     }
@@ -43,7 +42,6 @@ public class MainControl implements FileIO {
         this.board = new Board(boardSize);
         this.gameViewFrame = new GameViewFrame(this, this.board);
         this.moveExecutor = new MoveExecutor(board);
-        
 
         this.gameStart();
     }
@@ -72,7 +70,7 @@ public class MainControl implements FileIO {
                 break;
         }
 
-        this.stateStart = ControlStates.run;
+        this.stateStart = ControlStates.setFlow;
     }
 
     public void setUserName(String newName) {
@@ -94,8 +92,7 @@ public class MainControl implements FileIO {
         this.board = FileIO.loadBoard();
         this.flow = FileIO.loadFlow();
 
-        gameViewFrame.setBoard(this.board);
-        gameViewFrame.setFlow(this.flow);
+        this.updateClasses();
     }
 
     public void showAbout() {
@@ -115,6 +112,13 @@ public class MainControl implements FileIO {
         stateStart = ControlStates.prepare;
     }
 
+    public void updateClasses() {
+        gameViewFrame.setBoard(this.board);
+        gameViewFrame.setFlow(this.flow);
+        this.flow.gameRun();
+        stateStart = ControlStates.setFlow;
+    }
+
     public void gameStart() {
 
         do {
@@ -132,29 +136,22 @@ public class MainControl implements FileIO {
                     userInput.setPlayerName();
                     break;
 
-                case wait:
+                case setFlow:
                     System.out.println("[debug (MainControl)] state wait: " + stateStart);
+                    this.flow = new Flow(moveExecutor, opponent, user);
+                    gameViewFrame.setFlow(this.flow);
+                    stateStart = ControlStates.run;
                     break;
 
                 case run:
                     //System.out.println("[debug] " + stateStart);
-                    this.flow = new Flow(moveExecutor, opponent, user);
-                    gameViewFrame.setFlow(this.flow);
                     flow.gameRun();
                     stateStart = ControlStates.endGame;
                     break;
 
                 case endGame:
                     System.out.println("[debug (MainControl)] state endGame: " + stateStart);
-
                     userInput.GameOver();
-
-                    if (true) { //Dialog oder ähnliches..
-                        stateStart = ControlStates.prepare;
-                    } else {
-                        runGame = false;
-                    }
-                    break;
             }
         } while (runGame);
     }
