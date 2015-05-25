@@ -110,7 +110,7 @@ public class Flow {
                     break;
                     
                 case error:
-                    System.out.println(stateRun);
+                    System.out.println("[info (Flow)] " + stateRun);
                     break;
 
                 default:
