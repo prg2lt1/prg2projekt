@@ -88,6 +88,9 @@ public class MoveExecutor implements Serializable{
                 }
             }
         }
+        else {
+            answer = Flow.FlowStates.userTurn;
+        }
         return answer;
     }
 }
