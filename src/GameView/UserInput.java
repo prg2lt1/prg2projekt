@@ -37,7 +37,7 @@ public class UserInput extends JOptionPane {
 
         } else {
             //If you're here, the return value was null/empty.
-            System.out.println("choose!");
+            //System.out.println("[info (UserInput)] user didnt't choose modi..");
             s = "Computer";
         }
 
@@ -61,7 +61,7 @@ public class UserInput extends JOptionPane {
 
         } else {
             //If you're here, the return value was null/empty.
-            System.out.println("choose!");
+            //System.out.println("[info (UserInput)] user didn't choose name..");
             s = "n0oBb4sH3r1337";
         }
 
@@ -97,8 +97,32 @@ public class UserInput extends JOptionPane {
         mainControl.setBoardSize(value);
     }
 
+    public void GameOver() {
+        //Custom button text
+        Object[] options = {"New Game",
+            "Load Game",
+            "Quit"};
+        int n = JOptionPane.showOptionDialog(this,
+                "Game over\n "
+                + "what would you like to do?",
+                "Game Over",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[2]);
+
+        if (n == 0) {
+            System.out.println("new Game");
+        } else if (n == 1) {
+            System.out.println("load Game");
+        } else if (n == 2) {
+            //Nichts machen.. flow läuft aus -> ende.
+        }
+    }
+
     public void Message(String text, String title) {
-        //custom title, error icon
+        //custom message and title, warning icon
         JOptionPane.showMessageDialog(this,
                 text,
                 title,

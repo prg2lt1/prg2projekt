@@ -16,6 +16,7 @@ import GameView.UserInput;
 public class MainControl implements FileIO {
 
     private enum ControlStates {
+
         prepare,
         getOpponent,
         wait,
@@ -25,19 +26,20 @@ public class MainControl implements FileIO {
 
     private String newOpponent = "-1";
     private boolean runGame = true;
+    private int boardSize = 4;
     private ControlStates stateStart = ControlStates.prepare;
     private Player user;
     private Opponent opponent = null;
 
     private Board board;
     private Flow flow;
-    private final GameViewFrame gameViewFrame;
-    private final MoveExecutor moveExecutor;
+    private MoveExecutor moveExecutor;
+    private GameViewFrame gameViewFrame;
     private final UserInput userInput;
 
     public MainControl() {
         this.userInput = new UserInput(this);
-        this.board = new Board(4);
+        this.board = new Board(boardSize);
         this.gameViewFrame = new GameViewFrame(this, this.board);
         this.moveExecutor = new MoveExecutor(board);
 
@@ -77,32 +79,41 @@ public class MainControl implements FileIO {
     }
 
     public void setBoardSize(int newSize) {
-        //board = new Board(newSize);
-        //updateClasses();
+        boardSize = newSize;
+        updateClasses();
     }
 
     public void saveGame() {
         FileIO.saveBoard(board);
-        /**
-        if (flow.getState() == Flow.FlowStates.userTurn) {
-            FileIO.saveBoard(board);
-            userInput.Message("Game was saved", "Sucess");
-        } else {
-            userInput.Message("You can only save, when it's your turn", "Error");
-        }
-        */
     }
 
     public void loadGame() {
         this.board = FileIO.loadBoard();
+        //da wir dass bis jetzt nicht speichern, der pc aber ehh schnell spielt:
         flow.setState(Flow.FlowStates.userTurn);
         updateClasses();
     }
-    
-    public void showAbout(){
-        userInput.Message(("Try to complete as many Boxes as possible.\nAuthors: Frowin Imholz, Tobias Heer, Lorenz Schilter"),"About");
+
+    public void showAbout() {
+        userInput.Message(("Try to complete as many Boxes as possible.\nAuthors: Frowin Imholz, Tobias Heer, Lorenz Schilter"), "About");
     }
 
+    /**
+     * new Game von dieser Klasse aus heisst: alles wipen und dann von anfang
+     * an: neuer Gegner.
+     */
+    public void newGame() {
+        System.out.println("[debug (MainControl)] newGame");
+        this.board = new Board(boardSize);
+        this.moveExecutor = new MoveExecutor(board);
+        this.gameViewFrame = new GameViewFrame(this, this.board);
+        this.flow = null;
+        stateStart = ControlStates.prepare;
+    }
+
+    /**
+     * Zum laden eines Spielstandes.
+     */
     public void updateClasses() {
         gameViewFrame.setBoard(this.board);
         gameViewFrame.setFlow(this.flow);
@@ -139,7 +150,8 @@ public class MainControl implements FileIO {
 
                 case endGame:
                     System.out.println("[debug (MainControl)] state endGame: " + stateStart);
-                    this.runGame = false;
+
+                    userInput.GameOver();
 
                     if (true) { //Dialog oder ähnliches..
                         stateStart = ControlStates.prepare;
@@ -154,6 +166,7 @@ public class MainControl implements FileIO {
     /**
      * Startpunkt des ganzen Programms! Eingabe Argument entweder "Computer"
      * oder "Network", je nach gewünschtem Gegner
+     *
      * @param args
      */
     public static void main(String[] args) {

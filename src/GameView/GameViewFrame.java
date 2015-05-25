@@ -27,6 +27,7 @@ public final class GameViewFrame extends JFrame implements ActionListener {
     private final JMenuBar menuBar;
     private final JMenu menuGame;
     private final JMenu menuHelp;
+    private final JMenuItem miNewGame;
     private final JMenuItem miSaveGame;
     private final JMenuItem miLoadGame;
     private final JMenuItem miGameExit;
@@ -51,12 +52,14 @@ public final class GameViewFrame extends JFrame implements ActionListener {
         menuBar = new JMenuBar();
         menuGame = new JMenu("Game");
         menuHelp = new JMenu("Help");
+        miNewGame = new JMenuItem("New Game");
         miSaveGame = new JMenuItem("Save");
         miLoadGame = new JMenuItem("Load");
         miGameExit = new JMenuItem("Exit");
         miHelpAbout = new JMenuItem("About");
 
         //draw menu
+        menuGame.add(miNewGame);
         menuGame.add(miSaveGame);
         menuGame.add(miLoadGame);
         menuGame.addSeparator();
@@ -67,6 +70,7 @@ public final class GameViewFrame extends JFrame implements ActionListener {
         setJMenuBar(menuBar);
 
         // Listener registrieren.
+        miNewGame.addActionListener(this);
         miSaveGame.addActionListener(this);
         miLoadGame.addActionListener(this);
         miGameExit.addActionListener(this);
@@ -87,25 +91,25 @@ public final class GameViewFrame extends JFrame implements ActionListener {
         this.flow = flow;
         gameViewPanel.setFlow(this.flow);
     }
-    
-    public void setBoard(Board board){
+
+    public void setBoard(Board board) {
         this.board = board;
         gameViewPanel.setBoard(this.board);
     }
-    
-    public void setPlayerName(String name){
+
+    public void setPlayerName(String name) {
         gameViewSidePanel.setPlayerName(name);
     }
-    
-    public void incrementPlayerScore(){
+
+    public void incrementPlayerScore() {
         gameViewSidePanel.incrementPlayerScore();
     }
-    
-    public void setOpponentName(String name){
+
+    public void setOpponentName(String name) {
         gameViewSidePanel.setOpponentName(name);
     }
-    
-    public void incrementOpponentScore(){
+
+    public void incrementOpponentScore() {
         gameViewSidePanel.incrementOpponentScore();
     }
 
@@ -114,6 +118,10 @@ public final class GameViewFrame extends JFrame implements ActionListener {
         if (e.getSource() == miGameExit) {
             System.out.println("[info (GameViewFrame)] exit game");
             System.exit(0);
+        }
+        if (e.getSource() == miNewGame) {
+            System.out.println("[info (GameViewFrame)] new game");
+            mainControl.newGame();
         }
         if (e.getSource() == miSaveGame) {
             System.out.println("[info (GameViewFrame)] save game");

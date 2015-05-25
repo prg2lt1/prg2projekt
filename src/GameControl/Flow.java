@@ -19,24 +19,21 @@ public class Flow {
         gameOver,
         error,
         wait
-       
+
     }
 
     public MoveExecutor moveExecuter;
-    private FlowStates stateRun = FlowStates.userTurn;
-    private boolean runGame = true;
     private Opponent opponent;
     private Player user;
+    private Network network;
+    private FlowStates stateRun = FlowStates.userTurn;
+    private boolean runGame = true;
 
     public Flow(MoveExecutor newMoveExecuter, Opponent newOpponent, Player newUser) {
         System.out.println("[debug (Flow)] new Flow");
         this.moveExecuter = newMoveExecuter;
         this.opponent = newOpponent;
         this.user = newUser;
-    }
-
-    public Flow() {
-         System.out.println("[debug (Flow)] new Flow ohne params");
     }
 
     public boolean gameIsRunning() {
@@ -53,12 +50,13 @@ public class Flow {
 
     /**
      * MoveExecuter setzt den nächsten Spieler. überprüft die Boxen.
-     * @param newState 
+     *
+     * @param newState
      */
     public void setState(FlowStates newState) {
         stateRun = newState;
     }
-    
+
     public FlowStates getState() {
         return stateRun;
     }
@@ -92,30 +90,28 @@ public class Flow {
                 case opponentTurn:
                     //System.out.println(stateRun);
                     //this.setState(Flow.FlowStates.wait);
-                    if(opponent instanceof ComputerBrain){
+                    if (opponent instanceof ComputerBrain) {
                         this.playLine(((ComputerBrain) opponent).play());
-                    }
-                    else {
-                        //do network stuff...
+                    } else {
+                        //network does it's thing..
                     }
                     break;
-                    
+
                 case wait:
-                    System.out.println("waiting");
+                    System.out.println("[info (Flow)] waiting");
                     break;
 
                 case gameOver:
                     System.out.println(stateRun);
                     this.runGame = false;
                     break;
-                    
+
                 case error:
                     System.out.println("[info (Flow)] " + stateRun);
                     break;
 
                 default:
                     System.out.println("[info (Flow)] unknown Command in Flow: " + stateRun.toString());
-                    
                     break;
             }
         } while (runGame);
