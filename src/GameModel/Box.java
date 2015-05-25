@@ -106,5 +106,15 @@ public class Box implements Serializable {
     public void setOwner(Player p) {
         owner = p;
     }
+    
+    public void updateOwner (Player p) {
+        System.out.println("update Owner called");
+
+        if(isBoxComplete()) {
+            owner = p;
+            System.out.println("Box owner set to" + p);
+ 
+        }
+    }
 
 }
