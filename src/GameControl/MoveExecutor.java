@@ -67,6 +67,8 @@ public class MoveExecutor implements Serializable{
 
             if(board.allBoxesComplete()) {
                answer = Flow.FlowStates.gameOver;
+                System.out.println("GAME OVER");
+
             }
 
             if ((firstBox != null && firstBox.isBoxComplete()) || (secondBox != null && secondBox.isBoxComplete())) {
