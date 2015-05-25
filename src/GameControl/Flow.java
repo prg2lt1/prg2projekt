@@ -1,9 +1,9 @@
 package GameControl;
 
 import GameModel.Player;
-import GameView.EndOfGame;
 import Opponent.Opponent;
 import Opponent.ComputerBrain;
+import java.io.Serializable;
 
 /**
  * Flow enthält die Zustandsautomaten, welche den Spielverlauf abbilden sollen.
@@ -11,7 +11,7 @@ import Opponent.ComputerBrain;
  *
  * @author Lorenz
  */
-public class Flow {
+public class Flow  implements Serializable {
 
     public enum FlowStates {
 
@@ -28,15 +28,13 @@ public class Flow {
     private Player user;
     private Network network;
     private FlowStates stateRun = FlowStates.userTurn;
-    private EndOfGame endGame;
     private boolean runGame = true;
 
-    public Flow(MoveExecutor newMoveExecuter, Opponent newOpponent, Player newUser, EndOfGame endOfGame) {
+    public Flow(MoveExecutor newMoveExecuter, Opponent newOpponent, Player newUser) {
         System.out.println("[debug (Flow)] new Flow");
         this.moveExecuter = newMoveExecuter;
         this.opponent = newOpponent;
         this.user = newUser;
-        endGame = endOfGame;
     }
 
     public boolean gameIsRunning() {

@@ -37,14 +37,12 @@ public class MainControl implements FileIO {
     private MoveExecutor moveExecutor;
     private GameViewFrame gameViewFrame;
     private final UserInput userInput;
-    private EndOfGame endOfGame;
 
     public MainControl() {
         this.userInput = new UserInput(this);
         this.board = new Board(boardSize);
         this.gameViewFrame = new GameViewFrame(this, this.board);
         this.moveExecutor = new MoveExecutor(board);
-        this.endOfGame = new EndOfGame(this);
         
 
         this.gameStart();
@@ -89,12 +87,12 @@ public class MainControl implements FileIO {
 
     public void saveGame() {
         FileIO.saveBoard(board);
+        FileIO.saveFlow(flow);
     }
 
     public void loadGame() {
         this.board = FileIO.loadBoard();
-        //da wir dass bis jetzt nicht speichern, der pc aber ehh schnell spielt:
-        flow.setState(Flow.FlowStates.userTurn);
+        this.flow = FileIO.loadFlow();
 
         gameViewFrame.setBoard(this.board);
         gameViewFrame.setFlow(this.flow);
@@ -140,7 +138,7 @@ public class MainControl implements FileIO {
 
                 case run:
                     //System.out.println("[debug] " + stateStart);
-                    this.flow = new Flow(moveExecutor, opponent, user, endOfGame);
+                    this.flow = new Flow(moveExecutor, opponent, user);
                     gameViewFrame.setFlow(this.flow);
                     flow.gameRun();
                     stateStart = ControlStates.endGame;
