@@ -32,6 +32,7 @@ public class EndOfGame extends JFrame{
         JButton buttonLeft = new JButton("New Game");
         buttonLeft.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) { myMainControl.newGame();
+                                                             setVisible(false);
                                                             }
         });
 

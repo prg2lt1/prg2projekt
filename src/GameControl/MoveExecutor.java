@@ -67,11 +67,11 @@ public class MoveExecutor implements Serializable{
 
             if(board.allBoxesComplete()) {
                answer = Flow.FlowStates.gameOver;
-                System.out.println("GAME OVER");
+                
 
             }
 
-            if ((firstBox != null && firstBox.isBoxComplete()) || (secondBox != null && secondBox.isBoxComplete())) {
+            else if ((firstBox != null && firstBox.isBoxComplete()) || (secondBox != null && secondBox.isBoxComplete())) {
                 if (p instanceof Opponent) {
                     System.out.println("[info (MoveExecutor)] opponentTurn once again");
                     answer = Flow.FlowStates.opponentTurn;
