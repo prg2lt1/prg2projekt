@@ -54,6 +54,8 @@ public class MoveExecutor {
             
             l.setOwner(p);
             
+            System.out.println("owner set");
+            
             if (firstBox != null) {
                 firstBox.updateOwner(p);
                 }
@@ -62,9 +64,6 @@ public class MoveExecutor {
                 secondBox.updateOwner(p);
                 }
 
-            
-            System.out.println("owner set");
-            
             if(board.allBoxesComplete()) {
                answer = Flow.FlowStates.gameOver;
             }
