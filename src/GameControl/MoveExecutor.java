@@ -54,7 +54,7 @@ public class MoveExecutor {
             
             l.setOwner(p);
             
-            System.out.println("owner set");
+            System.out.println("Line owner set");
             
             if (firstBox != null) {
                 firstBox.updateOwner(p);
