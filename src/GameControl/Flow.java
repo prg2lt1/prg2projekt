@@ -105,10 +105,8 @@ public class Flow {
                     break;
 
                 case gameOver:
-                    System.out.println("GAME OVER");
-                    System.out.println(stateRun);
+                    System.out.println("[info (Flow)]" + stateRun);
                     this.runGame = false;
-                    endGame.setVisible();
                     break;
 
                 case error:

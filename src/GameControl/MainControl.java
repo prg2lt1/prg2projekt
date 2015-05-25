@@ -84,7 +84,7 @@ public class MainControl implements FileIO {
 
     public void setBoardSize(int newSize) {
         boardSize = newSize;
-        updateClasses();
+        this.newGame();
     }
 
     public void saveGame() {
@@ -95,7 +95,9 @@ public class MainControl implements FileIO {
         this.board = FileIO.loadBoard();
         //da wir dass bis jetzt nicht speichern, der pc aber ehh schnell spielt:
         flow.setState(Flow.FlowStates.userTurn);
-        updateClasses();
+
+        gameViewFrame.setBoard(this.board);
+        gameViewFrame.setFlow(this.flow);
     }
 
     public void showAbout() {
@@ -113,14 +115,6 @@ public class MainControl implements FileIO {
         this.gameViewFrame = new GameViewFrame(this, this.board);
         this.flow = null;
         stateStart = ControlStates.prepare;
-    }
-
-    /**
-     * Zum laden eines Spielstandes.
-     */
-    public void updateClasses() {
-        gameViewFrame.setBoard(this.board);
-        gameViewFrame.setFlow(this.flow);
     }
 
     public void gameStart() {
@@ -149,7 +143,7 @@ public class MainControl implements FileIO {
                     this.flow = new Flow(moveExecutor, opponent, user, endOfGame);
                     gameViewFrame.setFlow(this.flow);
                     flow.gameRun();
-                    stateStart = ControlStates.wait;
+                    stateStart = ControlStates.endGame;
                     break;
 
                 case endGame:

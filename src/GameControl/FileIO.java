@@ -22,31 +22,31 @@ import java.util.List;
  */
 public interface FileIO {
     
-    static String fileName = ".\\src\\GameControl\\savedGame.bin";
+    static final String fileBoard = ".\\src\\GameControl\\savedGame.bin";
+        static final String fileFlow = ".\\src\\GameControl\\savedFlow.bin";
 
-    static void saveBoard(Board board) {
+    static void saveBoard(Board item) {
         
-        File file = new File(fileName);
+        File file = new File(fileBoard);
         try (ObjectOutputStream oStream = new ObjectOutputStream(new FileOutputStream(file));) {
-            oStream.writeObject(board);
+            oStream.writeObject(item);
         } catch (IOException e) {
             System.out.println("[info (FileIO)] Filename's wrong: " + e.getMessage());
         }
     }
-
+    
     static Board loadBoard() {
-        Board board = null;
-        File file = new File(fileName);
+        Board item = null;
+        File file = new File(fileBoard);
         
         try (ObjectInputStream iStream = new ObjectInputStream(new FileInputStream(file));) {
             Object object = iStream.readObject();
             if (object instanceof Board) {
-                board = (Board) object;
+                item = (Board) object;
             }
-
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("[info (FileIO)] Filename's wrong: " + e.getMessage());
         }
-        return board;
+        return item;
     }
 }

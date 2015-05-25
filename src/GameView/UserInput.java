@@ -113,11 +113,13 @@ public class UserInput extends JOptionPane {
                 options[2]);
 
         if (n == 0) {
-            System.out.println("new Game");
+            System.out.println("[info (UserInput)] new Game");
+            mainControl.newGame();
         } else if (n == 1) {
-            System.out.println("load Game");
+            System.out.println("[info (UserInput)] load Game");
+            mainControl.loadGame();
         } else if (n == 2) {
-            //Nichts machen.. flow läuft aus -> ende.
+            System.exit(0);
         }
     }
 
