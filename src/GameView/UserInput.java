@@ -78,7 +78,7 @@ public class UserInput extends JOptionPane {
     public void setBoardSize() {
         int value;
 
-        Object[] possibilities = {"3", "4", "5", "6"};
+        Object[] possibilities = {"4", "5", "6"};
         String str = (String) JOptionPane.showInputDialog(
                 this,
                 "Which Boardsize would you like?\n",
@@ -101,18 +101,19 @@ public class UserInput extends JOptionPane {
         mainControl.setBoardSize(value);
     }
 
-    public void GameOver() {
-        //Custom button text
-        moveExecutor.countScore();
-        int u = moveExecutor.getUserScore();
-        int o = moveExecutor.getOpponentScore();
+    public void GameOver(int userScore, int opponentScore) {
         
+        String winnerText = (userScore > opponentScore) ? "Your won" : "You lose";
+        winnerText = winnerText + "\n";
+        
+        //Custom button text        
         Object[] options = {"New Game",
             "Load Game",
             "Quit"};
         int n = JOptionPane.showOptionDialog(this,
-                "Game over\n"
-                + "You: " + u + "\n" + "Opponent: " + o + "\n" + "what would you like to do?",
+                winnerText
+                + "You: " + userScore + " " + "Opponent: " + opponentScore + "\n" 
+                + "what would you like to do?",
                 "Game Over",
                 JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE,

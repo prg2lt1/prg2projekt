@@ -112,6 +112,7 @@ public class Box implements Serializable {
 
         if(isBoxComplete()) {
             owner = p;
+            p.plusBox();
             System.out.println("Box owner set to" + p);
  
         }

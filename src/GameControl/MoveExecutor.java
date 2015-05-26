@@ -9,10 +9,8 @@ import GameModel.Line;
 import GameModel.Player;
 import GameModel.Board;
 import GameModel.Box;
-import Opponent.NetworkPlayer;
 import Opponent.Opponent;
 import java.io.Serializable;
-
 
 /**
  *
@@ -21,19 +19,23 @@ import java.io.Serializable;
 public class MoveExecutor implements Serializable {
 
     private Board board;
-    private NetworkPlayer opponent;
-    private int opponentScore;
-    private int userScore;
-    
+    private Opponent opponent;
+    private Player user;
 
     public MoveExecutor(Board newBoard) {
-
         this.board = newBoard;
-        opponentScore = 0;
-        userScore = 0;
-        countScore();
-        System.out.print("new ME created " + getUserScore() + getOpponentScore() );
+        this.user = null;
+        this.opponent = null;
+        //System.out.print("[info (Moveexecutor)] new ME created ");
 
+    }
+
+    public void setPlayer(Player user) {
+        this.user = user;
+    }
+
+    public void setOpponent(Opponent opponent) {
+        this.opponent = opponent;
     }
 
     public boolean emptyLine(Line clickedLine) {
@@ -50,25 +52,23 @@ public class MoveExecutor implements Serializable {
         Box secondBox = l.getSecondTouchingBox();
 
         if (l.getOwner() == null) {
-            
+
             l.setOwner(p);
-            
+
             System.out.println("Line owner set");
-            
+
             if (firstBox != null) {
                 firstBox.updateOwner(p);
-                }
-            
-            if (secondBox != null) {
-                secondBox.updateOwner(p);
-                }
-
-            if(board.allBoxesComplete()) {
-              
-                answer = Flow.FlowStates.gameOver;
             }
 
-            else if ((firstBox != null && firstBox.isBoxComplete()) || (secondBox != null && secondBox.isBoxComplete())) {
+            if (secondBox != null) {
+                secondBox.updateOwner(p);
+            }
+
+            if (board.allBoxesComplete()) {
+
+                answer = Flow.FlowStates.gameOver;
+            } else if ((firstBox != null && firstBox.isBoxComplete()) || (secondBox != null && secondBox.isBoxComplete())) {
                 if (p instanceof Opponent) {
                     System.out.println("[info (MoveExecutor)] opponentTurn once again");
                     answer = Flow.FlowStates.opponentTurn;
@@ -86,39 +86,9 @@ public class MoveExecutor implements Serializable {
                     System.out.println("[info (MoveExecutor)] opponentTurn");
                 }
             }
-        }
-        else {
+        } else {
             answer = Flow.FlowStates.userTurn;
         }
         return answer;
     }
-    
-    public void countScore() {
-        
-        int countedOpponentScore = 0;
-        int countedUserScore = 0;
-        
-        for(Box b : board.getBoxes() ) {
-            if(b.getOwner() instanceof Opponent ) {
-                countedOpponentScore++;
-                }
-            else {
-                countedUserScore++;
-            }
-        }
-        opponentScore = countedOpponentScore;
-        userScore = countedUserScore;
-    }
-    
-    public int getUserScore() {
-        return userScore;
-    }
-    
-    public int getOpponentScore() {
-        return opponentScore;
-    }
-    
-    
-    
-   
 }

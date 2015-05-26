@@ -1,5 +1,7 @@
 package GameView;
 
+import GameModel.Player;
+import Opponent.Opponent;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -9,8 +11,8 @@ import javax.swing.JPanel;
  */
 public final class GameViewSidePanel extends JPanel {
     
-    private String playerNameString; 
-    private String opponentNameString;
+    private Player user;
+    private Opponent opponent;
     
     private final JLabel playerNameLabel;
     private JLabel playerName;
@@ -18,14 +20,10 @@ public final class GameViewSidePanel extends JPanel {
     private JLabel opponentName;
     private final JLabel playerScoreLabel;
     private JLabel playerScore;
-    private int playerScoreNumber;
     private final JLabel opponentScoreLabel;
     private JLabel opponentScore;
-    private int opponentScoreNumber;
 
     public GameViewSidePanel() {
-        this.playerNameString = "-";    // default name
-        this.opponentNameString = "-";  // default name
         
         this.setLayout(new GridLayout(6,2));
         
@@ -33,25 +31,25 @@ public final class GameViewSidePanel extends JPanel {
         playerNameLabel.setText("Your Name:");
         
         playerName = new JLabel();
-        playerName.setText(this.playerNameString);
+        playerName.setText("-"); //default name
         
         opponentNameLabel = new JLabel();
         opponentNameLabel.setText("Other's Name:");
         
         opponentName = new JLabel();
-        opponentName.setText(this.opponentNameString);
+        opponentName.setText("-"); //default name
         
         playerScoreLabel = new JLabel();
         playerScoreLabel.setText("Your score: ");
         
         playerScore = new JLabel();
-        playerScore.setText(Integer.toString(this.playerScoreNumber));
+        playerScore.setText(Integer.toString(0)); //default = 0
         
         opponentScoreLabel = new JLabel();
         opponentScoreLabel.setText("Other's score: ");
         
         opponentScore = new JLabel();
-        opponentScore.setText(Integer.toString(this.opponentScoreNumber));
+        opponentScore.setText(Integer.toString(0)); //default = 0
         
         add(playerNameLabel);
         add(playerName);
@@ -64,28 +62,21 @@ public final class GameViewSidePanel extends JPanel {
         
     }
     
-    public void setPlayerName(String name){
-        this.playerNameString = name;
-        playerName.setText(this.playerNameString);
+    public void setPlayer(Player user){
+        this.user = user;
+        playerName.setText(user.getName());
     }
     
-    public void incrementPlayerScore(){
-        this.playerScoreNumber++;
-        playerScore.setText(Integer.toString(this.playerScoreNumber));
+    public void getPlayerScore(){
+        playerScore.setText(Integer.toString(user.getNmbOfBoxes()));
     }
     
-    public void setOpponentName(String name){
-        this.opponentNameString = name;
-        opponentName.setText(this.opponentNameString);
+    public void setOpponent(Opponent opponent){
+        this.opponent = opponent;
+        opponentName.setText(opponent.getName());
     }
     
-    public void incrementOpponentScore(){
-        this.opponentScoreNumber++;
-        opponentScore.setText(Integer.toString(this.opponentScoreNumber));
-    }
-    
-    public void resetScores() {
-        opponentScoreNumber = 0;
-        playerScoreNumber = 0;
+    public void getOpponentScore(){
+        opponentScore.setText(Integer.toString(opponent.getNmbOfBoxes()));
     }
 }

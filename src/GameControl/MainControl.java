@@ -30,7 +30,6 @@ public class MainControl implements FileIO {
     private ControlStates stateStart = ControlStates.prepare;
     private Player user;
     private Opponent opponent = null;
-    //private GameOver gameOver = new GameOver(this);
 
     private Board board;
     private Flow flow;
@@ -59,11 +58,13 @@ public class MainControl implements FileIO {
         switch (newOpponent) {
             case "Computer":
                 this.opponent = new ComputerBrain(board, moveExecutor);
-                gameViewFrame.setOpponentName("Computer");
+                moveExecutor.setOpponent(opponent);
+                gameViewFrame.setOpponent(opponent);
                 break;
             case "Network":
                 this.opponent = new NetworkPlayer();
-                gameViewFrame.setOpponentName("Network");
+                moveExecutor.setOpponent(opponent);
+                gameViewFrame.setOpponent(opponent);
                 //Hier müsste nach Netzwerkgegner gesucht werden.
                 break;
             default:
@@ -76,7 +77,8 @@ public class MainControl implements FileIO {
 
     public void setUserName(String newName) {
         user.setName(newName);
-        gameViewFrame.setPlayerName(newName);
+        moveExecutor.setOpponent(opponent);
+        gameViewFrame.setPlayer(user);
     }
 
     public void setBoardSize(int newSize) {
@@ -97,7 +99,8 @@ public class MainControl implements FileIO {
     }
 
     public void showAbout() {
-        userInput.Message(("Try to complete as many Boxes as possible.\nAuthors: Frowin Imholz, Tobias Heer, Lorenz Schilter"), "About");
+        userInput.Message(("Try to complete as many Boxes as possible.\n\n"
+                + "Authors:\n Frowin Imholz, Tobias Heer, Lorenz Schilter"), "About");
     }
 
     /**
@@ -110,15 +113,17 @@ public class MainControl implements FileIO {
         this.gameViewFrame = null;
         this.board = null;
         this.moveExecutor = null;
-        //this.userInput = null;
         this.flow = null;
 
         this.board = new Board(boardSize);
         this.gameViewFrame = new GameViewFrame(this, this.board);
         this.moveExecutor = new MoveExecutor(this.board);
-        //this.userInput = new UserInput(this, moveExecutor);
 
         stateStart = ControlStates.getOpponent;
+
+        user.setNmbOfBoxesZero();
+        opponent.setNmbOfBoxesZero();
+
         runGame = true;
         this.gameStart();
 
@@ -167,7 +172,7 @@ public class MainControl implements FileIO {
                 case endGame:
                     runGame = false;
                     System.out.println("[debug (MainControl)] state endGame: " + stateStart);
-                    userInput.GameOver();
+                    userInput.GameOver(user.getNmbOfBoxes(), opponent.getNmbOfBoxes());
                     break;
             }
         } while (runGame);

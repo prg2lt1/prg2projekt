@@ -129,7 +129,6 @@ public final class GameViewPanel extends JPanel {
     // zeichnet die Boxen
     private void drawBoxes(Graphics g) {
         Iterator<GameModel.Box> itr = board.getBoxes().iterator();
-        myFrame.resetScores();
         while (itr.hasNext()) {
             GameModel.Box gameModelBox = (GameModel.Box) itr.next();
             if (boxList.size() < board.getBoxes().size()) {
@@ -151,12 +150,12 @@ public final class GameViewPanel extends JPanel {
             if (box.getOwner() instanceof Opponent.Opponent) {
                 g.setColor(Color.BLUE);
                 g.fillRect(box.getStartX(), box.getStartY(), box.getEndX() - box.getStartX(), box.getEndY() - box.getStartY());
-                myFrame.incrementOpponentScore();
+                myFrame.getOpponentScore();
                 
             } else if (box.getOwner() instanceof GameModel.Player) {
                 g.setColor(Color.RED);
                 g.fillRect(box.getStartX(), box.getStartY(), box.getEndX() - box.getStartX(), box.getEndY() - box.getStartY());
-                myFrame.incrementPlayerScore();
+                myFrame.getPlayerScore();
             }
         }
     }

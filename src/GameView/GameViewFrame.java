@@ -3,6 +3,8 @@ package GameView;
 import GameControl.Flow;
 import GameControl.MainControl;
 import GameModel.Board;
+import GameModel.Player;
+import Opponent.Opponent;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -105,24 +107,20 @@ public final class GameViewFrame extends JFrame implements ActionListener {
         gameViewPanel.setBoard(this.board);
     }
 
-    public void setPlayerName(String name) {
-        gameViewSidePanel.setPlayerName(name);
+    public void setPlayer(Player user) {
+        gameViewSidePanel.setPlayer(user);
     }
 
-    public void incrementPlayerScore() {
-        gameViewSidePanel.incrementPlayerScore();
+    public void getPlayerScore() {
+        gameViewSidePanel.getPlayerScore();
     }
 
-    public void setOpponentName(String name) {
-        gameViewSidePanel.setOpponentName(name);
+    public void setOpponent(Opponent opponent) {
+        gameViewSidePanel.setOpponent(opponent);
     }
 
-    public void incrementOpponentScore() {
-        gameViewSidePanel.incrementOpponentScore();
-    }
-    
-    public void resetScores() {
-        gameViewSidePanel.resetScores();
+    public void getOpponentScore() {
+        gameViewSidePanel.getOpponentScore();
     }
     
     public void repaintPanel() {
