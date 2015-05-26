@@ -44,7 +44,6 @@ public class MainControl implements FileIO {
         this.moveExecutor = new MoveExecutor(board);
         this.userInput = new UserInput(this, moveExecutor);
 
-
         this.gameStart();
     }
 
@@ -113,16 +112,16 @@ public class MainControl implements FileIO {
         this.moveExecutor = null;
         //this.userInput = null;
         this.flow = null;
-        
+
         this.board = new Board(boardSize);
         this.gameViewFrame = new GameViewFrame(this, this.board);
         this.moveExecutor = new MoveExecutor(this.board);
         //this.userInput = new UserInput(this, moveExecutor);
-        
+
         stateStart = ControlStates.getOpponent;
         runGame = true;
         this.gameStart();
-        
+
     }
 
     public void updateClasses() {
@@ -157,17 +156,19 @@ public class MainControl implements FileIO {
                     break;
 
                 case run:
-                    //System.out.println("[debug] " + stateStart);
-                    flow.gameRun();
-                    stateStart = ControlStates.endGame;
+                    //System.out.println("[debug (MainControl)] " + stateStart);
+                    if (flow.gameIsRunning()) {
+                        flow.gameRun();
+                    } else {
+                        stateStart = ControlStates.endGame;
+                    }
                     break;
 
                 case endGame:
                     runGame = false;
                     System.out.println("[debug (MainControl)] state endGame: " + stateStart);
                     userInput.GameOver();
-                   // gameOver.gameOver();
-                    break;            
+                    break;
             }
         } while (runGame);
     }

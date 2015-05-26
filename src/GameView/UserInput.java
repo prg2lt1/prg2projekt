@@ -66,7 +66,7 @@ public class UserInput extends JOptionPane {
         } else {
             //If you're here, the return value was null/empty.
             //System.out.println("[info (UserInput)] user didn't choose name..");
-            s = "n0oBb4sH3r1337";
+            s = "n0oBb4sH3r";
         }
 
         mainControl.setUserName(s);

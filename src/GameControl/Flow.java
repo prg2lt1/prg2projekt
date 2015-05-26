@@ -19,7 +19,6 @@ public class Flow  implements Serializable {
         opponentTurn,
         gameOver,
         error,
-        wait
 
     }
 
@@ -31,7 +30,7 @@ public class Flow  implements Serializable {
     private boolean runGame = true;
 
     public Flow(MoveExecutor newMoveExecuter, Opponent newOpponent, Player newUser) {
-        System.out.println("[debug (Flow)] new Flow");
+        //System.out.println("[debug (Flow)] new Flow");
         this.moveExecuter = newMoveExecuter;
         this.opponent = newOpponent;
         this.user = newUser;
@@ -90,16 +89,11 @@ public class Flow  implements Serializable {
 
                 case opponentTurn:
                     //System.out.println(stateRun);
-                    //this.setState(Flow.FlowStates.wait);
                     if (opponent instanceof ComputerBrain) {
                         this.playLine(((ComputerBrain) opponent).play());
                     } else {
                         //network does it's thing..
                     }
-                    break;
-
-                case wait:
-                    System.out.println("[info (Flow)] waiting");
                     break;
 
                 case gameOver:
@@ -116,6 +110,6 @@ public class Flow  implements Serializable {
                     break;
             }
         } while (runGame);
-        System.out.println("[info (Flow)] end of Flow");
+        //System.out.println("[info (Flow)] end of Flow");
     }
 }
