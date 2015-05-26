@@ -36,7 +36,7 @@ public class MainControl implements FileIO {
     private Flow flow;
     private MoveExecutor moveExecutor;
     private GameViewFrame gameViewFrame;
-    private final UserInput userInput;
+    private UserInput userInput;
 
     public MainControl() {
         this.board = new Board(boardSize);
@@ -107,11 +107,22 @@ public class MainControl implements FileIO {
      */
     public void newGame() {
         System.out.println("[debug (MainControl)] newGame");
-        this.board = new Board(boardSize);
-        this.moveExecutor = new MoveExecutor(board);
-        this.gameViewFrame = new GameViewFrame(this, this.board);
+        this.gameViewFrame.hideFrame();
+        this.gameViewFrame = null;
+        this.board = null;
+        this.moveExecutor = null;
+        //this.userInput = null;
         this.flow = null;
-        stateStart = ControlStates.prepare;
+        
+        this.board = new Board(boardSize);
+        this.gameViewFrame = new GameViewFrame(this, this.board);
+        this.moveExecutor = new MoveExecutor(this.board);
+        //this.userInput = new UserInput(this, moveExecutor);
+        
+        stateStart = ControlStates.getOpponent;
+        runGame = true;
+        this.gameStart();
+        
     }
 
     public void updateClasses() {
@@ -156,7 +167,7 @@ public class MainControl implements FileIO {
                     System.out.println("[debug (MainControl)] state endGame: " + stateStart);
                     userInput.GameOver();
                    // gameOver.gameOver();
-                    
+                    break;            
             }
         } while (runGame);
     }

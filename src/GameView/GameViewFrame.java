@@ -18,12 +18,12 @@ public final class GameViewFrame extends JFrame implements ActionListener {
 
     private final int width;
     private final int height;
-    private final MainControl mainControl;
+    private MainControl mainControl;
     private Board board;
     private Flow flow;
 
-    private final GameViewSidePanel gameViewSidePanel;
-    private final GameViewPanel gameViewPanel;
+    private GameViewSidePanel gameViewSidePanel;
+    private GameViewPanel gameViewPanel;
     private final JMenuBar menuBar;
     private final JMenu menuGame;
     private final JMenu menuHelp;
@@ -85,6 +85,14 @@ public final class GameViewFrame extends JFrame implements ActionListener {
         setLocation(400, 200);
         setSize(width, height);
         setVisible(true);
+    }
+
+    public void hideFrame() {
+        this.gameViewPanel = null;
+        this.gameViewSidePanel = null;
+        this.mainControl = null;
+        this.flow = null;
+        setVisible(false);
     }
 
     public void setFlow(Flow flow) {
