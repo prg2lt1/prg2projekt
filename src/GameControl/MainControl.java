@@ -150,7 +150,7 @@ public class MainControl implements FileIO {
 
                 case setFlow:
                     System.out.println("[debug (MainControl)] state wait: " + stateStart);
-                    this.flow = new Flow(moveExecutor, opponent, user);
+                    this.flow = new Flow(moveExecutor, opponent, user, gameViewFrame);
                     gameViewFrame.setFlow(this.flow);
                     stateStart = ControlStates.run;
                     break;

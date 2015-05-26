@@ -168,4 +168,6 @@ public final class GameViewPanel extends JPanel {
         drawLines(g);
         drawBoxes(g);
     }
+    
+    
 }

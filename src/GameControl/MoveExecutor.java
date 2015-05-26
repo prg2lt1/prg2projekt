@@ -13,6 +13,7 @@ import Opponent.NetworkPlayer;
 import Opponent.Opponent;
 import java.io.Serializable;
 
+
 /**
  *
  * @author tobias
@@ -30,6 +31,8 @@ public class MoveExecutor implements Serializable {
         this.board = newBoard;
         opponentScore = 0;
         userScore = 0;
+        countScore();
+        System.out.print("new ME created " + getUserScore() + getOpponentScore() );
 
     }
 

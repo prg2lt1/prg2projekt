@@ -124,6 +124,10 @@ public final class GameViewFrame extends JFrame implements ActionListener {
     public void resetScores() {
         gameViewSidePanel.resetScores();
     }
+    
+    public void repaintPanel() {
+        gameViewPanel.repaint();
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {

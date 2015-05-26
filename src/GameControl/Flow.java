@@ -4,6 +4,7 @@ import GameModel.Player;
 import Opponent.Opponent;
 import Opponent.ComputerBrain;
 import java.io.Serializable;
+import GameView.GameViewFrame;
 
 /**
  * Flow enthält die Zustandsautomaten, welche den Spielverlauf abbilden sollen.
@@ -28,12 +29,14 @@ public class Flow  implements Serializable {
     private Network network;
     private FlowStates stateRun = FlowStates.userTurn;
     private boolean runGame = true;
+    private GameViewFrame myGameViewFrame;
 
-    public Flow(MoveExecutor newMoveExecuter, Opponent newOpponent, Player newUser) {
+    public Flow(MoveExecutor newMoveExecuter, Opponent newOpponent, Player newUser, GameViewFrame myGameViewFrame) {
         //System.out.println("[debug (Flow)] new Flow");
         this.moveExecuter = newMoveExecuter;
         this.opponent = newOpponent;
         this.user = newUser;
+        this.myGameViewFrame = myGameViewFrame;
     }
 
     public boolean gameIsRunning() {
@@ -84,6 +87,7 @@ public class Flow  implements Serializable {
         do {
             switch (stateRun) {
                 case userTurn:
+                    myGameViewFrame.repaintPanel();
                     //System.out.println(stateRun);
                     break;
 
