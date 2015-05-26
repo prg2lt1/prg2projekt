@@ -2,6 +2,8 @@ package GameView;
 
 import GameControl.MainControl;
 import javax.swing.JOptionPane;
+import GameModel.Player;
+import GameControl.MoveExecutor;
 
 /**
  *
@@ -10,10 +12,12 @@ import javax.swing.JOptionPane;
 public class UserInput extends JOptionPane {
 
     private MainControl mainControl;
+    private MoveExecutor moveExecutor;
 
-    public UserInput(MainControl newMainControl) {
+    public UserInput(MainControl newMainControl, MoveExecutor moveExecutor) {
 
         this.mainControl = newMainControl;
+        this.moveExecutor = moveExecutor;
     }
 
     /**
@@ -99,12 +103,16 @@ public class UserInput extends JOptionPane {
 
     public void GameOver() {
         //Custom button text
+        moveExecutor.countScore();
+        int u = moveExecutor.getUserScore();
+        int o = moveExecutor.getOpponentScore();
+        
         Object[] options = {"New Game",
             "Load Game",
             "Quit"};
         int n = JOptionPane.showOptionDialog(this,
-                "Game over\n "
-                + "what would you like to do?",
+                "Game over\n"
+                + "You: " + u + "\n" + "Opponent: " + o + "\n" + "what would you like to do?",
                 "Game Over",
                 JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
@@ -131,4 +139,6 @@ public class UserInput extends JOptionPane {
                 title,
                 JOptionPane.WARNING_MESSAGE);
     }
+    
+    
 }

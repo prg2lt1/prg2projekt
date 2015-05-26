@@ -39,10 +39,11 @@ public class MainControl implements FileIO {
     private final UserInput userInput;
 
     public MainControl() {
-        this.userInput = new UserInput(this);
         this.board = new Board(boardSize);
         this.gameViewFrame = new GameViewFrame(this, this.board);
         this.moveExecutor = new MoveExecutor(board);
+        this.userInput = new UserInput(this, moveExecutor);
+
 
         this.gameStart();
     }

@@ -83,4 +83,9 @@ public final class GameViewSidePanel extends JPanel {
         this.opponentScoreNumber++;
         opponentScore.setText(Integer.toString(this.opponentScoreNumber));
     }
+    
+    public void resetScores() {
+        opponentScoreNumber = 0;
+        playerScoreNumber = 0;
+    }
 }

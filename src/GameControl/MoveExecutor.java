@@ -17,27 +17,22 @@ import java.io.Serializable;
  *
  * @author tobias
  */
-public class MoveExecutor implements Serializable{
+public class MoveExecutor implements Serializable {
 
-    Player activePlayer;
-    Board board;
-    boolean validMove;
-    NetworkPlayer opponent;
+    private Board board;
+    private NetworkPlayer opponent;
+    private int opponentScore;
+    private int userScore;
+    
 
     public MoveExecutor(Board newBoard) {
 
         this.board = newBoard;
+        opponentScore = 0;
+        userScore = 0;
 
     }
 
-   // public void inputLine(Line inputLine) {
-    //Linie kontrollieren:
-    // if (emptyLine(inputLine)) {
-    //inputLine.setOwner(activePlayer);
-    //Linie sichtbar machen
-    //Boxen kontrollieren (eine vollständig geworden?)
-    //Problem: wie kann man Zug umschalten.. keinen Zugriff auf Flow...
-    //}
     public boolean emptyLine(Line clickedLine) {
         return board.getLines().contains(clickedLine);
     }
@@ -66,9 +61,8 @@ public class MoveExecutor implements Serializable{
                 }
 
             if(board.allBoxesComplete()) {
-               answer = Flow.FlowStates.gameOver;
-                
-
+              
+                answer = Flow.FlowStates.gameOver;
             }
 
             else if ((firstBox != null && firstBox.isBoxComplete()) || (secondBox != null && secondBox.isBoxComplete())) {
@@ -95,4 +89,33 @@ public class MoveExecutor implements Serializable{
         }
         return answer;
     }
+    
+    public void countScore() {
+        
+        int countedOpponentScore = 0;
+        int countedUserScore = 0;
+        
+        for(Box b : board.getBoxes() ) {
+            if(b.getOwner() instanceof Opponent ) {
+                countedOpponentScore++;
+                }
+            else {
+                countedUserScore++;
+            }
+        }
+        opponentScore = countedOpponentScore;
+        userScore = countedUserScore;
+    }
+    
+    public int getUserScore() {
+        return userScore;
+    }
+    
+    public int getOpponentScore() {
+        return opponentScore;
+    }
+    
+    
+    
+   
 }

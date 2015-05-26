@@ -78,7 +78,7 @@ public final class GameViewFrame extends JFrame implements ActionListener {
 
         // game panel
         gameViewSidePanel = new GameViewSidePanel();
-        gameViewPanel = new GameViewPanel(this.board);
+        gameViewPanel = new GameViewPanel(this.board, this);
         this.add(gameViewSidePanel, BorderLayout.WEST);
         this.add(gameViewPanel, BorderLayout.CENTER);
 
@@ -111,6 +111,10 @@ public final class GameViewFrame extends JFrame implements ActionListener {
 
     public void incrementOpponentScore() {
         gameViewSidePanel.incrementOpponentScore();
+    }
+    
+    public void resetScores() {
+        gameViewSidePanel.resetScores();
     }
 
     @Override
