@@ -7,6 +7,7 @@ import Opponent.Opponent;
 import GameModel.Player;
 import GameView.GameViewFrame;
 import GameView.UserInput;
+import java.io.Serializable;
 
 /**
  * Hauptverwaltung. Initiiere Spielfeld, Spieler, Netzwerk etc.
@@ -77,7 +78,7 @@ public class MainControl implements FileIO {
 
     public void setUserName(String newName) {
         user.setName(newName);
-        moveExecutor.setOpponent(opponent);
+        moveExecutor.setPlayer(user);
         gameViewFrame.setPlayer(user);
     }
 
@@ -88,14 +89,13 @@ public class MainControl implements FileIO {
 
     public void saveGame() {
         FileIO.saveBoard(board);
-        FileIO.saveFlow(flow);
     }
 
     public void loadGame() {
         this.board = FileIO.loadBoard();
-        this.flow = FileIO.loadFlow();
-
-        this.updateClasses();
+        this.gameViewFrame.setBoard(this.board);
+        gameViewFrame.repaintPanel();
+        this.stateStart = ControlStates.setFlow;
     }
 
     public void showAbout() {
@@ -109,31 +109,28 @@ public class MainControl implements FileIO {
      */
     public void newGame() {
         System.out.println("[debug (MainControl)] newGame");
+        this.board = null;
         this.gameViewFrame.hideFrame();
         this.gameViewFrame = null;
-        this.board = null;
         this.moveExecutor = null;
-        this.flow = null;
 
         this.board = new Board(boardSize);
         this.gameViewFrame = new GameViewFrame(this, this.board);
         this.moveExecutor = new MoveExecutor(this.board);
 
-        stateStart = ControlStates.getOpponent;
+        gameViewFrame.setBoard(this.board);
+
+        moveExecutor.setPlayer(user);
+        gameViewFrame.setPlayer(user);
+        moveExecutor.setOpponent(opponent);
+        gameViewFrame.setOpponent(opponent);
 
         user.setNmbOfBoxesZero();
         opponent.setNmbOfBoxesZero();
 
         runGame = true;
-        this.gameStart();
-
-    }
-
-    public void updateClasses() {
-        gameViewFrame.setBoard(this.board);
-        gameViewFrame.setFlow(this.flow);
-        this.flow.gameRun();
         stateStart = ControlStates.setFlow;
+        this.gameStart();
     }
 
     public void gameStart() {

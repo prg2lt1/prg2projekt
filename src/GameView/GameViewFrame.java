@@ -135,6 +135,7 @@ public final class GameViewFrame extends JFrame implements ActionListener {
         }
         if (e.getSource() == miNewGame) {
             System.out.println("[info (GameViewFrame)] new game");
+           flow.setState(Flow.FlowStates.gameOver);
             mainControl.newGame();
         }
         if (e.getSource() == miSaveGame) {

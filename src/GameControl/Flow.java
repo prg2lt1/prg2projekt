@@ -3,7 +3,6 @@ package GameControl;
 import GameModel.Player;
 import Opponent.Opponent;
 import Opponent.ComputerBrain;
-import java.io.Serializable;
 import GameView.GameViewFrame;
 
 /**
@@ -12,7 +11,7 @@ import GameView.GameViewFrame;
  *
  * @author Lorenz
  */
-public class Flow  implements Serializable {
+public class Flow {
 
     public enum FlowStates {
 
@@ -27,7 +26,7 @@ public class Flow  implements Serializable {
     private Opponent opponent;
     private Player user;
     private Network network;
-    private FlowStates stateRun = FlowStates.userTurn;
+    private FlowStates stateRun;
     private boolean runGame = true;
     private GameViewFrame myGameViewFrame;
 
@@ -37,6 +36,7 @@ public class Flow  implements Serializable {
         this.opponent = newOpponent;
         this.user = newUser;
         this.myGameViewFrame = myGameViewFrame;
+        stateRun = FlowStates.userTurn;
     }
 
     public boolean gameIsRunning() {
@@ -64,11 +64,6 @@ public class Flow  implements Serializable {
         return stateRun;
     }
 
-    public void setGameOver() {
-        stateRun = FlowStates.gameOver;
-        runGame = false;
-    }
-
     /**
      * lokaler Spieler übergibt Linienindex für an MoveExecuter
      *
@@ -87,7 +82,6 @@ public class Flow  implements Serializable {
         do {
             switch (stateRun) {
                 case userTurn:
-                    myGameViewFrame.repaintPanel();
                     //System.out.println(stateRun);
                     break;
 
@@ -95,6 +89,7 @@ public class Flow  implements Serializable {
                     //System.out.println(stateRun);
                     if (opponent instanceof ComputerBrain) {
                         this.playLine(((ComputerBrain) opponent).play());
+                        myGameViewFrame.repaintPanel();
                     } else {
                         //network does it's thing..
                     }

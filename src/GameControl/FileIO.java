@@ -41,29 +41,4 @@ public interface FileIO {
         }
         return item;
     }
-    
-        static void saveFlow(Flow item) {
-        
-        File file = new File(fileFlow);
-        try (ObjectOutputStream oStream = new ObjectOutputStream(new FileOutputStream(file));) {
-            oStream.writeObject(item);
-        } catch (IOException e) {
-            System.out.println("[info (FileIO)] Filename's wrong: " + e.getMessage());
-        }
-    }
-    
-    static Flow loadFlow() {
-        Flow item = null;
-        File file = new File(fileFlow);
-        
-        try (ObjectInputStream iStream = new ObjectInputStream(new FileInputStream(file));) {
-            Object object = iStream.readObject();
-            if (object instanceof Flow) {
-                item = (Flow) object;
-            }
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("[info (FileIO)] Filename's wrong: " + e.getMessage());
-        }
-        return item;
-    }
 }

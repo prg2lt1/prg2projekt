@@ -6,6 +6,7 @@
 package GameView;
 
 import GameModel.Player;
+import java.io.Serializable;
 
 
 /**
