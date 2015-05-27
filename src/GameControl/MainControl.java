@@ -122,7 +122,7 @@ public class MainControl implements FileIO {
         gameViewFrame.setBoard(this.board);
         
         
-        
+        user.resetNmbOfBoxes();
         moveExecutor.setPlayer(user);
         gameViewFrame.setPlayer(user);        
         opponent = new ComputerBrain(board, moveExecutor);
