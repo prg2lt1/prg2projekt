@@ -39,4 +39,8 @@ public class Player implements Serializable {
     public String getName()    {
         return this.name;
     }
+    
+    public void resetNmbOfBoxes() {
+        nmbOfBoxes = 0;
+    }
 }

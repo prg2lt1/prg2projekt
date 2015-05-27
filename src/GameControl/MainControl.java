@@ -172,6 +172,7 @@ public class MainControl implements FileIO {
                     runGame = false;
                     System.out.println("[debug (MainControl)] state endGame: " + stateStart);
                     userInput.GameOver(user.getNmbOfBoxes(), opponent.getNmbOfBoxes());
+                    user.resetNmbOfBoxes();
                     break;
             }
         } while (runGame);
