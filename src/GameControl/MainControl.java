@@ -7,7 +7,6 @@ import Opponent.Opponent;
 import GameModel.Player;
 import GameView.GameViewFrame;
 import GameView.UserInput;
-import java.io.Serializable;
 
 /**
  * Hauptverwaltung. Initiiere Spielfeld, Spieler, Netzwerk etc.
@@ -48,7 +47,7 @@ public class MainControl implements FileIO {
     }
 
     /**
-     * Gegner wird von Anzeige gesetzt
+     * Gegner wird von UserIO gesetzt
      *
      * @param newOpponent
      */

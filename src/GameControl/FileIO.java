@@ -15,7 +15,6 @@ import java.io.ObjectOutputStream;
 public interface FileIO {
     
     static final String fileBoard = ".\\src\\GameControl\\savedGame.bin";
-        static final String fileFlow = ".\\src\\GameControl\\savedFlow.bin";
 
     static void saveBoard(Board item) {
         
