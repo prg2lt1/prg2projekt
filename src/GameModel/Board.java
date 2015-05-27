@@ -174,4 +174,6 @@ public class Board implements Serializable {
     public ArrayList<Dot> getDots() {
         return dotList;
     }
+    
+   
 }

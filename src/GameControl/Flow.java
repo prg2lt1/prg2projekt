@@ -109,6 +109,6 @@ public class Flow {
                     break;
             }
         } while (runGame);
-        //System.out.println("[info (Flow)] end of Flow");
+        System.out.println("[info (Flow)] end of Flow");
     }
 }

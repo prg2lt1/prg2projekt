@@ -130,7 +130,7 @@ public class ComputerBrain extends Opponent {
         //Boxes mit kleinerem Index durchsuchen
         for (int i = 0; i < boxIndex; i++) {
 
-            Box b = board.getBoxes().get(boxIndex);
+            Box b = board.getBoxes().get(i);    //changes made here get(i) was get(boxIndex)
             Line m = b.getBottomLine();
             Line n = b.getTopLine();
             Line o = b.getRightLine();
@@ -138,14 +138,14 @@ public class ComputerBrain extends Opponent {
 
             if (t.equals(m) || t.equals(n) || t.equals(o) || t.equals(p)) {
                 found = true;
-                neighbourBox = board.getBoxes().get(i);
+                neighbourBox = b;
             }
         }
         if (!found) {
             //Boxes mit grösserem Index durchsuchen
             for (int j = boxIndex + 1; j < board.getBoxes().size(); j++) {
 
-                Box d = board.getBoxes().get(boxIndex);
+                Box d = board.getBoxes().get(j);     //changes made here get(j) was get(boxIndex)
                 Line w = d.getBottomLine();
                 Line x = d.getTopLine();
                 Line y = d.getRightLine();
@@ -153,7 +153,7 @@ public class ComputerBrain extends Opponent {
 
                 if (t.equals(w) || t.equals(x) || t.equals(y) || t.equals(z)) {
                     found = true;
-                    neighbourBox = board.getBoxes().get(j);
+                    neighbourBox = d;
                 }
             }
         }
@@ -166,7 +166,8 @@ public class ComputerBrain extends Opponent {
         Box c = findNeighbourBox(t, boxIndex);
         if (c == null) {
 
-        } else if (c.getNumberOfLines() > 1) {
+        } 
+        else if (c.getNumberOfLines() > 1) {
             critical = true;
         }
         return critical;
