@@ -113,20 +113,21 @@ public class MainControl implements FileIO {
         this.gameViewFrame.hideFrame();
         this.gameViewFrame = null;
         this.moveExecutor = null;
+        this.flow = null;
 
         this.board = new Board(boardSize);
         this.gameViewFrame = new GameViewFrame(this, this.board);
         this.moveExecutor = new MoveExecutor(this.board);
 
         gameViewFrame.setBoard(this.board);
-
+        
+        
+        
         moveExecutor.setPlayer(user);
-        gameViewFrame.setPlayer(user);
+        gameViewFrame.setPlayer(user);        
+        opponent = new ComputerBrain(board, moveExecutor);
         moveExecutor.setOpponent(opponent);
         gameViewFrame.setOpponent(opponent);
-
-        user.setNmbOfBoxesZero();
-        opponent.setNmbOfBoxesZero();
 
         runGame = true;
         stateStart = ControlStates.setFlow;
@@ -153,6 +154,7 @@ public class MainControl implements FileIO {
                 case setFlow:
                     System.out.println("[debug (MainControl)] state wait: " + stateStart);
                     this.flow = new Flow(moveExecutor, opponent, user, gameViewFrame);
+                    System.out.println("[debug (MainControl)] flow setted");
                     gameViewFrame.setFlow(this.flow);
                     stateStart = ControlStates.run;
                     break;
