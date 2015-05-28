@@ -6,13 +6,16 @@ import Opponent.ComputerBrain;
 import GameView.GameViewFrame;
 
 /**
- * Flow enthält die Zustandsautomaten, welche den Spielverlauf abbilden sollen.
- * minimum der innere Automat sollte in einem eigenen Thread laufen.
- *
+ * Flow enthält den inneren Zustandsautomaten, welche den Spielverlauf einer
+ * einzelnen Runde abbilden soll.
  * @author Lorenz
  */
 public class Flow {
 
+    /**
+     * Die vier möglichen Zustände des inneren Automaten. error ist nicht aktiv
+     * benutzt.
+     */
     public enum FlowStates {
 
         userTurn,
@@ -23,12 +26,11 @@ public class Flow {
     }
 
     public MoveExecutor moveExecuter;
-    private Opponent opponent;
-    private Player user;
-    private Network network;
+    private final GameViewFrame myGameViewFrame;
+    private final Opponent opponent;
+    private final Player user;
     private FlowStates stateRun;
     private boolean runGame = true;
-    private GameViewFrame myGameViewFrame;
 
     public Flow(MoveExecutor newMoveExecuter, Opponent newOpponent, Player newUser, GameViewFrame myGameViewFrame) {
         //System.out.println("[debug (Flow)] new Flow");
@@ -58,10 +60,6 @@ public class Flow {
      */
     public void setState(FlowStates newState) {
         stateRun = newState;
-    }
-
-    public FlowStates getState() {
-        return stateRun;
     }
 
     /**

@@ -9,13 +9,17 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 /**
- *
+ * 
  * @author Lorenz
  */
 public interface FileIO {
     
     static final String fileBoard = ".\\src\\GameControl\\savedGame.bin";
 
+    /**
+     * Speichert ein Board als .bin-File im GameControl ab.
+     * @param item 
+     */
     static void saveBoard(Board item) {
         
         File file = new File(fileBoard);
@@ -26,6 +30,10 @@ public interface FileIO {
         }
     }
     
+    /**
+     * Liest das gespeicherte .bin-File ein und gibt ein Board zurück.
+     * @return Board
+     */
     static Board loadBoard() {
         Board item = null;
         File file = new File(fileBoard);
