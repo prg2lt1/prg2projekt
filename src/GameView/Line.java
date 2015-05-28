@@ -1,14 +1,12 @@
-
 package GameView;
 
 import java.awt.Color;
-import java.io.Serializable;
 
 /**
- * Line class
- *
+ * This class defines a line with starting and ending x-/y-positions, width
+ * and height, tolerance for clicks on it and the (default-)color.
+ * 
  * @author Frowin Imholz
- *
  */
 public class Line {
 
@@ -21,12 +19,13 @@ public class Line {
     private Color color;
 
     /**
-     *
-     * @param startX
-     * @param startY
-     * @param endX
-     * @param endY
-     * @param thickness
+     * This constructor initializes a line with the given parameters.
+     * 
+     * @param startX        starting x position
+     * @param startY        starting y position
+     * @param endX          ending x position
+     * @param endY          ending y position
+     * @param thickness     thickness of the line
      */
     public Line(int startX, int startY, int endX, int endY, int thickness) {
         if (startX == endX) {
@@ -48,62 +47,40 @@ public class Line {
         this.defaultColor = Color.GRAY;
         this.color = defaultColor;
     }
-
-    /**
-     *
-     * @return start position x of the line
-     */
+    
     public int getStartX() {
         return this.startX;
     }
-
-    /**
-     *
-     * @return start position y of the line
-     */
+    
     public int getStartY() {
         return this.startY;
     }
-
-    /**
-     *
-     * @return width of the line
-     */
+    
     public int getWidth() {
         return this.width;
     }
-
-    /**
-     *
-     * @return height of the line
-     */
+    
     public int getHeight() {
         return this.height;
     }
-
-    /**
-     *
-     * @param color
-     */
+    
     public void setColor(Color color) {
         if (color != this.defaultColor){
             this.color = color;
         }
     }
-
-    /**
-     *
-     * @return color of the line
-     */
+    
     public Color getColor() {
         return this.color;
     }
-
+    
     /**
-     *
-     * @param x position
-     * @param y position
-     * @return true, if line matched
+     * This method compares the x-/y-parameters with the line (start, end,
+     * thickness, tolerance).
+     * 
+     * @param x     x-position (i.e. a mouse click)
+     * @param y     y-position (i.e. a mouse click)
+     * @return      true, if the parameters matches this line
      */
     public boolean lineMatch(int x, int y) {
         if (this.startX - this.tolerance <= x && x <= this.startX + this.width + this.tolerance) {

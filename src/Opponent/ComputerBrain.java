@@ -1,4 +1,3 @@
-
 package Opponent;
 
 import GameModel.Board;

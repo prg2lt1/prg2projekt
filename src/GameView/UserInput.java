@@ -2,7 +2,6 @@ package GameView;
 
 import GameControl.MainControl;
 import javax.swing.JOptionPane;
-import GameModel.Player;
 import GameControl.MoveExecutor;
 
 /**
@@ -10,9 +9,8 @@ import GameControl.MoveExecutor;
  * @author Lorenz
  */
 public class UserInput extends JOptionPane {
-
-    private MainControl mainControl;
-    private MoveExecutor moveExecutor;
+    private final MainControl mainControl;
+    private final MoveExecutor moveExecutor;
 
     public UserInput(MainControl newMainControl, MoveExecutor moveExecutor) {
 
@@ -24,7 +22,6 @@ public class UserInput extends JOptionPane {
      * Auswählen, ob Spiel gegen Computer oder gegen Netzwerk
      */
     public void setGameMode() {
-
         Object[] possibilities = {"Computer", "Network"};
         String s = (String) JOptionPane.showInputDialog(
                 this,
@@ -44,7 +41,6 @@ public class UserInput extends JOptionPane {
             //System.out.println("[info (UserInput)] user didnt't choose modi..");
             s = "Computer";
         }
-
         mainControl.setOpponent(s);
     }
 
@@ -52,7 +48,6 @@ public class UserInput extends JOptionPane {
      * Name ändern des lokalen Spielers
      */
     public void setPlayerName() {
-
         String s = (String) JOptionPane.showInputDialog(
                 this,
                 "Please enter your name\n",
@@ -68,7 +63,6 @@ public class UserInput extends JOptionPane {
             //System.out.println("[info (UserInput)] user didn't choose name..");
             s = "n0oBb4sH3r";
         }
-
         mainControl.setUserName(s);
     }
 
@@ -102,7 +96,6 @@ public class UserInput extends JOptionPane {
     }
 
     public void GameOver(int userScore, int opponentScore) {
-        
         String winnerText = (userScore > opponentScore) ? "Your won" : "You lose";
         winnerText = winnerText + "\n";
         
@@ -131,7 +124,6 @@ public class UserInput extends JOptionPane {
             System.exit(0);
         }
     }
-    
 
     public void Message(String text, String title) {
         //custom message and title, warning icon
@@ -140,6 +132,4 @@ public class UserInput extends JOptionPane {
                 title,
                 JOptionPane.WARNING_MESSAGE);
     }
-    
-    
 }

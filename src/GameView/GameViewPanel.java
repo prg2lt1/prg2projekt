@@ -12,15 +12,16 @@ import java.util.Iterator;
 import javax.swing.JPanel;
 
 /**
- * Dots & Boxes GUI.
- *
+ * Game view panel for dots & boxes.
+ * This class creates a panel for the game view. 
+ * 
  * @author Frowin Imholz
  */
 public final class GameViewPanel extends JPanel {
 
     private Board board;
     private Flow flow;
-    private GameViewFrame myFrame;
+    private final GameViewFrame myFrame;
 
 
     private final int dotSpace;
@@ -32,10 +33,10 @@ public final class GameViewPanel extends JPanel {
     private final ArrayList<Box> boxList;
 
     /**
-     * Der Konstruktor zeichnet das Fenster mit dem Menu, den Buttons und der
-     * Spielflaeche.
+     * This constructor draws the game view panel.
      *
-     * @param board
+     * @param board     object reference for board
+     * @param myFrame   object reference of the game view frame
      */
     public GameViewPanel(Board board, GameViewFrame myFrame) {
         
@@ -81,7 +82,9 @@ public final class GameViewPanel extends JPanel {
         this.board = board;
     }
 
-    // zeichnet die Punkte
+    /**
+     * Draws the dots.
+     */
     private void drawDots(Graphics g) {
         Iterator<GameModel.Dot> itr = board.getDots().iterator();
         while (itr.hasNext()) {
@@ -96,7 +99,9 @@ public final class GameViewPanel extends JPanel {
         }
     }
 
-    // zeichnet die Linien
+    /**
+     * Draws the lines.
+     */
     private void drawLines(Graphics g) {
         Iterator<GameModel.Line> itr = board.getLines().iterator();
         while (itr.hasNext()) {
@@ -126,7 +131,9 @@ public final class GameViewPanel extends JPanel {
         }
     }
 
-    // zeichnet die Boxen
+    /**
+     * Draws the boxes.
+     */
     private void drawBoxes(Graphics g) {
         Iterator<GameModel.Box> itr = board.getBoxes().iterator();
         while (itr.hasNext()) {
@@ -160,6 +167,11 @@ public final class GameViewPanel extends JPanel {
         }
     }
 
+    /**
+     * This method draws the dots, lines and boxes of the game.
+     * 
+     * @param g graphics
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);
