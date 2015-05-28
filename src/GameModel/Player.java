@@ -3,7 +3,8 @@ package GameModel;
 import java.io.Serializable;
 
 /**
- *
+ * Parent-Class der Spielerinstanzen
+ * 
  * @author tobias
  */
 public class Player implements Serializable {

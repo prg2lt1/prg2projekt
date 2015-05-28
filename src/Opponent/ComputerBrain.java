@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Opponent;
 
 import GameModel.Board;
@@ -10,10 +5,10 @@ import GameModel.Box;
 import GameModel.Line;
 import GameControl.MoveExecutor;
 import java.util.Random;
-import GameControl.Flow;
 
 /**
- *
+ * Künstliche Intelligenz des Gegenspielers "Computer"
+ * 
  * @author tobias
  */
 public class ComputerBrain extends Opponent {
@@ -35,6 +30,10 @@ public class ComputerBrain extends Opponent {
         numberOfLines = board.getLines().size();
     }
 
+    /**
+     * Ausführen eines Spielzugs
+     * @return Index der gespielten Linie
+     */
     public int play() {
 
         int playedIndex = -1;
@@ -51,9 +50,9 @@ public class ComputerBrain extends Opponent {
     }
 
     /**
-     * Sucht Boxes mit drei Linien und komplettiert sie.
+     * Sucht Boxes mit drei Linien
      *
-     * @return
+     * @return Index der vierten/letzten Linie
      */
     public int playFirstPrio() {
 
@@ -72,9 +71,9 @@ public class ComputerBrain extends Opponent {
 
     /**
      * Sucht Boxes mit weniger als zwei gespielten Linien und setzt eine Linie
-     * (insofern diese nicht die dritte Linie der benachbarten Box wäre).
+     * (insofern diese nicht die dritte/vierte Linie der benachbarten Box ist).
      *
-     * @return
+     * @return Index der gewählten Linie
      */
     public int playSecondPrio() {
 
@@ -98,6 +97,10 @@ public class ComputerBrain extends Opponent {
         return lineIndex;
     }
 
+    /**
+     * Spielt nach Zufall eine noch freie Linie
+     * @return 
+     */
     public int playThirdPrio() {
         //boolean foundMove = false;
         int lineIndex = -1;
@@ -113,8 +116,8 @@ public class ComputerBrain extends Opponent {
     }
 
     /**
-     *
-     * @return a random Line, taken through index in ArrayList<Line>.
+     * Wählt nach Random-Prinzip eine noch freie Linie
+     * @return eine zufällige Linie
      */
     private Line getRandomLine() {
 
@@ -122,6 +125,12 @@ public class ComputerBrain extends Opponent {
         return board.getLines().get(r);
     }
 
+    /**
+     * Sucht nach einer Box, die die gleiche Linie benutzt/enthält (insofern vorhanden)
+     * @param t
+     * @param boxIndex
+     * @return NeighbourBox
+     */
     private Box findNeighbourBox(Line t, int boxIndex) {
 
         boolean found = false;
@@ -159,7 +168,13 @@ public class ComputerBrain extends Opponent {
         }
         return neighbourBox;
     }
-
+    
+    /**
+     * Entscheidet ob Nachbarsbox als kritisch eingestuft wird (schon zwei Linien der Box besetzt).
+     * @param t
+     * @param boxIndex
+     * @return 
+     */
     private boolean criticalNeighbour(Line t, int boxIndex) {
 
         boolean critical = false;
@@ -173,6 +188,11 @@ public class ComputerBrain extends Opponent {
         return critical;
     }
 
+    /**
+     * Wählt (letzte) freie Linie einer Box
+     * @param b
+     * @return  Index der Linie
+     */
     private int choosePossibleLine(Box b) {
 
         int lineIndex = -1;
@@ -199,6 +219,11 @@ public class ComputerBrain extends Opponent {
         return lineIndex;
     }
 
+    /**
+     * Wählt angegebene Linie
+     * @param t
+     * @return Index der Linie
+     */
     private int chooseSpecificLine(Line t) {
         int lineIndex = board.getLines().indexOf(t);
         //myExecutor.playLine(lineIndex, this);

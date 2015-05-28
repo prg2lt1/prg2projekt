@@ -14,7 +14,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 /**
- * Dots & Boxes GUI.
+ * GUI for Dots & Boxes GUI.
+ * This class creates a frame with two panels in it. One for the game itself
+ * and one for the stats and infos.
+ * 
+ * @author Frowin Imholz
  */
 public final class GameViewFrame extends JFrame implements ActionListener {
 
@@ -36,11 +40,11 @@ public final class GameViewFrame extends JFrame implements ActionListener {
     private final JMenuItem miHelpAbout;
 
     /**
-     * Der Konstruktor zeichnet das Fenster mit dem Menu, den Buttons und der
-     * Spielflaeche.
+     * This constructor draws the frame with the menu, buttons, game panel
+     * and side panel.
      *
-     * @param mainControl
-     * @param board
+     * @param mainControl   object reference for mainControl
+     * @param board         object reference for board 
      */
     public GameViewFrame(MainControl mainControl, Board board) {
         super("Dots & Boxes");
@@ -89,6 +93,10 @@ public final class GameViewFrame extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    /**
+     * This method hides the actual frame and removes the object references
+     * for gameViewPanel, gameViewSidePanel, mainControl and flow.
+     */
     public void hideFrame() {
         this.gameViewPanel = null;
         this.gameViewSidePanel = null;
@@ -127,6 +135,11 @@ public final class GameViewFrame extends JFrame implements ActionListener {
         gameViewPanel.repaint();
     }
 
+    /**
+     * Get the source of the event and perform something.
+     * 
+     * @param e action event
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == miGameExit) {

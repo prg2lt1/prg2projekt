@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package GameModel;
 
 import java.io.Serializable;
@@ -10,7 +6,7 @@ import java.io.Serializable;
 /**
  *
  * @author Tobias Heer
- *
+ *Creates dots
  *
  */
 public final class Dot implements Serializable {

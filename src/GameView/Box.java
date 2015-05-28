@@ -1,16 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package GameView;
 
 import GameModel.Player;
-import java.io.Serializable;
 
 
 /**
- *
+ * This class defines a Box with starting and ending x-/y-positions.
+ * It provides two constructors, one with and one without setting of
+ * the box owner.
+ * 
  * @author Frowin Imholz
  */
 public class Box {
@@ -20,6 +17,14 @@ public class Box {
     private final int endY;
     private Player owner;
     
+    /**
+     * Short constructor, without owner of the box.
+     * 
+     * @param startX    starting x position
+     * @param startY    starting y position
+     * @param endX      ending x position
+     * @param endY      ending y position 
+     */
     public Box (int startX, int startY, int endX, int endY){
         this.startX = startX;
         this.startY = startY;
@@ -28,6 +33,15 @@ public class Box {
         this.owner = null;
     }
     
+    /**
+     * Constructor with owner of the box.
+     * 
+     * @param startX    starting x position
+     * @param startY    starting y position
+     * @param endX      ending x position
+     * @param endY      ending y position 
+     * @param owner     owner of the box
+     */
     public Box (int startX, int startY, int endX, int endY, Player owner){
         this.startX = startX;
         this.startY = startY;

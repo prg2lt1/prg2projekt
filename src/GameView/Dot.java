@@ -1,27 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package GameView;
 
 import java.awt.Color;
-import java.io.Serializable;
 
 /**
- *
+ * This class defines a Dot with starting and ending x-/y-positions, and radius.
+ * 
  * @author Frowin Imholz
- *
- *
  */
 public final class Dot {
     private final int x, y, radius;
     private final Color color;
 
     /**
+     * This constructor creates a dot with x-/y-positions as input parameters.
+     * The stored position is the middle of the point.
      * 
-     * @param x
-     * @param y 
+     * @param x     x position of the dot
+     * @param y     y position of the dot
      */
     public Dot(int x, int y) {
         this.radius = 10;

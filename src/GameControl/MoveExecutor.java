@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package GameControl;
 
 import GameModel.Line;
@@ -13,7 +9,8 @@ import Opponent.Opponent;
 import java.io.Serializable;
 
 /**
- *
+ *Erhält Spielzüge von Spielern und führt sie im GameModel aus.
+ * 
  * @author tobias
  */
 public class MoveExecutor implements Serializable {
@@ -42,6 +39,16 @@ public class MoveExecutor implements Serializable {
         return board.getLines().contains(clickedLine);
     }
 
+    
+    /**
+     * 
+     * Spielt linie, überprüft welcher Spieler anschliessend an der Reihe ist.
+     * Rückmeldung an Flow.
+     * 
+     * @param lineIndex index in ArrayList<Line>
+     * @param p playing player
+     * @return 
+     */
     public Flow.FlowStates playLine(int lineIndex, Player p) {
 
         //System.out.println("Lineindex in PlayLine in MoveExecuter: " + lineIndex);

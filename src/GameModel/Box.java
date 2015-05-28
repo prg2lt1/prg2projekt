@@ -1,14 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package GameModel;
 
 import java.io.Serializable;
 
 /**
- *
+ * Box auf dem Spielfeld, bestehend aus vier Linien
  * @author tobias
  */
 public class Box implements Serializable {
@@ -35,8 +31,11 @@ public class Box implements Serializable {
     }
 
     /**
+     * 
      * Getter methods für Attribute
-     */
+     *
+     * */
+    
     public Player getOwner() {
         return owner;
     }
@@ -107,6 +106,10 @@ public class Box implements Serializable {
         owner = p;
     }
     
+    /**
+     * Teilt der Box einen Besitzer zu, insofern die Box komplett ist.
+     * @param p 
+     */
     public void updateOwner (Player p) {
         System.out.println("update Owner called");
 
