@@ -1,15 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package GameModel;
 
 import java.util.ArrayList;
 import java.io.Serializable;
 
 /**
- *
+ * Spielfeld, bestehend aus Punkte-Liste, Linien-Liste und Boxen-Liste
+ * 
  * @author tobias
  */
 public class Board implements Serializable {
@@ -54,7 +51,10 @@ public class Board implements Serializable {
         }
         return dotList;
     }
-
+    /**
+     * Erstellt Line-List für das Spielfeld mit Start- und Enddot.
+     * @return 
+     */
     private ArrayList<Line> createLines() {
 
         lineList = new ArrayList<>();
@@ -79,7 +79,10 @@ public class Board implements Serializable {
         }
         return lineList;
     }
-
+    /**
+     * Erstellt Box-List bestehend aus vier Linien.
+     * @return 
+     */
     private ArrayList<Box> createBoxes() {
 
         boxList = new ArrayList<>();
@@ -110,6 +113,9 @@ public class Board implements Serializable {
         return boxList;
     }
 
+    /**
+     * Teilt jeder Linie die eine bis zwei Boxen zu, die diese "berühren"
+     */
     private void assignBoxesToLines() {
         Box box1;
         Box box2;
@@ -145,7 +151,10 @@ public class Board implements Serializable {
             }
         }
     }
-
+    /**
+     * Zählt die Anzahl kompletter Boxen.
+     * @return true falls alle Boxes komplett
+     */
     public boolean allBoxesComplete() {
 
         nrOfCompletedBoxes = 0;

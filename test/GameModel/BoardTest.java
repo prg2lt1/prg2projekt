@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package GameModel;
 
 import GameControl.FileIO;
 
 /**
- *
+ * Testet die Erstellung eines Boards. Gibt auf der Konsole alle Dots, Linien, die von Linien betroffenen
+ * Boxes sowie eine Auflistung der Boxes aus.
  * @author tobias
  */
 public class BoardTest implements FileIO {
@@ -122,7 +119,6 @@ public class BoardTest implements FileIO {
            
        }
        
-       FileIO.saveBoard(t);
     }
     
 }

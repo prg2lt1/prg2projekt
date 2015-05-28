@@ -119,7 +119,5 @@ public class Network {
         return true;
     }
 
-    public static void main(String[] args) {
-        Network nw = new Network();
-    }
+   
 }
